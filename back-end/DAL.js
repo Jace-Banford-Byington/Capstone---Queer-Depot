@@ -130,11 +130,13 @@ exports.DAL = {
     },
 
     addToCharity: async (data) =>{
-        //get the total of the amount rasied 
+        //get the total of the amount rasied   121,165,189 according to 2021 
         //get the id of the person last donated
-        
+        //add the amount wanted to add in 
     },
+    getTotal: async (data) => {
 
+    },
 
     getCertainVolunteer: async (name) => {
         //Finds a specific Volunteer

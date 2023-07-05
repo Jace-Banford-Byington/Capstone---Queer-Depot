@@ -1,8 +1,37 @@
 import React from 'react'
 
 const Charity = () => {
+
+   const goChat = () => {
+    window.open('https://www.thetrevorproject.org/webchat', '_blank');
+   };
+
+
+
   return (
-    <div>Charity</div>
+    <>
+    <h1>The Trevor Project</h1>
+
+    <h1>Their Mission: </h1>
+    <p>End suicide among LGBTQ youth by providing life-saving and life-affirming resources including our nationwide, 24/7 crisis intervention lifeline, digital community, and advocacy/educational programs that create a safe, supportive, and positive environment for everyone.</p>
+    
+
+
+
+
+
+
+
+
+
+    <div className='resources'>
+        <h1>Contact Them: </h1>
+            <h2>Text: </h2> 678-678 with the message START
+            <h2>Call:</h2> 1-866-488-7386
+            <h2>Web Chat:</h2> 
+            <button type='submit' onClick={goChat}> </button> 
+    </div>
+    </>
   )
 }
 
