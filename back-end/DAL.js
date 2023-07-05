@@ -129,6 +129,12 @@ exports.DAL = {
     
     },
 
+    addToCharity: async (data) =>{
+        //get the total of the amount rasied 
+        //get the id of the person last donated
+        
+    },
+
 
     getCertainVolunteer: async (name) => {
         //Finds a specific Volunteer
