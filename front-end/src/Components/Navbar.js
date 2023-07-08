@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <div className='navBar'>
     <NavLink to="/" className={({ isActive, isPending, toClick }) => isPending ? "pending" : isActive ? "active" : toClick ? "toClick" : ""}>
-      <img src='./logo.png'/>
+      <img id='logoBtn' src='./logo.png'/>
     </NavLink>
     <NavLink to="/Donate" className={({ isActive, isPending, toClick }) => isPending ? "pending" : isActive ? "active" : toClick ? "toClick" : ""}>
         Donate
@@ -16,6 +16,8 @@ const Navbar = () => {
     <NavLink to="/Register" className={({ isActive, isPending, toClick }) => isPending ? "pending" : isActive ? "active" : toClick ? "toClick" : ""}>
       Register
     </NavLink>
+
+    //Amount currently donated to charity
     </div>
   )
 }

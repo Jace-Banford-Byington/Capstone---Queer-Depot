@@ -17,12 +17,15 @@
 //Session storage only persists the data as long as a browser tab is opened. This means that each time you open a new tab or a new browser window, a new session storage is created
 
 import React from 'react'
+import CheckoutForm from './CheckoutForm'
+import CardInfo from './CardInfo'
 
 const Donate = () => {
   return (
     <div>
 
-      <h1>This is where the Charities information is </h1>
+     <CheckoutForm />
+     {/* <CardInfo /> */}
 
 
     </div>

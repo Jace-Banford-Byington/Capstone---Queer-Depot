@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter,  RouterProvider } from 'react-router-dom';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './Components/Navbar';
 import Register from './Components/Register';
 import Home from './Components/Home'
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
     element: 
     <>
       <NavBar />
-      <Charity />
+      <Donate />
     </>
   }
 ]);

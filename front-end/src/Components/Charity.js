@@ -10,6 +10,7 @@ const Charity = () => {
 
   return (
     <>
+    <div className='charityInfo'>
     <h1>The Trevor Project</h1>
 
     <h1>Their Mission: </h1>
@@ -24,12 +25,13 @@ const Charity = () => {
 
 
 
-    <div className='resources'>
-        <h1>Contact Them: </h1>
-            <h2>Text: </h2> 678-678 with the message START
-            <h2>Call:</h2> 1-866-488-7386
-            <h2>Web Chat:</h2> 
-            <button type='submit' onClick={goChat}> </button> 
+      <div className='resources'>
+          <h1>Contact Them: </h1>
+              <h2>Text: </h2> 678-678 with the message START
+              <h2>Call:</h2> 1-866-488-7386
+              <h2>Web Chat:</h2> 
+              <button type='submit' onClick={goChat}>Chat Now</button> 
+      </div>
     </div>
     </>
   )
