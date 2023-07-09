@@ -1,5 +1,16 @@
+$babyBlue: #73d7ee;
+$pink: #FFAFc7;
+$orange: #FF8D00;
+$yellow: #FFEE00;
+$green: #028121;
+$blue:  #004cff;
+$purple: #760088;
+$white: #FFFFFF;
+$brown: #613915;
+$black: #000;
+
 html{
-  background-color: #d6f8ff;
+  background-color: #4C5760;
   text-align: center;
   font-size: 1.4em;
   text-decoration: none;
@@ -13,6 +24,7 @@ html{
 }
 
 .navBar{
+  background-color: $purple;
   text-align: center;
   display: flex;
   justify-content: space-between;
