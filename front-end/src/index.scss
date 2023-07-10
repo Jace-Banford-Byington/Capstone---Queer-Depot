@@ -8,15 +8,24 @@ $purple: #760088;
 $white: #FFFFFF;
 $brown: #613915;
 $black: #000;
-
+//#D7CEB2 NAv bar
+//#BF8B85 burnt sand
 html{
-  background-color: #4C5760;
+  background-color: #D4CDC3;
   text-align: center;
   font-size: 1.4em;
   text-decoration: none;
   padding: 20px;
 }
 
+div{
+  background-color: #6B764C;
+  color: #FFD77D;
+}
+
+.form-control{
+  background-color: #FFD77D;
+}
 
 .charityInfo{
   text-align: center;
@@ -24,13 +33,13 @@ html{
 }
 
 .navBar{
-  background-color: $purple;
+  background-color: #D7CEB2;
   text-align: center;
   display: flex;
   justify-content: space-between;
   width: 100vw;
   font-size: 1em;
-  border-bottom: solid #a19cc9 ;
+  border-bottom: solid ;
 }
 
 #logoBtn{
@@ -40,6 +49,8 @@ html{
 
 
 .navBar a {
-  color: #46237a;
+  color: $brown;
   text-decoration: none;
+  font-weight: bolder;
+  font-size: 1.5em;
 }
