@@ -1,6 +1,8 @@
+
+
 $babyBlue: #73d7ee;
 $pink: #FFAFc7;
-$red: #FFADAD;
+$red: #f86b86;
 $orange: #ffd6a5ff;
 $yellow: #fdffb6ff;
 $green: #caffbfff;
@@ -14,7 +16,7 @@ $black: #000;
 //#D7CEB2 NAv bar
 //#BF8B85 burnt sand
 html{
-  background-color: #D4CDC3;
+  background-color:$blue;
   text-align: center;
   font-size: 1.4em;
   text-decoration: none;
@@ -22,12 +24,25 @@ html{
 }
 
 div{
-  background-color: #6B764C;
-  color: #FFD77D;
+  padding: 5px;
+  background-color: $purple;
+  color: $white;
+  margin: 10px;
 }
 
 .form-control{
-  background-color: #FFD77D;
+ background-color: $black;
+}
+
+
+.btn-primary{
+  background-color: pink;
+  font-weight: bold;
+  border-radius: 15px;
+}
+
+.homeLogo{
+  height: 500px;
 }
 
 .charityInfo{
@@ -36,18 +51,19 @@ div{
 }
 
 .navBar{
-  background-color: #D7CEB2;
+  background-color: $red;
   text-align: center;
   display: flex;
   justify-content: space-between;
   width: 100vw;
   font-size: 1em;
-  border-bottom: solid ;
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
 #logoBtn{
   width: fit-content;
-  height: 200px;
+  height: 100%;
 }
 
 

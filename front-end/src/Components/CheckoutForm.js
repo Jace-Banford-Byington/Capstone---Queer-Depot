@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 function CheckoutForm() {
   return (
     <form>
@@ -28,7 +29,7 @@ function CheckoutForm() {
         <label htmlFor="zip" className="form-label">Zip Code</label>
         <input type="text" className="form-control" id="zip" />
       </div>
-      <button type="submit" className="btn btn-primary">Submit</button>
+      <button type="submit" className="btn-primary">Submit</button>
     </form>
   );
 }

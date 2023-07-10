@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.scss';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter,  RouterProvider } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css'; //bootstrap
+import './index.scss'; //your custom scss
+
 import NavBar from './Components/Navbar';
 import Register from './Components/Register';
 import Home from './Components/Home'

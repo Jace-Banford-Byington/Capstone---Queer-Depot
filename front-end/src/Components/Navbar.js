@@ -16,8 +16,9 @@ const Navbar = () => {
     <NavLink to="/Register" className={({ isActive, isPending, toClick }) => isPending ? "pending" : isActive ? "active" : toClick ? "toClick" : ""}>
       Register
     </NavLink>
-
-    //Amount currently donated to charity
+    
+    <label className='charityTotal'>CurrentTotal Donated</label>
+    {/* //Amount currently donated to charity */}
     </div>
   )
 }

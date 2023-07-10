@@ -22,7 +22,7 @@ function CardInformationForm() {
         <label htmlFor="cardHolder" className="form-label">Cardholder Name</label>
         <input type="text" className="form-control" id="cardHolder" />
       </div>
-      <button type="submit" className="btn btn-primary">Submit</button>
+      <button type="submit" className="btn-primary">Submit</button>
     </form>
   );
 }
