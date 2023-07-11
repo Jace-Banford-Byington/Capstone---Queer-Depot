@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Map from './Map'
 const Home = () => {
   return (
     <div>
@@ -11,7 +11,7 @@ const Home = () => {
               <br/>
             4545 S 900 E, Salt Lake City, UT 84117</p>
             <img src='./map.png' />
-
+            <Map />
 
     </div>
 
