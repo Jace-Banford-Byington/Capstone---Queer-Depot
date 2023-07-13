@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function CheckoutForm() {
   return (
-    <form>
+    <form className='checkoutform'>
       <div className="mb-3">
         <label htmlFor="firstName" className="form-label">First Name</label>
         <input type="text" className="form-control" id="firstName" />
