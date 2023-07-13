@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import CardInfo from './CardInfo'
 
 function CheckoutForm() {
+
+    const [showCard, setShowCard] = useState(false)
+    const [submitClicked, setSubmitClicked] = useState(false);
+
+    const handlesubmit =(e) => {
+        e.preventDefault();
+        setShowCard(true)
+        setSubmitClicked(true)
+    }
+
+
+
+
+
+
+
   return (
     <form className='checkoutform'>
       <div className="mb-3">
@@ -28,9 +44,16 @@ function CheckoutForm() {
       <div className="mb-3">
         <label htmlFor="zip" className="form-label">Zip Code</label>
         <input type="text" className="form-control" id="zip" />
-      </div>
-      <button type="submit" className="btn-primary">Submit</button>
+      </div> 
+      {!showCard && (
+            <button type="submit" onClick={handlesubmit} className="btn-primary">Submit</button>
+
+      )}
+      {showCard && <CardInfo /> }
     </form>
+
+   
+
   );
 }
 
