@@ -10,11 +10,11 @@ const Charity = () => {
 
   return (
     <>
-    <div className='charityInfo'>
-    <h1>The Trevor Project</h1>
-
+    <div className='charityInfo'>  
+   
+    <h1 className='charityName'>The Trevor Project <img src='./trevorprodject.png'/></h1>
     <h1>Their Mission: </h1>
-    <p>End suicide among LGBTQ youth by providing life-saving and life-affirming resources including our nationwide, 24/7 crisis intervention lifeline, digital community, and advocacy/educational programs that create a safe, supportive, and positive environment for everyone.</p>
+    <p className='mission'>End suicide among LGBTQ youth by providing life-saving and life-affirming resources including our nationwide, 24/7 crisis intervention lifeline, digital community, and advocacy/educational programs that create a safe, supportive, and positive environment for everyone.</p>
     
 
 
@@ -30,7 +30,7 @@ const Charity = () => {
               <h2>Text: </h2> 678-678 with the message START
               <h2>Call:</h2> 1-866-488-7386
               <h2>Web Chat:</h2> 
-              <button type='submit' onClick={goChat}>Chat Now</button> 
+              <button type='submit' onClick={goChat} className='chatButton' >Chat Now</button> 
       </div>
     </div>
     </>

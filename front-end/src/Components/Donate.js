@@ -19,11 +19,12 @@
 import React from 'react'
 import CheckoutForm from './CheckoutForm'
 import CardInfo from './CardInfo'
+import Charity from './Charity'
 
 const Donate = () => {
   return (
     <div>
-
+      <Charity />
      <CheckoutForm />
      {/* <CardInfo /> */}
 

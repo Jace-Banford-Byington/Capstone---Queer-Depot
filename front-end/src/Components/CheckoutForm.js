@@ -19,7 +19,7 @@ function CheckoutForm() {
     <form className='checkoutform'>
       <div className="mb-3">
         <label htmlFor="firstName" className="form-label">First Name</label>
-        <input type="text" className="form-control" id="firstName" placeholder='First' required/>
+        <input type="text" className="form-control" id="firstName" placeholder='First Name' required/>
       </div>
       <div className="mb-3">
         <label htmlFor="lastName" className="form-label">Last Name</label>
@@ -27,7 +27,7 @@ function CheckoutForm() {
       </div>
       <div className="mb-3">
         <label htmlFor="email" className="form-label">Email</label>
-        <input type="email" className="form-control" id="email" placeholder='Email' required/>
+        <input type="email" className="form-control" id="email" placeholder='Email Address' required/>
       </div>
       <div className="mb-3">
         <label htmlFor="address" className="form-label">Address</label>

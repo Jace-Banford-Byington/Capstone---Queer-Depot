@@ -2,8 +2,8 @@ import React from 'react'
 import Map from './Map'
 const Home = () => {
   return (
-    <div>
-      <h1>Welcome to Queer Depo</h1> 
+    <div className='homeDescription'>
+      <h1 className='intro'>Welcome to Queer Depo</h1> 
         <h3>Just clothes.</h3>
         <img className='homeLogo' src='./logo.png'/>       
 
