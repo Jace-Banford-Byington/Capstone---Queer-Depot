@@ -12,22 +12,22 @@ const Home = () => {
             4545 S 900 E, Salt Lake City, UT 84117</p>
             <img src='./map.png' />
 
-            <h1 className='storeHours'> Hours : - 30 min
+            <h1 className='storeHours'> Hours : <br/>
 
-                    Monday: 6 pm - 6 am
+                    Monday: 6 pm - 6 am <br/>
 
-                    Tuesday: Donation Day
+                    Tuesday: Donation Day <br/>
 
-                    Wednesday: 8 am - 8 pm
+                    Wednesday: 8 am - 8 pm <br/>
 
-                    Thursday: 8 am - 8 pm
+                    Thursday: 8 am - 8 pm <br />
 
-                    Friday: 8 am - 8 pm
+                    Friday: 8 am - 8 pm <br />
 
-                    Saturday: 8 am - 10 pm
+                    Saturday: 8 am - 10 pm <br />
 
-                    Sunday: 11 am - 3 pm
-                    </h1>
+                    Sunday: 11 am - 3 pm <br />
+          </h1>
 
             {/* <Map /> */}
 
@@ -42,31 +42,3 @@ export default Home
 
 // Slogan: 
 // Just clothes
-
-// ‌
-
-// Hours : - 30 min
-
-// Monday: 6 pm - 6 am
-
-// Tuesday: Donation Day
-
-// Wednesday: 8 am - 8 pm
-
-// Thursday: 8 am - 8 pm
-
-// Friday: 8 am - 8 pm
-
-// Saturday: 8 am - 10 pm
-
-// Sunday: 11 am - 3 pm
-
-// ‌
-
-// Location : 4545 S 900 E, Salt Lake City, UT 84117 - 1 hr
-
-// ‌
-
-// Charity : Trevor Prodject - 5 mins
-
-// ‌

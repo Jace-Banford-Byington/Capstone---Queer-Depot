@@ -1,9 +1,19 @@
 import React from 'react'
 
 const Register = () => {
+
+
+    const fields = [
+        { name: 'Name', label: 'Name:', type: 'text' },
+        { name: 'Email', label: 'Email:', type: 'email' },
+        { name: 'Username', label: "Username:", type: 'text' }
+      ];
+
+
   return (
     <div>
       <h1>Create an account</h1></div>
+
   )
 }
 
