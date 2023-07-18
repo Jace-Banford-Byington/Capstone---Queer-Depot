@@ -1,7 +1,5 @@
-
-
 $babyBlue: #73d7ee;
-$pink: #FFAFc7;
+$pink: #F5A9B8;
 $red: #f86b86;
 $orange: #ffd6a5ff;
 $yellow: #fdffb6ff;
@@ -21,43 +19,12 @@ html{
   font-size: 1.4em;
   text-decoration: none;
   padding: 50px;
-  margin: 50px;
+  margin-top: 50px;
 }
 #root{
    background-color:$blue;
 }
 
-.checkoutform{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: $purple;
-  color: $white;
-  border-radius: 100px;
-  width: 40%;
-  height: fit-content;
-  margin-left: 30%;
-  font-weight: bolder;
-  color: $yellow;
-  font-size: 1.3em;
-  margin-top: 200px;
-  padding: 10px;
-}
-
-.form-control{
- background-color: $green;
- color: $brown;
- width: 80%;
- text-align: center;
- font-weight: bold;
- padding-top: 10px;
- display: block;
- border-radius: 20px;
- margin: 0 auto; 
-font-size: 1.2em;
-
-}
 
 
 .btn-primary{
@@ -85,26 +52,28 @@ font-size: 1.2em;
 .charityName{
   font-weight: bolder;
   font-size: 2em;
-  padding: 50px;
+  padding: 4%;
 }
 
 .mission{
   font-family: Arial, sans-serif;
   font-size: 1.2em;
   line-height: 1.5;
-  margin: 5px 40pc;
+  margin: 0 2%;
 }
 
 .chatButton{
-  background-color: $orange;
+  background-color: #FF6AB1;
+  color: $white;
   font-size: 1.2em;
-  font-weight: bolder;
+  font-weight: bold;
   border-radius: 15px;
+  padding: 0 10px;
 }
 
 
 .navBar{
-  background-color: $red;
+  background-color: $orange;
   text-align: center;
   display: flex;
   justify-content: space-between;
@@ -130,3 +99,71 @@ font-size: 1.2em;
   font-weight: bolder;
   font-size: 1.1em;
 }
+
+.checkoutform{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $purple;
+  border-radius: 100px;
+  width: 35%;
+  height: fit-content;
+  margin-left: 35%;
+  font-weight: bolder;
+  color: $yellow;
+  font-size: 1.4em;
+  margin-top: 100px;
+  padding: 3%;
+}
+
+.form-control{
+ background-color: $green;
+ width: 75%;
+ text-align: center;
+ font-weight: bold;
+ display: block;
+ border-radius: 40px;
+ margin: 0 auto; 
+ font-size: 1.2em;
+ padding: 3%;
+ color: $brown;
+
+}
+
+.form-control::placeholder{
+  color: $brown;
+}
+
+.CardInfo{
+  background-color: $yellow;
+  padding-top: 2%;
+  margin-top: 2% ;
+  border-radius: 30%;
+  color: $brown;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.CardInfo .form-control{
+  margin-top: 2%;
+  font-size: 1.4em;
+  color: $white;
+  font-weight: bolder;
+  background-color: $pink;
+  border-radius: 100px;
+}
+
+.CardInfo .form-control::placeholder{
+  color: $white;
+  font-weight: bold;
+}
+
+.CardInfo .btn-primary {
+  border-radius: 50px;
+  padding: 15px;
+  background-color: $babyBlue;
+  color: $white;
+  margin-bottom: 20px;
+}
+

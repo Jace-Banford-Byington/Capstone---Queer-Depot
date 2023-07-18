@@ -11,6 +11,24 @@ const Home = () => {
               <br/>
             4545 S 900 E, Salt Lake City, UT 84117</p>
             <img src='./map.png' />
+
+            <h1 className='storeHours'> Hours : - 30 min
+
+                    Monday: 6 pm - 6 am
+
+                    Tuesday: Donation Day
+
+                    Wednesday: 8 am - 8 pm
+
+                    Thursday: 8 am - 8 pm
+
+                    Friday: 8 am - 8 pm
+
+                    Saturday: 8 am - 10 pm
+
+                    Sunday: 11 am - 3 pm
+                    </h1>
+
             {/* <Map /> */}
 
     </div>

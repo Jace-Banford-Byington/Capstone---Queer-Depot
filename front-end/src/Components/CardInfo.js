@@ -32,10 +32,11 @@ function CardInformationForm() {
 
 
   return (
-    <form>
-      <div className="mb-3">
+    <form className='CardInfo'>
+      <div >
+  <div className="mb-3">
       <label htmlFor="cardNumber" className="form-label">Card Number</label>
-        <input type="text" maxLength={16} className="form-control" id="cardNumber" value={cardNumber} onChange={handleCardNumberChange} required/>
+        <input type="text" maxLength={16} className="form-control" id="cardNumber" placeholder='Card Number' value={cardNumber} onChange={handleCardNumberChange} required/>
         {cardType && 
         <p>Card Type: {cardType}</p>
         }
@@ -52,8 +53,10 @@ function CardInformationForm() {
       </div>
       <div className="mb-3">
         <label htmlFor="cardHolder" className="form-label">Cardholder Name</label>
-        <input type="text" className="form-control" id="cardHolder" placeholder='Name' required/>
+        <input type="text" className="form-control" id="cardHolder" placeholder='Cardholder Name' required/>
       </div>
+      </div>
+    
       <button type="submit" className="btn-primary">Submit</button>
     </form>
   );

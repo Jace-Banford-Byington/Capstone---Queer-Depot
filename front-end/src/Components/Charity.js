@@ -18,18 +18,12 @@ const Charity = () => {
     
 
 
-
-
-
-
-
-
-
       <div className='resources'>
           <h1>Contact Them: </h1>
               <h2>Text: </h2> 678-678 with the message START
               <h2>Call:</h2> 1-866-488-7386
               <h2>Web Chat:</h2> 
+              <p>If you need to talk to someone but dont want to call/text or it isn't safe to do they have a webchat</p>
               <button type='submit' onClick={goChat} className='chatButton' >Chat Now</button> 
       </div>
     </div>
