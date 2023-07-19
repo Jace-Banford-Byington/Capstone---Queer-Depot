@@ -11,7 +11,7 @@ const Register = () => {
 
 
   const handleFormSubmit = (event) => {
-    event.prevenDefault();
+    event.preventDefault();
         console.log("Form Data",formData)
         //send to the register method in api
 
@@ -33,7 +33,7 @@ const Register = () => {
     }
 
 
-    const handleTyping = (event) => {
+    const handleInputChange = (event) => {
       const { name, value } = event.target;
       setFormData((preveFormData) => ({
             ...preveFormData,
@@ -45,7 +45,9 @@ const Register = () => {
         const specialCharacter = /[!@#$%^&*()\-+=><?<,.]/;
         //must be 10 characters long 
         if(value.length < 10){
-          newError[name] = 'Must be at least 10 characters long'
+          newError[name] = 'Must be at least 10 characters long';
+        }else{
+          delete newError[name];
         }
         //must have a capital letter
         if(!/[A-Z]/.test(value)){
@@ -63,17 +65,31 @@ const Register = () => {
         if(!specialCharacter.test(value)){
           newError[name] = `Must have special characters ! @ # $ % ^ & * (  ) - _ + = > < , . ?`
         }
-
-
-
+        //No tabs or spaces 
+        if(/[ \t]/.test(value)){
+          newError[name] = "Spaces and tabs are forbidden"
+        }
+        //at least 3 different characters in total
+        const uniqueChars = new Set(value);
+        if (uniqueChars.size < 3) {
+          newError[name] = 'Must have at least 3 different characters';
+        }
 
           //if all the requirements are met then delete
         if(!newError[name]){
           delete newError[name]; 
         }
       }
-    }
+      if(name === 'PasswordConfirmed'){
+        if(value !== formData.Password){
+          newError[name] = 'Passwords Do not match';
+        }else{
+          delete newError[name];
+        }
 
+      }
+      setErrors(newError)
+    }
     const fields = [
         { name: 'Name', label: 'Name:', type: 'text' },
         { name: 'Email', label: 'Email:', type: 'email' },
@@ -95,7 +111,7 @@ const Register = () => {
     <>
       <div>
         <h1>Create an account</h1></div>
-        <Form fields={fields} onSubmit={handleFormSubmit} />
+        <Form fields={fields} onSubmit={handleFormSubmit} onInputChange={handleInputChange} errors={errors}/>
 
     </>
   )

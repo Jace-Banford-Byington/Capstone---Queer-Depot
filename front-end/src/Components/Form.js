@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Form = ({ fields, onSubmit, onInputChange }) => {
+const Form = ({ fields, onSubmit, onInputChange, errors }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -21,6 +21,7 @@ const Form = ({ fields, onSubmit, onInputChange }) => {
             defaultValue={field.defaultValue}
             required
           />
+          {errors && errors[field.name] && <p className='error'>{errors[field.name]}</p>}
         </div>
       ))}
       <button className='formSubmit' type="submit">Submit</button>
