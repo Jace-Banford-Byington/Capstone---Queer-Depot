@@ -28,6 +28,7 @@ const Home = () => {
 
                     Sunday: 11 am - 3 pm <br />
           </h1>
+            <img src='./location.png' />
 
             {/* <Map /> */}
 

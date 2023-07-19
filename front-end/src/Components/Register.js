@@ -1,19 +1,103 @@
-import React from 'react'
-
+import React,  { useEffect, useState } from 'react'
+import  Form from './Form'
 const Register = () => {
 
+  const url = "http://localhost:3300/register"
+  const [formData, setFormData] = useState({});
+  const [errors, setErrors] = useState({})
+
+
+
+
+
+  const handleFormSubmit = (event) => {
+    event.prevenDefault();
+        console.log("Form Data",formData)
+        //send to the register method in api
+
+        fetch( url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        })
+          .then(resp => resp.json())
+          .then(data => {
+            
+          })
+          .catch(error => {
+            // Handle any errors that occur during the request
+            console.error('Error:', error);
+          });
+    }
+
+
+    const handleTyping = (event) => {
+      const { name, value } = event.target;
+      setFormData((preveFormData) => ({
+            ...preveFormData,
+            [name]: value,
+      }));
+      //Validation types
+      const newError = {...errors};
+      if(name === 'Password'){
+        const specialCharacter = /[!@#$%^&*()\-+=><?<,.]/;
+        //must be 10 characters long 
+        if(value.length < 10){
+          newError[name] = 'Must be at least 10 characters long'
+        }
+        //must have a capital letter
+        if(!/[A-Z]/.test(value)){
+          newError[name] = 'Must have a capital letter'
+        }
+        //must have a lowercase letter
+        if(!/[a-z]/.test(value)){
+          newError[name] = 'Must have a lowercase letter'
+        }
+        //must have a number
+        if(!/[0-9]/.test(value)){
+          newError[name] = "Must have a number"
+        }
+        //must have special characters 
+        if(!specialCharacter.test(value)){
+          newError[name] = `Must have special characters ! @ # $ % ^ & * (  ) - _ + = > < , . ?`
+        }
+
+
+
+
+          //if all the requirements are met then delete
+        if(!newError[name]){
+          delete newError[name]; 
+        }
+      }
+    }
 
     const fields = [
         { name: 'Name', label: 'Name:', type: 'text' },
         { name: 'Email', label: 'Email:', type: 'email' },
-        { name: 'Username', label: "Username:", type: 'text' }
+        { name: 'Username', label: "Username:", type: 'text' },
+        {name: 'Password', label: "Password", type: 'text'}, 
+        {name: "PasswordConfirmed", label: 'Confirm Password', type: 'text'}, 
+       
       ];
 
 
-  return (
-    <div>
-      <h1>Create an account</h1></div>
+//password requirements 
 
+//no space or tab 
+
+//must have at least 3 different letters 
+// {name: 'SecurityQuetsion', label: 'Security Question', type:'radio'},
+//{name: 'SecurityAnswer', label: 'Security Question Answered', type:'text'}
+  return (
+    <>
+      <div>
+        <h1>Create an account</h1></div>
+        <Form fields={fields} onSubmit={handleFormSubmit} />
+
+    </>
   )
 }
 
@@ -25,30 +109,6 @@ export default Register
 
 
 // const Register = () => {
-//   const url = "http://localhost:1313/register"
-//   const [apiKey,setKey] = useState('');
-//   const handleFormSubmit = (formData) => {
-//         console.log("Form Data",formData)
-//         //send to the register method in api
-
-//         fetch( url, {
-//           method: 'POST',
-//           headers: {
-//             'Content-Type': 'application/json',
-//           },
-//           body: JSON.stringify(formData),
-//         })
-//           .then(resp => resp.json())
-//           .then(data => {
-//             console.log("API Response", data)
-//             setKey(data.Key);
-//           })
-//           .catch(error => {
-//             // Handle any errors that occur during the request
-//             console.error('Error:', error);
-//           });
-
-//     }
 
 //     const fields = [
 //         { name: 'Name', label: 'Name:', type: 'text' },
