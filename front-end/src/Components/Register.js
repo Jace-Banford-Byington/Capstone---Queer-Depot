@@ -1,5 +1,6 @@
 import React,  { useEffect, useState } from 'react'
 import  Form from './Form'
+
 const Register = () => {
 
   const url = "http://localhost:3300/register"
@@ -10,11 +11,11 @@ const Register = () => {
 
 
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = (event,formData) => {
     event.preventDefault();
         console.log("Form Data",formData)
         //send to the register method in api
-
+      
         fetch( url, {
           method: 'POST',
           headers: {
@@ -111,39 +112,10 @@ const Register = () => {
     <>
       <div>
         <h1>Create an account</h1></div>
-        <Form fields={fields} onSubmit={handleFormSubmit} onInputChange={handleInputChange} errors={errors}/>
+        <Form fields={fields} onSubmit={handleFormSubmit} onInputChange={handleInputChange} errors={errors} />
 
     </>
   )
 }
 
 export default Register
-
-// import React, { useState } from 'react'
-// import Form from './Form';
-// import Key from './Key';
-
-
-// const Register = () => {
-
-//     const fields = [
-//         { name: 'Name', label: 'Name:', type: 'text' },
-//         { name: 'Email', label: 'Email:', type: 'email' },
-//         { name: 'Username', label: "Username:", type: 'text' }
-//       ];
-
-
-//   return (
-//     <>
-//         <h1>Register For an Account!</h1>
-//         <Form  fields={fields} onSubmit={handleFormSubmit} />
-
-//         {apiKey && (
-//         <Key apiKey={apiKey} />
-//       )}
-        
-//     </>
-//   )
-// }
-
-// export default Register

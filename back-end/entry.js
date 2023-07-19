@@ -2,7 +2,7 @@ const express = require('express');
 const {v4: uuid} = require('uuid');
 const cors = require('cors');
 const { DAL } = require('./DAL');
-
+const bcrypt = require('bcrypt')
 const port = 3300; 
 
 const app = express();
@@ -21,21 +21,30 @@ app.get("/", (req,res) => {
 
 
 app.post('/register', async (req,res) => {
-    const Data = req.body;
+    const userData = req.body;
 
-    console.log("Registering: ", Data);
-    let results = await DAL.checkEmails(Data.Email);
+    console.log("Registering: ", userData);
+    let results = await DAL.checkEmails(userData.Email);
     console.log("Results: ", results)
 
-    if(!results){
-
-        const key = uuid();
-        console.log("Key: ",key)
-        DAL.addEmail(Data,key)
-        res.json(key)
+    if (!results) {
+        // Generate a salt and hash the password
+        const saltRounds = 10;
+        bcrypt.hash(userData.Password, saltRounds, async (error, hash) => {
+          if (error) {
+            // Handle the error appropriately
+            console.error('Error hashing password:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+          } else {
+            // Save the user with the hashed password
+            const user = { ...userData, Password: hash };
+            console.log("Password", user.Password)
+            DAL.addEmail(user);
+          }
+        });
     }
     else{
-            res.json({Message: "Key Already exists", Key: results.Key})
+            res.json({Message: "Email Already in use"})
 
     }
 })

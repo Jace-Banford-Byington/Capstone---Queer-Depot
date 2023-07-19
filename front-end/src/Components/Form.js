@@ -5,9 +5,9 @@ const Form = ({ fields, onSubmit, onInputChange, errors }) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
-    onSubmit(data);
+    onSubmit(event, data);
   };
-
+  
   return (
     <form onSubmit={handleSubmit}>
       {fields.map((field, index) => (
@@ -18,7 +18,6 @@ const Form = ({ fields, onSubmit, onInputChange, errors }) => {
             type={field.type}
             name={field.name}
             onChange={onInputChange}
-            defaultValue={field.defaultValue}
             required
           />
           {errors && errors[field.name] && <p className='error'>{errors[field.name]}</p>}

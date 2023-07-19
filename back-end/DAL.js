@@ -33,7 +33,7 @@ const VolunteerModel = mongoose.model("VolunteerData", VolunteerData);
 const email = new Schema(
     {
         Email: String,
-        Key: String,
+        Password: String,
         Username: String,
         Name: String
     },
@@ -180,7 +180,7 @@ exports.DAL = {
          console.log("Email Data", emailData)
             let newEmail = {
                 Email : emailData.Email,
-                Key: key, 
+                Password: emailData.Password, 
                 Username: emailData.Username, 
                 name: emailData.Name
             };
