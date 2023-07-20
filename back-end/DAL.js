@@ -175,6 +175,7 @@ exports.DAL = {
 
     },
 
+
     addEmail: (emailData, key) => {
          //Validate Data 
          console.log("Email Data", emailData)
@@ -188,4 +189,37 @@ exports.DAL = {
 
             emailModel.collection.insertOne(newEmail);
          },
-}
+
+    checkPassword: async (password) => {
+        //pull in the username and passwords then checks the pulled in password and compares it to the provided password 
+        //if password does not match a message is sent saying the password is incorrect
+        try {
+            const match = await bcrypt.compare(providedPassword, storedHashedPassword);
+            if (match) {
+              // Passwords match
+              return { success: true, message: 'Password matched' };
+            } else {
+              // Passwords do not match
+              return { success: false, message: 'Incorrect password' };
+            }
+          } catch (error) {
+            // Error occurred while comparing passwords
+            return { success: false, message: 'Error occurred while comparing passwords' };
+          }
+        },
+    
+    
+    
+        checkUsername: (username) => {
+        const user = user.find((user) =>  user.username === username)
+
+        if (user) {
+            // Username exists
+            return { success: true, message: 'Username found' };
+          } else {
+            // Username does not exist
+            return { success: false, message: 'Username is incorrect' };
+          }
+        }
+    }
+

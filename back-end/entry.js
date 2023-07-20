@@ -47,7 +47,17 @@ app.post('/register', async (req,res) => {
             res.json({Message: "Email Already in use"})
 
     }
-})
+});
+
+app.post('/signin', async (req,res) => {
+    const userData = req.body;
+    console.log("Provided Information: ", userData)
+
+    let username = await DAL.checkUsername(userData.Username); 
+    let password = await DAL.checkPassword(userData.Password);
+    console.log("Username: ", username)
+    console.log("Password: ", password)
+});
 
 
 

@@ -10,6 +10,7 @@ import Register from './Components/Register';
 import Home from './Components/Home'
 import Donate from './Components/Donate';
 import Charity from './Components/Charity';
+import SignIn from './Components/SignIn';
 
 const url = "http://localhost:2000"
 
@@ -38,6 +39,13 @@ const router = createBrowserRouter([
     <>
       <NavBar />
       <Donate />
+    </>
+  }, 
+  {
+    path: '/SignIn',
+    element: <>
+      <NavBar /> 
+      <SignIn />
     </>
   }
 ]);
