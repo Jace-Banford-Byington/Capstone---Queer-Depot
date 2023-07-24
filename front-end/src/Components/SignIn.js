@@ -10,9 +10,32 @@ import Form from './Form'
 
 const SignIn = () => {
    
+    const url = "http://localhost:3300/signin"
 
     //handle submit 
+    const handleSubmit = (event, formData) => {
+        event.preventDefault();
+        console.log('Entered Data', formData);
+        //send the formdata to the sign in 
+        fetch(url, {
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(formData),
+            })
+              .then(resp => resp.json())
+              .then(data => {
+                console.log("Was secessful")
+              })
+              .catch(error => {
+                // Handle any errors that occur during the request
+                console.error('Error:', error);
+              });
+        })
 
+
+    }
 
 
     const fields = [
@@ -27,7 +50,7 @@ const SignIn = () => {
     
     <div className="SignInForm">
        <h1 className='Title'>SignIn</h1> 
-    <Form fields={fields} />
+    <Form fields={fields} onSubmit={handleSubmit}/>
 
 
 

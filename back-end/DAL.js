@@ -1,4 +1,5 @@
 const {mongoose, Schema} = require("mongoose");
+const bcrypt = require('bcrypt')
 
 
 const connectionString = "mongodb+srv://Dev:ZSkgoYkHhMNwWHAI@api.neyvnyg.mongodb.net/Capstone";
