@@ -7,6 +7,7 @@
 
 import React from 'react'
 import Form from './Form'
+import { Link } from 'react-router-dom';
 
 const SignIn = () => {
    
@@ -42,9 +43,8 @@ const SignIn = () => {
        
         { name: 'Username', label: 'Username:', type: 'type' },
         { name: 'Password', label: "Password", type: 'text'},
-        { name:"ForgotPassword", label: 'Forgotten Password', type: 'button' },
-        { name: 'RegisterAccount', label: 'Register Account', type: 'button' }
-      ];
+        { name:"ForgotPassword", label: 'Forgotten Password', type: 'button' }
+    ];
 
     return (
     
@@ -52,6 +52,9 @@ const SignIn = () => {
        <h1 className='Title'>SignIn</h1> 
     <Form fields={fields} onSubmit={handleSubmit}/>
 
+    <Link to="/Register">
+    <button className="registerButton">Make an Account</button>
+      </Link>
 
 
     </div>
