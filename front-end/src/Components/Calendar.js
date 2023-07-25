@@ -23,7 +23,7 @@ const Calendar = () => {
         "Purim - 14th of Adar", //Need to look into what means
         "Saint Patrick's Day - 3/17",
         "April Fool's Day - 4/1",
-        ""
+        "Ramadan "
 
     ]
 
