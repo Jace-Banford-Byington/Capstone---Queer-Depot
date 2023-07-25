@@ -31,6 +31,12 @@ function CardInformationForm() {
   };
 
 
+  //choose how much can donante 
+  //omplement automaticly inputs the slashes for expire data 
+    //add validation for the expriation date (Month can not be larger than 12 else give a little error saying not that many months in the year )
+  //Add the send feature that takes the selected amount to the database and add it to the donation with the provided Name from the checkout form where it will update the counter for the amount donated. under neith have who last donated and how much 
+  //when you click on that donation field takes you to donation page 
+
   return (
     <form className='CardInfo'>
       <div >
@@ -44,7 +50,7 @@ function CardInformationForm() {
       <div className="row">
         <div className="col-md-6 mb-3">
           <label htmlFor="expiration" className="form-label">Expiration Date</label>
-          <input type="text" maxLength={10} pattern='^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\d{4}$' className="form-control" id="expiration" placeholder='DD/MM/YYYY' required />
+          <input type="text" maxLength={10} pattern='^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\d{4}$' className="form-control" id="expiration" placeholder='MM/YYYY' required />
         </div>
         <div className="col-md-6 mb-3">
           <label htmlFor="cvv" className="form-label">CVV</label>

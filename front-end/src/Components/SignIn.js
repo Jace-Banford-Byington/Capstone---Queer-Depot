@@ -53,7 +53,7 @@ const SignIn = () => {
     <Form fields={fields} onSubmit={handleSubmit}/>
 
     <Link to="/Register">
-    <button className="registerButton">Make an Account</button>
+            Make an Account
       </Link>
 
 
