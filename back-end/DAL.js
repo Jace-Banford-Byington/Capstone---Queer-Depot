@@ -177,7 +177,7 @@ exports.DAL = {
     },
 
 
-    addEmail: (emailData, key) => {
+    addEmail: (emailData) => {
          //Validate Data 
          console.log("Email Data", emailData)
             let newEmail = {
@@ -191,36 +191,49 @@ exports.DAL = {
             emailModel.collection.insertOne(newEmail);
          },
 
-    checkPassword: async (password) => {
+    
+    checkPassword: async (username, password) => {
         //pull in the username and passwords then checks the pulled in password and compares it to the provided password 
-        //if password does not match a message is sent saying the password is incorrect
+         //if password does not match a message is sent saying the password is incorrect
+   
         try {
-            const match = await bcrypt.compare(providedPassword, storedHashedPassword);
-            if (match) {
-              // Passwords match
-              return { success: true, message: 'Password matched' };
-            } else {
-              // Passwords do not match
-              return { success: false, message: 'Incorrect password' };
-            }
-          } catch (error) {
-            // Error occurred while comparing passwords
-            return { success: false, message: 'Error occurred while comparing passwords' };
+            console.log("Username: ", username)
+            console.log("Password: ", password)
+          const user = await emailModel.findOne({ Username: username });
+          if (!user) {
+            // Email not found
+            return { success: false, message: 'Username Not found' };
           }
-        },
     
+          const match = await bcrypt.compare(password, user.Password);
+          if (match) {
+            // Passwords match
+            return { success: true, message: 'Password matched' };
+          } else {
+            // Passwords do not match
+            return { success: false, message: 'Incorrect password' };
+          }
+        } catch (error) {
+          // Error occurred while comparing passwords
+          return { success: false, message: 'Error occurred while comparing passwords' };
+        }
+      },
     
-    
-        checkUsername: (username) => {
-        const user = user.find((user) =>  user.username === username)
-
-        if (user) {
+      checkUsername: async (username) => {
+        try {
+          const user = await emailModel.findOne({ Username: username });
+          if (user) {
             // Username exists
             return { success: true, message: 'Username found' };
           } else {
             // Username does not exist
             return { success: false, message: 'Username is incorrect' };
           }
+        } catch (error) {
+          // Error occurred while checking the username
+          return { success: false, message: 'Error occurred while checking the username' };
         }
+      }
+    
     }
 

@@ -32,15 +32,15 @@ const SignIn = () => {
                 // Handle any errors that occur during the request
                 console.error('Error:', error);
               });
-        })
+        }
 
 
-    }
+    
 
 
     const fields = [
        
-        { name: 'Email', label: 'Email:', type: 'email' },
+        { name: 'Username', label: 'Username:', type: 'type' },
         { name: 'Password', label: "Password", type: 'text'},
         { name:"ForgotPassword", label: 'Forgotten Password', type: 'button' },
         { name: 'RegisterAccount', label: 'Register Account', type: 'button' }
@@ -58,9 +58,7 @@ const SignIn = () => {
     
 
 
-
-
   )
-}
 
+}
 export default SignIn

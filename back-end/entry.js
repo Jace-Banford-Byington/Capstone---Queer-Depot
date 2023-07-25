@@ -54,18 +54,10 @@ app.post('/signin', async (req,res) => {
     console.log("Provided Information: ", userData)
 
     let username = await DAL.checkUsername(userData.Username); 
-    let password = await DAL.checkPassword(userData.Password);
+    let password = await DAL.checkPassword(userData.Username,userData.Password);
     console.log("Username: ", username)
     console.log("Password: ", password)
 });
-
-
-
-
-
-
-
-
 
 
 
