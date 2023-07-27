@@ -87,8 +87,40 @@ const Calendar = () => {
 						initialView="dayGridMonth"
 						weekends={true}
 						events={[
+
+              { title: "May Day", date: "2023-05-01" },
+              { title: "Beltane", date: "2023-05-01" },
+
+
+
+              { title: "Flag Day", date: "2023-06-14" },
+              { title: "Juneteenth", date: "2023-06-19" },
+
 							{ title: "Forth of July", date: "2023-07-04" },
 							{ title: "Pioneer Day", date: "2023-07-24" },
+             
+
+
+
+              { title: "Halloween", date: "2023-08-31" },
+
+
+              { title: "Veterans Day", date: "2023-09-11" },
+              { title: "All Saints Day", date: "2023-09-01" },
+              { title: "Day of the Dead", date: "2023-09-01 2023-09-02" },
+
+
+
+
+              { title: "Kwanaza", date: "2023-12-26 through 2024-01-01" },
+              { title: "Chrismas", date: "2023-12-25" },
+              { title: "Chrismas Eve", date: "2023-12-24" },
+              { title: "New Years Eve", date: "2023-12-31" },
+
+
+
+              {title: "New Years", date: "2024-01-01"}
+
 						]
 					}
 					/>
