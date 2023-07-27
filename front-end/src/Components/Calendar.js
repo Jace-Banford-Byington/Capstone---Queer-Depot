@@ -57,8 +57,25 @@ const Calendar = () => {
         "Juneteenth - 6/19",
         "Father's Day - third sinday in June",
         "Indepencence Day - 7/4",
-        "Eid al-Adha - 10 days after the sighting of a new crescent moon."
-
+        "Eid al-Adha - 10 days after the sighting of a new crescent moon. lasts 3 days",
+        "Muharram - first month of islamic New Year begins after first signting of the new moon on final day of islamic calendar",
+        "Labor Day - first monday of september",
+        "Rosh Hashanah - 163 days after passover",
+        "Yom Kippur - 10th day of Tishrei 9 days after first day of Rosh Hashanah",
+        "Nawlid al-Nabi - 12th day of Rabi 1  Always on the same day in Islamic Calendar",
+        "Sukkot 15th - 21s of Tishrei",
+        "Indigenous Peoples' Day - second monday every October",
+        "Shemini Atzeret  - 22nd day of Tishrei (in Land of Isreal) 22nd and 23rd (everwhere else)",
+        "Diwali - lasts  5 day / determined by position of the moon ",
+        "Halloween - 8/31",
+        "All Saints Day - 9/1",
+        "Day of the Dead - 9/1 through 9/2",
+        "Election Day - first monday in November ",
+        "Veterans Day - 9/11", 
+        "National Day of Mouring - fourth thursday in November",
+        "First Sunday of Advent - nearest sunday to 9/30",
+        "Hanukkah - 25th day of Kislev",
+        "Kwanzaa - weeklong celebration 12/26 through 1/1"
     ]
 
 
