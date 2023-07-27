@@ -12,6 +12,7 @@ import Donate from './Components/Donate';
 import Charity from './Components/Charity';
 import SignIn from './Components/SignIn';
 import Calendar from './Components/Calendar';
+import Survey from './Components/Survey';
 const url = "http://localhost:2000"
 
 const router = createBrowserRouter([
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
     element : <> 
     <NavBar />
       <Home />
+      <Survey />
     </>
 
   },

@@ -1,5 +1,6 @@
 import React from 'react'
 import Map from './Map'
+import Survey from './Survey'
 const Home = () => {
   return (
     <div className='homeDescription'>
