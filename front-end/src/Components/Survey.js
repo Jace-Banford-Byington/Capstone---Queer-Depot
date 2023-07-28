@@ -53,8 +53,13 @@ const handleSubmit = () => {
             Here is some infromation that you should know. 
 
             Responabilies: <br/>
-                        Sort through Donated Clothes,
-                        Orginize the store, 
+                        Sort through Donated Clothes, <br />
+                        Orginize the store, <br />
+                        Cleaning, <br />
+                        Fill in for employees if needed, <br />
+                        Help with store events <br />
+
+            Requirements for potentially 
             
             
             </p></h1>
