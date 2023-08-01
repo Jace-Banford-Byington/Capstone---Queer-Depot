@@ -46,8 +46,10 @@ const handleSubmit = () => {
 
   return ( 
     <>
-        
-        <Form className="survey" fields={fields} onSubmit={handleSubmit}/>
+        <div className='survey'>
+                  <Form  fields={fields} onSubmit={handleSubmit}/>
+
+        </div>
           /Have a part where ou can either enter custom pronouns or choose from the 3 main ones
 
 
@@ -55,7 +57,7 @@ const handleSubmit = () => {
                                                                                           phone 
                                                                                           both 
 
-      defpending on which one is clicked show field to put in an email address a phone number or both fields
+      depending on which one is clicked show field to put in an email address a phone number or both fields
     
     </>
   )

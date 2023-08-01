@@ -85,19 +85,17 @@ html{
   padding: 3px;
   height: 10%;
   margin-bottom: 50px;
+  a {
+  color: $brown;
+  text-decoration: none;
+  font-weight: bolder;
+  font-size: 1.1em;
+}
 }
 
 #logoBtn{
   width: fit-content;
   height: 90%;
-}
-
-
-.navBar a {
-  color: $brown;
-  text-decoration: none;
-  font-weight: bolder;
-  font-size: 1.1em;
 }
 
 .checkoutform{
@@ -128,11 +126,10 @@ html{
  font-size: 1.2em;
  padding: 3%;
  color: $brown;
+      .placeholder{
+        color: $brown;
+      }
 
-}
-
-.form-control::placeholder{
-  color: $brown;
 }
 
 .CardInfo{
@@ -151,27 +148,26 @@ html{
         background-color: $pink;
         border-radius: 100px;
         width: 50%;
-
+              .placeholder{
+                color: $white;
+                font-weight: bold;
+              }
         
       }
-
+      .btn-primary {
+        border-radius: 50px;
+        padding: 15px;
+        background-color: $babyBlue;
+        color: $white;
+        margin-bottom: 20px;
+      }
 
 }
 
 
 
-.CardInfo .form-control::placeholder{
-  color: $white;
-  font-weight: bold;
-}
 
-.CardInfo .btn-primary {
-  border-radius: 50px;
-  padding: 15px;
-  background-color: $babyBlue;
-  color: $white;
-  margin-bottom: 20px;
-}
+
 
 .SignInForm{
   margin-top: 2%;
@@ -187,5 +183,7 @@ html{
 }
 
 .survey{
-  font-size: 2px;
+  font-size: 1.5em;
+  text-align: center;
+  justify-content: center;
 }
