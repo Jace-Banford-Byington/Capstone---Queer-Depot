@@ -36,38 +36,26 @@ const handleSubmit = () => {
     const fields = [
        
         { name: 'Name', label: 'Name:', type: 'type' },
-        { name: 'Pronouns', label: "Prounouns:", type: 'dropdown'},
         { name:"inSchool", label: 'Currently in School', type: 'checkbox' },
         { name: "Job", label: "Job:", type: 'text' },
         { name: "Sexuality", label: "Sexuality", type:'text' },
         { name: "Age", label: "Age:", type: 'number' },
         { name: "Gender", label: "Gender", type:'text' },
-        { name: "ContactMethods", label: "Contact Methods: ", type: 'radio' },
         { name: "HoursRequested", label: "Hours requested" }
     ];
 
   return ( 
     <>
-        <h1><p>
-            So your Interested in being a volunteer. 
-            Here is some information that you should know. 
+        
+        <Form className="survey" fields={fields} onSubmit={handleSubmit}/>
+          /Have a part where ou can either enter custom pronouns or choose from the 3 main ones
 
-            Responsibilities: <br/>
-                        Sort through Donated Clothes, <br />
-                        Organize the store, <br />
-                        Cleaning, <br />
-                        Fill in for employees if needed, <br />
-                        Help with store events <br />
 
-            Requirements for potential Volunteers: <br />
-                       Preferably Aged: 10 - 15 <br />
-                       Somehow Queer in any capacity (Gender, Sexuality, etc.)
-                       
-            
-            
-            </p></h1>
-        <Form fields={fields} onSubmit={handleSubmit}/>
+            //This is where you put the radio button for the different contacting methods email 
+                                                                                          phone 
+                                                                                          both 
 
+      defpending on which one is clicked show field to put in an email address a phone number or both fields
     
     </>
   )

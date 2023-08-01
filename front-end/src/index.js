@@ -13,6 +13,8 @@ import Charity from './Components/Charity';
 import SignIn from './Components/SignIn';
 import Calendar from './Components/Calendar';
 import Survey from './Components/Survey';
+import Volunteer from './Components/Volunteer'
+
 const url = "http://localhost:2000"
 
 const router = createBrowserRouter([
@@ -22,7 +24,6 @@ const router = createBrowserRouter([
     element : <> 
     <NavBar />
       <Home />
-      <Survey />
     </>
 
   },
@@ -49,6 +50,13 @@ const router = createBrowserRouter([
     element: <>
       <NavBar /> 
       <SignIn />
+    </>
+  },
+  {
+    path: '/Volunteer',
+    element: <>
+      <NavBar />
+      <Volunteer />
     </>
   }
 ]);

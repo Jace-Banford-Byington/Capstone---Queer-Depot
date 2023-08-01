@@ -143,17 +143,22 @@ html{
   color: $brown;
   font-size: 1.3em;
   font-weight: bold;
+      .form-control{
+        margin-top: -1%;
+        font-size: 1.4em;
+        color: $white;
+        font-weight: bolder;
+        background-color: $pink;
+        border-radius: 100px;
+        width: 50%;
+
+        
+      }
+
+
 }
 
-.CardInfo .form-control{
-  margin-top: -1%;
-  font-size: 1.4em;
-  color: $white;
-  font-weight: bolder;
-  background-color: $pink;
-  border-radius: 100px;
-  width: 50%;
-}
+
 
 .CardInfo .form-control::placeholder{
   color: $white;
@@ -174,4 +179,13 @@ html{
 .Title{
   margin-top: 4%;
   font-size: 1.2em;
+}
+
+.location{
+  height: fit-content;
+  width: 100%;
+}
+
+.survey{
+  font-size: 2px;
 }

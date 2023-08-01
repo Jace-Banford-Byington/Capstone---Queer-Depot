@@ -1,6 +1,6 @@
 import React from 'react'
 import Map from './Map'
-import Survey from './Survey'
+
 const Home = () => {
   return (
     <div className='homeDescription'>
@@ -11,7 +11,7 @@ const Home = () => {
           <p>Come Join us at 
               <br/>
             4545 S 900 E, Salt Lake City, UT 84117</p>
-            <img src='./map.png' />
+            {/* <img src='./map.png' /> */}
 
             <h1 className='storeHours'> Hours : <br/>
 
@@ -29,7 +29,7 @@ const Home = () => {
 
                     Sunday: 11 am - 3 pm <br />
           </h1>
-            <img src='./location.png' />
+            <img className='location' src='./location.png' />
 
             {/* <Map /> */}
 
