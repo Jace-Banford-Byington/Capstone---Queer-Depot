@@ -49,17 +49,20 @@ const handleSubmit = () => {
   return ( 
     <>
         <h1><p>
-            So your Intrested in being a volunteer. 
-            Here is some infromation that you should know. 
+            So your Interested in being a volunteer. 
+            Here is some information that you should know. 
 
-            Responabilies: <br/>
+            Responsibilities: <br/>
                         Sort through Donated Clothes, <br />
-                        Orginize the store, <br />
+                        Organize the store, <br />
                         Cleaning, <br />
                         Fill in for employees if needed, <br />
                         Help with store events <br />
 
-            Requirements for potentially 
+            Requirements for potential Volunteers: <br />
+                       Preferably Aged: 10 - 15 <br />
+                       Somehow Queer in any capacity (Gender, Sexuality, etc.)
+                       
             
             
             </p></h1>
