@@ -41,7 +41,45 @@ const Calendar = () => {
         "Hanukkah - 25th day of Kislev",
     ]
 
+    const month = [
+      "January: National Slavery and Human Trafficking Month, Thyroid Awareness Month",
+      
+      "February: Black History Month, American Heart Month",
+      
+      "March: Womans history Month, Disability Awareness Month, National Kidney Month",
+      
+      "April: Autism Awareness Month",
+      
+      "May: Asian Pacific American Heritage Month, Jewish American Heritage Month, Military Appreciation Month, Sexual Assault Awareness",
+      
+      "June: LGBTQIA+ Pride Month, Men's Mental Health Month",
+      
+      "July: Disability Pride Month, Minority Mental Health Awareness Month",
+      
+      "August: National Water Quality Month, National Immunization Awareness Month ",
+      
+      "September: National Hispanic Heritage Month, Childhood Cancer Awareness Month ",
+     
+      "October: Cancer Awareness Month,   AIDS Awareness Month,  LGBTQIA+ History Month,   Domestic Violence Awareness Month,  Mental Health Awareness Month ",
+      
+      "November: Native American Heritage Month,     Hunger & Homelessness Awareness Month,      Veterans and Military Families Month,       Diabetes Awareness Month",
+      
+      "December: Human Rights Month,   HIV/AIDS Awareness Month"
 
+
+
+    ]
+
+    const displayAwarenessMonth = (monthIndex) => {
+      if (monthIndex >= 0 && monthIndex < month.length) {
+        return <div>{month[monthIndex]}</div>;
+      }
+      return null;
+    };
+
+
+    //International Self-Care Day	July 24
+    //Malala Day	July 12
 
   return (
     <div className="calenderDiv">
@@ -105,7 +143,7 @@ const Calendar = () => {
               { title: "All Saints Day", rrule: "FREQ=YEARLY;BYMONTH=9;BYMONTHDAY=1" },
               { title: "Day of the Dead",rrule:"FREQ=YEARLY;BYMONTH=11;BYMONTHDAY=1;COUNT=2;BYSETPOS=1" },
 
-
+              { title: "Trans Day of Remembrance", rrule: "FREQ=YEARLY;BYMONTH=11;BYMONTHDAY=20" },
 
 
               { title: "Kwanaza", rrule: "FREQ=YEARLY;BYMONTH=12;BYMONTHDAY=26,27,28,29,30,31" },
@@ -115,9 +153,27 @@ const Calendar = () => {
 
               {title: "New Years", rrule:"FREQ=YEARLY;BYMONTH=1;BYMONTHDAY=1" }
 
-						]
-					}
-					/>
+						]}
+            headerToolbar={{
+              left: "Month", // Add navigation buttons (previous, next, today)
+              center: "title", // Display the current month as the title,
+              right: "today prev next",
+              customButtons: {
+                myCustomButton: {
+                  text: "Awareness Months",
+                  click: function () {
+                    alert("Custom button clicked!");
+                  },
+                },
+              },
+              customButtonContent: {
+                myCustomButton: displayAwarenessMonth,
+              },
+
+            }}
+            
+					
+					/> 
 				</div>
   )
 }
