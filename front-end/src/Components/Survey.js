@@ -36,6 +36,7 @@ const handleSubmit = () => {
     const fields = [
        
         { name: 'Name', label: 'Name:', type: 'type' },
+        { name: "PerferedName", label:"Preferred Name", type: "text" },
         { name:"inSchool", label: 'Currently in School', type: 'checkbox' },
         { name: "Job", label: "Job:", type: 'text' },
         { name: "Sexuality", label: "Sexuality", type:'text' },

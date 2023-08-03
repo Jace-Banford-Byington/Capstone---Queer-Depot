@@ -70,12 +70,12 @@ const Calendar = () => {
 
     ]
 
-    const displayAwarenessMonth = (monthIndex) => {
-      if (monthIndex >= 0 && monthIndex < month.length) {
-        return <div>{month[monthIndex]}</div>;
-      }
-      return null;
-    };
+    // const displayAwarenessMonth = (monthIndex) => {
+    //   if (monthIndex >= 0 && monthIndex < month.length) {
+    //     return <div>{month[monthIndex]}</div>;
+    //   }
+    //   return null;
+    // };
 
 
     //International Self-Care Day	July 24
@@ -158,17 +158,17 @@ const Calendar = () => {
               left: "Month", // Add navigation buttons (previous, next, today)
               center: "title", // Display the current month as the title,
               right: "today prev next",
-              customButtons: {
-                myCustomButton: {
-                  text: "Awareness Months",
-                  click: function () {
-                    alert("Custom button clicked!");
-                  },
-                },
-              },
-              customButtonContent: {
-                myCustomButton: displayAwarenessMonth,
-              },
+              // customButtons: {
+              //   myCustomButton: {
+              //     text: "Awareness Months",
+              //     click: function () {
+              //       alert("Custom button clicked!");
+              //     },
+              //   },
+              // },
+              // customButtonContent: {
+              //   myCustomButton: displayAwarenessMonth,
+              // },
 
             }}
             
