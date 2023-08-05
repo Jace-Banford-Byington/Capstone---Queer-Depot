@@ -1,4 +1,6 @@
 const express = require('express');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
 const {v4: uuid} = require('uuid');
 const cors = require('cors');
 const { DAL } = require('./DAL');
@@ -10,7 +12,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-
+// Configure session middleware
+app.use(
+  session({
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      secure: false, // Set to true if you're using HTTPS
+      httpOnly: true,
+    },
+  })
+);
 
 
 app.get("/", (req,res) => {

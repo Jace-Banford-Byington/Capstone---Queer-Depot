@@ -16,17 +16,11 @@ const Home = () => {
             <h1 className='storeHours'> Hours : <br/>
 
                     Monday: 6 pm - 6 am <br/>
-
                     Tuesday: Donation Day <br/>
-
                     Wednesday: 8 am - 8 pm <br/>
-
                     Thursday: 8 am - 8 pm <br />
-
                     Friday: 8 am - 8 pm <br />
-
                     Saturday: 8 am - 10 pm <br />
-
                     Sunday: 11 am - 3 pm <br />
           </h1>
             <img className='location' src='./location.png' />
