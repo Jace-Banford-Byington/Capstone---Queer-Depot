@@ -70,6 +70,14 @@ app.post('/signin', async (req,res) => {
     let password = await DAL.checkPassword(userData.Username,userData.Password);
     console.log("Username: ", username)
     console.log("Password: ", password)
+
+    if (username.success && password.success) {
+      // Store the user's unique identifier (e.g., user ID) in the session
+      req.session.userId = userData.Username;
+      res.json({ success: true, message: 'Successfully signed in' });
+    } else {
+      res.json({ success: false, message: 'Invalid username or password' });
+    }
 });
 
 

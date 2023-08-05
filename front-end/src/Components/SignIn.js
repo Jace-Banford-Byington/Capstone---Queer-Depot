@@ -5,12 +5,13 @@
 //alters the nav bar 
 
 
-import React from 'react'
+import  { useState  }from 'react'
 import Form from './Form'
 import { Link } from 'react-router-dom';
 
 const SignIn = () => {
-   
+  const [rememberMe, setRememberMe] = useState(false);
+
     const url = "http://localhost:3300/signin"
 
     //handle submit 
@@ -51,10 +52,17 @@ const SignIn = () => {
     <div className="SignInForm">
        <h1 className='Title'>SignIn</h1> 
     <Form fields={fields} onSubmit={handleSubmit}/>
-
+    <label className='rememberMe'>
+        Remember Me
+        <input
+          type="checkbox"
+          checked={rememberMe}
+          onChange={() => setRememberMe(!rememberMe)}
+        />
+     </label>
     <Link to="/Register">
             Make an Account
-      </Link>
+    </Link>
 
 
     </div>
