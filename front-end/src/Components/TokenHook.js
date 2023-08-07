@@ -1,15 +1,15 @@
-// hooks/useAuthToken.js
-import { useEffect, useState } from 'react';
+// TokenHook.js
+import { useState, useEffect } from 'react';
 
 const TokenHook = () => {
-  const [authToken, setAuthToken] = useState(null);
+  const [hasToken, setHasToken] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    setAuthToken(token);
+    const token = localStorage.getItem('token');
+    setHasToken(!!token); // Convert token to a boolean value
   }, []);
 
-  return authToken;
+  return hasToken;
 };
 
 export default TokenHook;

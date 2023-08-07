@@ -5,7 +5,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import TokenHook from './TokenHook';
 const Navbar = () => {
-  const tokenAuth = TokenHook();
+  const hasToken = TokenHook();
 
 
 
@@ -37,17 +37,33 @@ const Navbar = () => {
     <label className='charityTotal'>CurrentTotal Donated</label>
     {/* //Amount currently donated to charity */}
 
-
-   
-
-    < NavLink to='/Volunteer' className={({ isActive, isPending, toClick }) => isPending ? "pending" : isActive ? "active" : toClick ? "toClick" : ""} >
+    {hasToken ? (  //tHERE IS A TOKEN
+      <>
+      < NavLink to='/Volunteer' className={({ isActive, isPending, toClick }) => isPending ? "pending" : isActive ? "active" : toClick ? "toClick" : ""} >
         Volunteer
     </NavLink>
-
-    < NavLink to='/SignIn' className={({ isActive, isPending, toClick }) => isPending ? "pending" : isActive ? "active" : toClick ? "toClick" : ""} >
-        SignIn
+    <NavLink to=''  className={({ isActive, isPending, toClick }) => isPending ? "pending" : isActive ? "active" : toClick ? "toClick" : ""} >
+        Profile
     </NavLink>
+      
+      </>
+    ) : ( //No token
+
+      <NavLink to='/SignIn' className={({ isActive, isPending, toClick }) => isPending ? "pending" : isActive ? "active" : toClick ? "toClick" : ""} >
+            Log In
+      </NavLink>
     
+
+    )
+  
+  
+  
+  
+  }
+   
+
+ 
+  
     
     </div>
   )
