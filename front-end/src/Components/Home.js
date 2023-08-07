@@ -1,6 +1,6 @@
 import React from 'react'
 import Map from './Map'
-
+import Calendar from './Calendar'
 const Home = () => {
   return (
     <div className='homeDescription'>
@@ -12,7 +12,7 @@ const Home = () => {
               <br/>
             4545 S 900 E, Salt Lake City, UT 84117</p>
             {/* <img src='./map.png' /> */}
-
+           <Calendar />
             <h1 className='storeHours'> Hours : <br/>
 
                     Monday: 6 pm - 6 am <br/>
@@ -24,8 +24,8 @@ const Home = () => {
                     Sunday: 11 am - 3 pm <br />
           </h1>
             <img className='location' src='./location.png' />
-
-            {/* <Map /> */}
+           
+            <Map />
 
     </div>
 

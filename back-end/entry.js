@@ -1,10 +1,12 @@
 const express = require('express');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
 const {v4: uuid} = require('uuid');
 const cors = require('cors');
 const { DAL } = require('./DAL');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 const port = 3300; 
 
 const app = express();
@@ -12,10 +14,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
+
+const generateSecretKey = () => {
+  return crypto.randomBytes(16).toString('hex');
+};
+
+const secretKey = generateSecretKey();
 // Configure session middleware
 app.use(
   session({
-    secret: 'your-secret-key',
+    secret: generateSecretKey(),
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -24,12 +32,6 @@ app.use(
     },
   })
 );
-
-
-app.get("/", (req,res) => {
-    //home page 
-    res.json({Message: "Welcome to Crow's Flower Shop. Come visit our database full of flowers. Customize your own bouquet once you've signed up."})
-})
 
 
 
@@ -72,9 +74,9 @@ app.post('/signin', async (req,res) => {
     console.log("Password: ", password)
 
     if (username.success && password.success) {
-      // Store the user's unique identifier (e.g., user ID) in the session
-      req.session.userId = userData.Username;
-      res.json({ success: true, message: 'Successfully signed in' });
+      const token = jwt.sign({ username: userData.Username }, generateSecretKey(), { expiresIn: '1h' });
+      // console.log(token)
+      res.json({ success: true, message: 'Successfully signed in', token: token });
     } else {
       res.json({ success: false, message: 'Invalid username or password' });
     }

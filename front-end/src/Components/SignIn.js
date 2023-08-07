@@ -4,18 +4,17 @@
 //has sign up button 
 //alters the nav bar 
 
-
 import  { useState  }from 'react'
 import Form from './Form'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
   const [rememberMe, setRememberMe] = useState(false);
-
-    const url = "http://localhost:3300/signin"
+  const navigate = useNavigate();
+  const url = "http://localhost:3300/signin"
 
     //handle submit 
-    const handleSubmit = (event, formData) => {
+    const handleSubmit = async (event, formData) => {
         event.preventDefault();
         console.log('Entered Data', formData);
         //send the formdata to the sign in 
@@ -26,9 +25,19 @@ const SignIn = () => {
               },
               body: JSON.stringify(formData),
             })
+
               .then(resp => resp.json())
               .then(data => {
                 console.log("Was successful")
+
+
+                const { token } = data;
+                if(token){
+                  //storing the token 
+                  localStorage.setItem('token', token);
+                  //send to homepage
+                  navigate('/')
+               }
               })
               .catch(error => {
                 // Handle any errors that occur during the request
@@ -36,15 +45,10 @@ const SignIn = () => {
               });
         }
 
-
-    
-
-
     const fields = [
        
         { name: 'Username', label: 'Username:', type: 'type' },
-        { name: 'Password', label: "Password", type: 'text'},
-        { name:"ForgotPassword", label: 'Forgotten Password', type: 'button' }
+        { name: 'Password', label: "Password", type: 'text'}
     ];
 
     return (
