@@ -25,7 +25,7 @@ const Home = () => {
           </h1>
             <img className='location' src='./location.png' />
 
-            <Map />
+            {/* <Map /> */}
 
     </div>
 

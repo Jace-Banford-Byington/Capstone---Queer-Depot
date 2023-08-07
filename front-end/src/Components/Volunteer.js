@@ -6,10 +6,10 @@ const Volunteer = () => {
 //Logic: if age entered in is below 10 or older than 20 reject volunteer application 
 //send out an email with the users name they entered - if email provided 
 //send text to number provided - only if email not provided 
-//if below age 12 send we are sorry but you are under the legal age we can accept your volunteer opertunities. 
+//if below age 12 send we are sorry but you are under the legal age we can accept your volunteer opportunities. 
 //If above 20, send we are sorry but we are only accepting volunteers below 20, to help youth gain experience and have a welcoming space for those who need it, feel free to apply for a position with us 
 
-//Maxium amount of Volunteers : 20 if it exceeds this send out: We are currently have the max amount of volunteers we can guareentee work can be provided, you have been put on the volunteer waiting list in case 
+//Maximum amount of Volunteers : 20 if it exceeds this send out: We are currently have the max amount of volunteers we can guarantee work can be provided, you have been put on the volunteer waiting list in case 
 
   return (
     <div>

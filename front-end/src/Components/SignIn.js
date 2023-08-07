@@ -1,5 +1,5 @@
 //the page that shows up when you register 
-//has the whole info you add into the field for a new acount 
+//has the whole info you add into the field for a new account 
 //has the forgot password button 
 //has sign up button 
 //alters the nav bar 
@@ -28,7 +28,7 @@ const SignIn = () => {
             })
               .then(resp => resp.json())
               .then(data => {
-                console.log("Was secessful")
+                console.log("Was successful")
               })
               .catch(error => {
                 // Handle any errors that occur during the request

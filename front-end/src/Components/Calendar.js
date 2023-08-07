@@ -146,9 +146,9 @@ const Calendar = () => {
               { title: "Trans Day of Remembrance", rrule: "FREQ=YEARLY;BYMONTH=11;BYMONTHDAY=20" },
 
 
-              { title: "Kwanaza", rrule: "FREQ=YEARLY;BYMONTH=12;BYMONTHDAY=26,27,28,29,30,31" },
+              { title: "Kwanzaa", rrule: "FREQ=YEARLY;BYMONTH=12;BYMONTHDAY=26,27,28,29,30,31" },
               { title: "Chrismas", rrule: "FREQ=YEARLY;BYMONTH=12;BYMONTHDAY=25" },
-              { title: "Chrismas Eve", rrule: "FREQ=YEARLY;BYMONTH=12;BYMONTHDAY=24" },
+              { title: "Christmas Eve", rrule: "FREQ=YEARLY;BYMONTH=12;BYMONTHDAY=24" },
               { title: "New Years Eve", date: "2023-12-31" },
 
               {title: "New Years", rrule:"FREQ=YEARLY;BYMONTH=1;BYMONTHDAY=1" }
