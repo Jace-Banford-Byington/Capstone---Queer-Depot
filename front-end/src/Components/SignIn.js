@@ -4,13 +4,15 @@
 //has sign up button 
 //alters the nav bar 
 
-import  { useState  }from 'react'
+import  { useState, useEffect  }from 'react'
 import Form from './Form'
+import TokenHook from './TokenHook';
 import { Link, useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
+  const hasToken = TokenHook();
   const url = "http://localhost:3300/signin"
 
     //handle submit 
@@ -50,7 +52,13 @@ const SignIn = () => {
         { name: 'Username', label: 'Username:', type: 'type' },
         { name: 'Password', label: "Password", type: 'text'}
     ];
-
+    useEffect(() => {
+      if (hasToken) {
+        // Replace '/otherpage' with the desired page where you want to navigate
+        navigate('/', { replace: true });
+        window.location.reload(); // Refresh the page
+      }
+    }, [hasToken, navigate]);
     return (
     
     <div className="SignInForm">
