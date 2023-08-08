@@ -1,7 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
+
 import Map from './Map'
 import Calendar from './Calendar'
+import TokenHook from './TokenHook'
 const Home = () => {
+
+  const hasToken = TokenHook();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (hasToken) {
+      navigate('/', { replace: true });
+    }
+  }, [hasToken, navigate]);
+
+
   return (
     <div className='homeDescription'>
       <h1 className='intro'>Welcome to Queer Depo</h1> 
@@ -25,7 +39,7 @@ const Home = () => {
           </h1>
             <img className='location' src='./location.png' />
            
-            <Map />
+            {/* <Map /> */}
 
     </div>
 

@@ -83,7 +83,7 @@ const Calendar = () => {
 
   return (
     <div className="calenderDiv">
-					<FullCalendar className="calender"
+					<FullCalendar 
 						plugins={[dayGridPlugin, rrulePlugin]}
 						initialView="dayGridMonth"
 						weekends={true}

@@ -10,9 +10,12 @@ import TokenHook from './TokenHook';
 import { Link, useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
+
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
   const hasToken = TokenHook();
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // Track authentication status
+
   const url = "http://localhost:3300/signin"
 
     //handle submit 
@@ -37,6 +40,7 @@ const SignIn = () => {
                 if(token){
                   //storing the token 
                   localStorage.setItem('token', token);
+                 setIsAuthenticated(true)
                   //send to homepage
                   navigate('/')
                }
@@ -54,11 +58,10 @@ const SignIn = () => {
     ];
     useEffect(() => {
       if (hasToken) {
-        // Replace '/otherpage' with the desired page where you want to navigate
-        navigate('/', { replace: true });
-        window.location.reload(); // Refresh the page
+      setIsAuthenticated(true)
+      console.log('Token is set')
       }
-    }, [hasToken, navigate]);
+    }, [hasToken]);
     return (
     
     <div className="SignInForm">

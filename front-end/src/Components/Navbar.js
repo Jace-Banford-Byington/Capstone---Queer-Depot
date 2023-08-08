@@ -2,13 +2,17 @@
 //Home
 //Donation Link - takes you to a page 
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import TokenHook from './TokenHook';
+import { NavLink, useNavigate } from 'react-router-dom';
 const Navbar = () => {
-  const hasToken = TokenHook();
+  const hasToken = localStorage.getItem('token'); // Get token from localStorage
+  const navigate = useNavigate()
 
+  const handleSignOut = () => {
+    localStorage.removeItem('token')
+    navigate('/')
+    window.location.reload()
 
-
+  }
 
 //Things you should always see
     //Home Page 
@@ -21,6 +25,7 @@ const Navbar = () => {
 //Signed in 
   //Volunteer 
   //Profile page   
+  //Sign Out
 
   return (
     <div className='navBar'>
@@ -34,9 +39,7 @@ const Navbar = () => {
             Donate
   </NavLink>
     
-    <label className='charityTotal'>CurrentTotal Donated</label>
-    {/* //Amount currently donated to charity */}
-
+    
     {hasToken ? (  //tHERE IS A TOKEN
       <>
       < NavLink to='/Volunteer' className={({ isActive, isPending, toClick }) => isPending ? "pending" : isActive ? "active" : toClick ? "toClick" : ""} >
@@ -45,7 +48,7 @@ const Navbar = () => {
     <NavLink to=''  className={({ isActive, isPending, toClick }) => isPending ? "pending" : isActive ? "active" : toClick ? "toClick" : ""} >
         Profile
     </NavLink>
-      
+      <button onClick={handleSignOut}>Sign Out</button>
       </>
     ) : ( //No token
 
@@ -55,13 +58,10 @@ const Navbar = () => {
     
 
     )
-  
-  
-  
-  
   }
    
-
+ <label className='charityTotal'>CurrentTotal Donated</label>
+    {/* //Amount currently donated to charity */}
  
   
     
