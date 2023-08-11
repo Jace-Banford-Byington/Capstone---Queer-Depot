@@ -71,6 +71,27 @@ html{
   padding: 0 10px;
 }
 
+.survey {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .form-control{
+    margin-top: -1%;
+    font-size: 1.4em;
+    color: $white;
+    font-weight: bolder;
+    background-color: $pink;
+    border-radius: 100px;
+    width: 50%;
+          .placeholder{
+            color: $white;
+            font-weight: bold;
+          }
+        }
+}
+
 
 .navBar{
   background-color: $orange;
@@ -182,8 +203,3 @@ html{
   width: 100%;
 }
 
-.survey{
-  font-size: 1.5em;
-  text-align: center;
-  justify-content: center;
-}

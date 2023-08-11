@@ -3,7 +3,7 @@
 //Sign Out from here 
 //Can see amount of money donated 
 //they can upload profle picture 
-//are they registered as a 
+//are they registered as a volunteer? 
 
 
 //view Username - 

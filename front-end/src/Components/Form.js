@@ -13,13 +13,33 @@ const Form = ({ fields, onSubmit, onInputChange, errors }) => {
       {fields.map((field, index) => (
         <div key={index}>
           <label className='formLabel'>{field.label}</label>
-          <input
-            className='formInput'
-            type={field.type}
-            name={field.name}
-            onChange={onInputChange}
-            required
-          />
+          {field.type === 'checkbox' ? (
+            <input
+              type='checkbox'
+              name={field.name}
+              checked={field.checked}
+              onChange={field.onChange}
+            />
+          ) : field.type === 'select' ? (
+            <select
+              name={field.name}
+              value={field.value}
+              onChange={(event) => onInputChange(field.name, event.target.value)}
+            >
+              {field.options.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <input
+              type={field.type}
+              name={field.name}
+              value={field.value}
+              onChange={(event) => onInputChange(field.name, event.target.value)}
+            />
+          )}
           {errors && errors[field.name] && <p className='error'>{errors[field.name]}</p>}
         </div>
       ))}
