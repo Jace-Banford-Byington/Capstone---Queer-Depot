@@ -79,12 +79,12 @@ const handleInputChange = (fieldName, value) => {
                         onChange: handlePronounChange,
                       },
                       {
-                        name: "CustomPronoun", // Name for the custom pronoun input
-                        label: "Enter Custom Pronoun:", // Label for the input
-                        type: "text", // Input type
-                        value:  customPronoun, // Value of the custom pronoun input
-                        onChange: (event) => setCustomPronoun(event.target.value), // onChange handler
-                        hidden: selectedPronoun !== 'custom', // Only show the input when "Custom" is selected
+                        name: 'CustomPronoun',
+                        label: 'Enter Custom Pronoun:',
+                        type: 'text',
+                        value: customPronoun,
+                        onChange: (event) => setCustomPronoun(event.target.value),
+                        hidden: selectedPronoun === 'custom',
                       },
                       {
                         name: 'inSchool',
@@ -100,16 +100,14 @@ const handleInputChange = (fieldName, value) => {
                       { name: "HoursRequested", label: "Hours requested:" },
                       
                     ];
-
+// console.log(selectedPronoun, "Selected")
+// console.log("Is Custom Selected?: ", customPronoun)
+// console.log(fields.hidden, "Is it hideen?")
   return ( 
    <>
         <div className='survey'>
-          
 
-
-
-
-
+        
   <Form  
     fields={fields} 
     onSubmit={handleSubmit} 
@@ -122,7 +120,7 @@ const handleInputChange = (fieldName, value) => {
   />
 
         </div>
-          //Have a part where ou can either enter custom pronouns or choose from the 3 main ones
+          {/* //Have a part where ou can either enter custom pronouns or choose from the 3 main ones
 
 
             //This is where you put the radio button for the different contacting methods email 
@@ -130,7 +128,7 @@ const handleInputChange = (fieldName, value) => {
                                                                                           both 
 
      // depending on which one is clicked show field to put in an email address a phone number or both fields
-    
+     */}
     </>
   )
 }
