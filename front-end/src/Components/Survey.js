@@ -3,10 +3,12 @@ import React from 'react'
 import Form from './Form'
 
 const Survey = () => {
+  const [inSchool, setInSchool] = useState(false); // Initial value is false
   const [selectedPronoun, setSelectedPronoun] = useState('');
   const [customPronoun, setCustomPronoun] = useState('');
-  const [inSchool, setInSchool] = useState(false); // Initial value is false
-
+  const [legalName, setLegalName] = useState(''); // Initialize with an empty string
+  const [preferredName, setPreferredName] = useState(''); // Initialize with an empty string
+  const [sexuality, setSexuality] = useState(''); // Initialize with an empty string
  
  
   const handleCheckboxChange = () => {
@@ -25,6 +27,22 @@ const Survey = () => {
 const handleSubmit = () => {
 
 };
+const handleInputChange = (fieldName, value) => {
+  // Update the component's state based on the input field changes
+  if (fieldName === 'LegalName') {
+    // Update LegalName state
+    setLegalName(value);
+  } else if (fieldName === 'PreferredName') {
+    // Update PreferredName state
+    setPreferredName(value);
+  } else if (fieldName === 'Sexuality') {
+    // Update Sexuality state
+    setSexuality(value);
+  }
+  // Add similar conditions for other fields
+};
+
+
 // //○	Requirements for Volunteers (Expectations, Roles, etc.) 
 // ○	Name 
 // ○	Pronouns 
@@ -49,56 +67,40 @@ const handleSubmit = () => {
 
                     // Sunday: 11 am - 3 pm <br />
 
+  const fields = [
+                      { name: 'LegalName', label: 'Legal Name:', type: 'type' },
+                      { name: "PreferredName", label: "Preferred Name:", type: "text" },
+                      {
+                        name: 'Pronoun',
+                        label: 'Pronoun:',
+                        type: 'select', // Use a select type for the dropdown
+                        options: ['he', 'she', 'they', 'custom'],
+                        value: selectedPronoun,
+                        onChange: handlePronounChange,
+                      },
+                      {
+                        name: "CustomPronoun", // Name for the custom pronoun input
+                        label: "Enter Custom Pronoun:", // Label for the input
+                        type: "text", // Input type
+                        value:  customPronoun, // Value of the custom pronoun input
+                        onChange: (event) => setCustomPronoun(event.target.value), // onChange handler
+                        hidden: selectedPronoun !== 'custom', // Only show the input when "Custom" is selected
+                      },
+                      {
+                        name: 'inSchool',
+                        label: 'Currently in School',
+                        type: 'checkbox',
+                        checked: inSchool,
+                        onChange: handleCheckboxChange,
+                      },
+                      { name: "Job", label: "Job:", type: 'text' },
+                      { name: "Sexuality", label: "Sexuality:", type: 'text' },
+                      { name: "Age", label: "Age:", type: 'number' },
+                      { name: "Gender", label: "Gender:", type: 'text' },
+                      { name: "HoursRequested", label: "Hours requested:" },
+                      
+                    ];
 
-
-
-    const fields = [
-       
-        { name: 'LegalName', label: 'Legal Name:', type: 'type' },
-        { name: "PreferredName", label:"Preferred Name:", type: "text" },
-        {
-          name: 'Pronoun',
-          label: 'Pronoun:',
-          type: 'select', // Use a select type for the dropdown
-          options: ['he', 'she', 'they', 'custom'],
-          value: formData.Pronoun,
-          onChange: handleInputChange,
-        },
-        {
-          name: 'inSchool',
-          label: 'Currently in School',
-          type: 'checkbox',
-          checked: inSchool,
-          onChange: handleCheckboxChange,
-        },        
-        { name: "Job", label: "Job:", type: 'text' },
-        { name: "Sexuality", label: "Sexuality:", type:'text' },
-        { name: "Age", label: "Age:", type: 'number' },
-        { name: "Gender", label: "Gender:", type:'text' },
-        { name: "HoursRequested", label: "Hours requested:" },
-       
-    ];
- // <> { 
-    //     name: 'Pronouns',
-    //     label: 'Pronouns:',
-    //     type: 'select',
-    //     options: [
-    //       { value: 'he', label: 'He/Him' },
-    //       { value: 'she', label: 'She/Her' },
-    //       { value: 'they', label: 'They/Them' },
-    //       { value: 'custom', label: 'Custom' },
-    //     ],
-    //     value: selectedPronoun,
-    //     onChange: handlePronounChange,
-    //   },
-    //   {
-    //     name: 'CustomPronoun',
-    //     label: 'Enter Custom Pronoun:',
-    //     type: 'text',
-    //     value: customPronoun,
-    //     onChange: (event) => setCustomPronoun(event.target.value),
-    //     hidden: selectedPronoun !== 'custom', // Hide the field unless "Custom" is selected
-    //   },
   return ( 
    <>
         <div className='survey'>
@@ -108,7 +110,16 @@ const handleSubmit = () => {
 
 
 
-                  <Form  fields={fields} onSubmit={handleSubmit}/>
+  <Form  
+    fields={fields} 
+    onSubmit={handleSubmit} 
+    selectedPronoun={selectedPronoun} 
+    handlePronounChange={handlePronounChange} 
+    onInputChange={handleInputChange}
+    customPronoun={customPronoun}
+    setCustomPronoun={setCustomPronoun}
+
+  />
 
         </div>
           //Have a part where ou can either enter custom pronouns or choose from the 3 main ones
