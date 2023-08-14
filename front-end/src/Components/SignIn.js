@@ -51,8 +51,13 @@ const SignIn = () => {
               });
         }
 
+
+    const handleInputChange = (event) => {
+
+    }
+    
+
     const fields = [
-       
         { name: 'Username', label: 'Username:', type: 'type' },
         { name: 'Password', label: "Password", type: 'text'}
     ];
@@ -66,7 +71,7 @@ const SignIn = () => {
     
     <div className="SignInForm">
        <h1 className='Title'>SignIn</h1> 
-    <Form fields={fields} onSubmit={handleSubmit}/>
+    <Form fields={fields} onSubmit={handleSubmit} onInputChange={handleInputChange}/>
     <label className='rememberMe'>
         Remember Me
         <input

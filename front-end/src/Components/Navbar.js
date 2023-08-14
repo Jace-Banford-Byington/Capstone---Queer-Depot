@@ -30,29 +30,28 @@ const Navbar = () => {
   return (
     <div className='navBar'>
 
-
-  <NavLink to="/" className={({ isActive, isPending, toClick }) => isPending ? "pending" : isActive ? "active" : toClick ? "toClick" : ""}>
+  <NavLink to="/" >
       <img id='logoBtn' src='./logo.png'/>
   </NavLink>
     
-  <NavLink to="/Donate" className={({ isActive, isPending, toClick }) => isPending ? "pending" : isActive ? "active" : toClick ? "toClick" : ""}>
+  <NavLink to="/Donate">
             Donate
   </NavLink>
     
     
     {hasToken ? (  //tHERE IS A TOKEN
       <>
-      < NavLink to='/Volunteer' className={({ isActive, isPending, toClick }) => isPending ? "pending" : isActive ? "active" : toClick ? "toClick" : ""} >
+      < NavLink to='/Volunteer'  >
         Volunteer
     </NavLink>
-    <NavLink to=''  className={({ isActive, isPending, toClick }) => isPending ? "pending" : isActive ? "active" : toClick ? "toClick" : ""} >
+    <NavLink to='' >
         Profile
     </NavLink>
-      <button onClick={handleSignOut}>Sign Out</button>
+      <a className='signOut' onClick={handleSignOut}>Sign Out</a>
       </>
     ) : ( //No token
 
-      <NavLink to='/SignIn' className={({ isActive, isPending, toClick }) => isPending ? "pending" : isActive ? "active" : toClick ? "toClick" : ""} >
+      <NavLink to='/SignIn' >
             Log In
       </NavLink>
     
