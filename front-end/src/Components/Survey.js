@@ -100,9 +100,8 @@ const handleInputChange = (fieldName, value) => {
                       { name: "HoursRequested", label: "Hours requested:" },
                       
                     ];
-// console.log(selectedPronoun, "Selected")
-// console.log("Is Custom Selected?: ", customPronoun)
-// console.log(fields.hidden, "Is it hideen?")
+console.log(selectedPronoun, "Selected")
+console.log("Is Custom Selected?: ", customPronoun)
   return ( 
    <>
         <div className='survey'>
