@@ -1,4 +1,5 @@
 import React from 'react';
+import BirthdayPicker from './BirthdayPicker'; // Import the BirthdayPicker component
 
 const Form = ({
   fields,
@@ -8,13 +9,16 @@ const Form = ({
   onInputChange,
   customPronoun,
   setCustomPronoun,
+  birthdate,            
+  handleDateChange,
   errors,
 }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
-    onSubmit(event, data);
+    const dataToSend = { ...formData, birthdate }; // Combine form data and birthdate
+    onSubmit(dataToSend);
   };
 
   return (
@@ -71,10 +75,11 @@ const Form = ({
               />
             )
           )}
-
           {errors && errors[field.name] && <p className='error'>{errors[field.name]}</p>}
         </div>
-      ))}
+      ))}          
+      <BirthdayPicker onDateChange={handleDateChange} />
+
       <button className='mt-3 formSubmit ' type="submit">Submit</button>
     </form>
   );

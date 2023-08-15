@@ -82,6 +82,34 @@ app.post('/signin', async (req,res) => {
     }
 });
 
+app.post('/volunteer', async (req,res) => {
+  //Take in the volunteer information 
+  const volunteerData = req.body;
+
+
+  //This is a 
+
+
+
+  if (volunteerData.accepted) {
+    // If accepted, send an email
+    sendEmail({
+      email: volunteerData.email,
+      name: volunteerData.name,
+      accepted: true,
+    });
+  } else {
+    // If rejected, send an email
+    sendEmail({
+      email: volunteerData.email,
+      name: volunteerData.name,
+      accepted: false,
+    });
+  }
+
+  res.status(200).send('Volunteer information processed.');
+
+});
 
 
 app.listen(port, () => {

@@ -1,6 +1,14 @@
 const {mongoose, Schema} = require("mongoose");
 const bcrypt = require('bcrypt')
+const nodemailer = require('nodemailer');
 
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: 'your-email@gmail.com',
+    pass: 'your-email-password',
+  },
+});
 
 const connectionString = "mongodb+srv://Dev:ZSkgoYkHhMNwWHAI@api.neyvnyg.mongodb.net/Capstone";
 //User  password = 1234
@@ -53,28 +61,45 @@ const Charity = new Schema({
 const CharityModel = mongoose.model("Charity",Charity);
 
 
-
-
-
-
-
-
-
-
-
-
 exports.DAL = {
+
+  sendEmail: (data) => {
+
+    const mailOptions = {
+      from: 'your-email@gmail.com',
+      to: data.email, // Replace with the volunteer's email
+      subject: 'Volunteer Application Status',
+      text: `Dear ${data.name},\n\nWe appreciate your interest in volunteering. ${
+        data.accepted ? 'Congratulations! Your application has been accepted.' : 'We regret to inform you that your application has been rejected.'
+      }\n\nThank you,\nQueer Depo Team`,
+    };
+  
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Error sending email:', error);
+      } else {
+        console.log('Email sent:', info.response);
+      }
+    });
+  
+    //if they are accepted 
+
+
+    //if they are rejected
+  },
+
+
+
     addVolunteer: (data) => {
         //Add a Volunteer to the database as long as signed in
 
         //validate data 
-      if(!data.ID || !data.Name || !data.Age || !data.Birthday || !data.HoursTotal|| !data.HoursRecent){
+      if(!data.ID || !data.Name || !data.Age || !data.Birthday){
             console.log("ID: ", data.ID)
             console.log("Name: ", data.Name)
             console.log("Age: ",data.Age)
             console.log("Birthday: ", data.Birthday)
-            console.log("Recent Hours: ", data.HoursRecent)
-            console.log("Total Hours ", data.HoursTotal)
+          
 
             console.log("Something is missing. Please fill out every part")
         return 

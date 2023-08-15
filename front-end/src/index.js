@@ -5,6 +5,7 @@ import { createBrowserRouter,  RouterProvider } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'; //bootstrap
 import './index.scss'; //your custom scss
 
+
 import NavBar from './Components/Navbar';
 import Register from './Components/Register';
 import Home from './Components/Home'

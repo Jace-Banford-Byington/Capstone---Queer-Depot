@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import React from 'react'
 import Form from './Form'
+import BirthdayPicker from './BirthdayPicker'
 
 const Survey = () => {
   const [inSchool, setInSchool] = useState(false); // Where the in school is stored
@@ -10,9 +11,12 @@ const Survey = () => {
   const [preferredName, setPreferredName] = useState(''); // Stores the prefered naame
   const [sexuality, setSexuality] = useState(''); // keeps track of the entered sexuality
   const [formErrors, setFormErrors] = useState({}); //will store errors found in submitting form
+  const [birthdate, setBirthdate] = useState(''); // stores birthday 
 
  
- 
+  const handleDateChange = (date) => {
+    setBirthdate(date);
+  };
   const handleCheckboxChange = () => {
     setInSchool(!inSchool); // Toggle the value when checkbox is clicked
   };
@@ -113,9 +117,8 @@ const handleInputChange = (fieldName, value) => {
                       },
                       { name: "Job", label: "Job:", type: 'text', className: 'survey mb-3 ' },
                       { name: "Sexuality", label: "Sexuality:", type: 'text' ,className: 'survey mb-3 ' },
-                      { name: "Age", label: "Age:", type: 'number', className: 'survey mb-3 ' },
                       { name: "Gender", label: "Gender:", type: 'text', className: 'survey mb-3 ' },
-                      
+
                     ];
 // console.log(selectedPronoun, "Selected")
 // console.log("Is Custom Selected?: ", customPronoun)
@@ -123,7 +126,7 @@ const handleInputChange = (fieldName, value) => {
    <>
         <div className='survey'>
 
-        
+
   <Form  
     fields={fields} 
     onSubmit={handleSubmit} 
@@ -132,6 +135,8 @@ const handleInputChange = (fieldName, value) => {
     onInputChange={handleInputChange}
     customPronoun={customPronoun}
     setCustomPronoun={setCustomPronoun}
+    birthdate={birthdate}               
+    handleDateChange={handleDateChange} 
     errors={formErrors}
 
   />
