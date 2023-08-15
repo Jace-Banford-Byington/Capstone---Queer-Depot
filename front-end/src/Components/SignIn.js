@@ -8,7 +8,7 @@ import  { useState, useEffect  }from 'react'
 import Form from './Form'
 import TokenHook from './TokenHook';
 import { Link, useNavigate } from 'react-router-dom';
-
+import '../index.scss'
 const SignIn = () => {
 
   const [rememberMe, setRememberMe] = useState(false);
@@ -58,8 +58,8 @@ const SignIn = () => {
     
 
     const fields = [
-        { name: 'Username', label: 'Username:', type: 'type' },
-        { name: 'Password', label: "Password", type: 'text'}
+        { name: 'Username', label: 'Username:', type: 'type' , className: 'SignInForm mb-3 ' },
+        { name: 'Password', label: "Password: ", type: 'text', className: "SignInForm"}
     ];
     useEffect(() => {
       if (hasToken) {
@@ -68,25 +68,18 @@ const SignIn = () => {
       }
     }, [hasToken]);
     return (
-    
+      <div className="container d-flex justify-content-center align-items-center vh-10">
     <div className="SignInForm">
-       <h1 className='Title'>SignIn</h1> 
+       <h1 className='Title'>Sign In</h1> 
     <Form fields={fields} onSubmit={handleSubmit} onInputChange={handleInputChange}/>
-    <label className='rememberMe'>
-        Remember Me
-        <input
-          type="checkbox"
-          checked={rememberMe}
-          onChange={() => setRememberMe(!rememberMe)}
-        />
-     </label>
+
     <Link to="/Register">
             Make an Account
     </Link>
 
 
     </div>
-    
+    </div>
 
 
   )

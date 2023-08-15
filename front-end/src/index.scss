@@ -6,13 +6,33 @@ $yellow: #fdffb6ff;
 $green: #caffbfff;
 $blue: #a0c4ffff;
 $purple: #bdb2ffff;
-$white: #FFFFFF;
 $brown: #613915;
-$black: #000;
 
 
-//#D7CEB2 NAv bar
-//#BF8B85 burnt sand
+$QueerBlue: #99d9ea; //Q
+$QueerDarkBlue: #00a2e8; //U
+$QueerGreen: #b5e61d; //E
+$white: #FFFFFF; //E
+$QueerOrange: #ffc90e; //R
+$QueerRed: #fd6666; //D
+$QueerPink: #ffaec9; //E
+$black: #000; //P
+
+  $colors: $black, $QueerBlue, $QueerDarkBlue, $QueerGreen, $white, $QueerOrange, $QueerRed, $QueerPink, $black;
+
+
+  @mixin queer-title($text) {
+    $length: length($colors);
+  
+    @for $i from 3 through $length {
+      //SCSS uses 1 indexing
+      @debug "Value of $i: #{$i}";
+      &:nth-child(#{$i}) {
+        color: nth($colors, $i);
+      }
+    }
+  }
+
 html{
   background-color:$blue;
   text-align: center;
@@ -42,6 +62,8 @@ html{
 }
 
 .intro{
+  display: inline-block;
+  @include queer-title(attr(data-text));
   font-weight: bolder;
 }
 
@@ -85,11 +107,8 @@ html{
     background-color: $pink;
     border-radius: 100px;
     width: 50%;
-          .placeholder{
-            color: $white;
-            font-weight: bold;
-          }
-        }
+          
+  }
 }
 
 
@@ -191,18 +210,22 @@ html{
       }
 
 }
-
+.Responsibilities{
+  padding-top: 30px;
+}
 
 
 
 
 
 .SignInForm{
-  margin-top: 2%;
+  margin-top: 2%;      
+  border-radius: 100px;
 }
 .Title{
   margin-top: 4%;
   font-size: 1.2em;
+
 }
 
 .location{

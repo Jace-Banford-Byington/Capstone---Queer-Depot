@@ -18,8 +18,8 @@ const Home = () => {
 
   return (
     <div className='homeDescription'>
-      <h1 className='intro'>Welcome to Queer Depo</h1> 
-        <h3>Just clothes.</h3>
+      <h1 className='intro' data-text='Welcome to Queer Depo'>Welcome to Queer Depo</h1> 
+        <h4>Just clothes.</h4>
         <img className='homeLogo' src='./logo.png'/>       
 
           <p>Come Join us at 

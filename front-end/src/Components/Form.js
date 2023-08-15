@@ -21,10 +21,27 @@ const Form = ({
     <form onSubmit={handleSubmit}>
       {fields.map((field, index) => (
         <div key={index}>
-          <label className='formLabel'>{field.label}</label>
+          {field.name !== 'CustomPronoun' ? (
+            <label className='formLabel'>{field.label}</label>
+          ) : (
+            selectedPronoun === 'custom' && (<>
+             <label className='formLabel'>Custom Pronouns</label>
+              <input
+                className={field.className}
+                type='text'
+                name='CustomPronoun'
+                value={customPronoun}
+                onChange={(event) => setCustomPronoun(event.target.value)}
+                required={selectedPronoun === 'custom'}
+              />
+            </>
+             
+            )
+          )}
 
           {field.type === 'checkbox' ? (
             <input
+              className={field.className}
               type='checkbox'
               name={field.name}
               checked={field.checked}
@@ -32,10 +49,10 @@ const Form = ({
             />
           ) : field.type === 'select' ? (
             <select
+              className={field.className}
               name={field.name}
-              value={selectedPronoun} // Use the selectedPronoun state as the value
+              value={selectedPronoun}
               onChange={(event) => handlePronounChange(event)}
-
             >
               {field.options.map((option) => (
                 <option key={option} value={option}>
@@ -44,26 +61,21 @@ const Form = ({
               ))}
             </select>
           ) : (
-            field.name === 'CustomPronoun' && selectedPronoun === 'custom' ? (
+            field.name !== 'CustomPronoun' && (
               <input
-                type='text'
-                name='CustomPronoun'
-                value={customPronoun}
-                onChange={(event) => setCustomPronoun(event.target.value)}
+                className={field.className}
+                type={field.type}
+                name={field.name}
+                value={field.value}
+                onChange={(event) => onInputChange(field.name, event.target.value)}
               />
-            ) : (
-            <input
-              type={field.type}
-              name={field.name}
-              value={field.value}
-              onChange={(event) => onInputChange(field.name, event.target.value)}
-            />
-          ))}
+            )
+          )}
 
           {errors && errors[field.name] && <p className='error'>{errors[field.name]}</p>}
         </div>
       ))}
-      <button className='formSubmit' type="submit">Submit</button>
+      <button className='mt-3 formSubmit ' type="submit">Submit</button>
     </form>
   );
 };
