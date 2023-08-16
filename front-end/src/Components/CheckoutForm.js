@@ -8,7 +8,7 @@ function CheckoutForm() {
     const [submitClicked, setSubmitClicked] = useState(false);
 
     const handlesubmit =(e) => {
-        e.preventDefault();
+        // e.preventDefault();
         setShowCard(true)
         setSubmitClicked(true)
     }

@@ -62,16 +62,18 @@ const CharityModel = mongoose.model("Charity",Charity);
 
 
 exports.DAL = {
+  countRecords: async () => {
+    const volunteers = await VolunteerModel.countDocuments();
+    console.log("Total Records: ", volunteers)
+  },
 
-  sendEmail: (data) => {
+  sendEmail: (data, message) => {
 
     const mailOptions = {
       from: 'your-email@gmail.com',
       to: data.email, // Replace with the volunteer's email
       subject: 'Volunteer Application Status',
-      text: `Dear ${data.name},\n\nWe appreciate your interest in volunteering. ${
-        data.accepted ? 'Congratulations! Your application has been accepted.' : 'We regret to inform you that your application has been rejected.'
-      }\n\nThank you,\nQueer Depo Team`,
+      text: message,
     };
   
     transporter.sendMail(mailOptions, (error, info) => {
@@ -86,6 +88,50 @@ exports.DAL = {
 
 
     //if they are rejected
+  },
+
+  canVolunteer: (data) => {
+    const records = countRecords()
+    if(!data.ID || !data.Name || !data.Age || !data.Birthday){
+      console.log("ID: ", data.ID)
+      console.log("Name: ", data.Name)
+      console.log("Age: ",data.Age)
+      console.log("Birthday: ", data.Birthday)
+      console.log("Something is missing")
+      return;
+    }
+    const birthdate = new Date(data.Birthday);
+    const currentDate = new Date();
+    const age = currentDate.getFullYear() - birthdate.getFullYear();
+
+    if ( //checks if birthday has already happened else it decreses age since it hasn't happened yet
+      currentDate.getMonth() < birthdate.getMonth() ||
+      (currentDate.getMonth() === birthdate.getMonth() &&
+        currentDate.getDate() < birthdate.getDate())
+    ) {
+      // Decrease the age if the birthdate hasn't occurred yet this year
+      age--;
+    }
+      //if there 20 volunteers in the database reject the rest of the applications
+      //make sure the user is under 20 
+      //check if they are older than 10 
+
+      console.log("Age:", age);  
+          if(age > 20){
+            sendEmail(data.email)
+            //We are sorry to inform you that you are too old to be a volunteer here, this posotion is for younger people feel free to apply for a job 
+              
+          }
+          if (age < 10){
+            sendEmail(data.email) 
+            //I am so sorry you are too young to volunteer here 
+                //Tell how many months / years before they are allowed to volunteer here
+          }
+
+          if(records < 20 ){
+            //sorry we have too many volunteers at this time as we are a small location no more of 20 volunteers are plausible to give a substantial amount of hours. 
+          }
+          message = "Congradulations you have been selected to ";
   },
 
 

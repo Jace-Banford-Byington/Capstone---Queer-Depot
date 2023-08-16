@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import React from 'react'
 import Form from './Form'
-import BirthdayPicker from './BirthdayPicker'
 
 const Survey = () => {
   const [inSchool, setInSchool] = useState(false); // Where the in school is stored
@@ -31,7 +30,7 @@ const Survey = () => {
     }
   };
 const handleSubmit = (event, data) => {
-  event.preventDefault();
+  if(event.preventDefault) event.preventDefault();
   const errors = {};
     fields.forEach((field) => {
       if (!data[field.name]) {
@@ -125,8 +124,6 @@ const handleInputChange = (fieldName, value) => {
   return ( 
    <>
         <div className='survey'>
-
-
   <Form  
     fields={fields} 
     onSubmit={handleSubmit} 
