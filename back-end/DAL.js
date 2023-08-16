@@ -70,10 +70,10 @@ exports.DAL = {
   sendEmail: (data, message) => {
 
     const mailOptions = {
-      from: 'your-email@gmail.com',
+      from: 'queerdepo@gmail.com',
       to: data.email, // Replace with the volunteer's email
       subject: 'Volunteer Application Status',
-      text: message,
+      text: `${message /n}, The Queer Depo Team. ` ,
     };
   
     transporter.sendMail(mailOptions, (error, info) => {
@@ -129,9 +129,10 @@ exports.DAL = {
           }
 
           if(records < 20 ){
+            message = "We are sorry to inform you that, due to our small location we can not have more than 20 volunteers at a time"
             //sorry we have too many volunteers at this time as we are a small location no more of 20 volunteers are plausible to give a substantial amount of hours. 
           }
-          message = "Congradulations you have been selected to ";
+          message = "Congradulations you have been approved to be a volunteer. ";
   },
 
 
