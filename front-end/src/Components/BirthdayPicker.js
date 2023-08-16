@@ -31,7 +31,7 @@ const BirthdayPicker = ({ onDateChange }) => {
     <div className="form-group">
       <label htmlFor="birthday-picker">Select Your Birthdate:</label>
       <input
-        type="text"
+        type="date"
         id="birthday-picker"
         className="form-control"
         value={birthdate}

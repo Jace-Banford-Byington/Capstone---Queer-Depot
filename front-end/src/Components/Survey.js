@@ -29,8 +29,11 @@ const Survey = () => {
       setCustomPronoun('');
     }
   };
-const handleSubmit = (event, data) => {
-  if(event.preventDefault) event.preventDefault();
+
+  const handleSubmit = (event) => {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  const data = Object.fromEntries(formData.entries());
   const errors = {};
     fields.forEach((field) => {
       if (!data[field.name]) {
@@ -117,6 +120,7 @@ const handleInputChange = (fieldName, value) => {
                       { name: "Job", label: "Job:", type: 'text', className: 'survey mb-3 ' },
                       { name: "Sexuality", label: "Sexuality:", type: 'text' ,className: 'survey mb-3 ' },
                       { name: "Gender", label: "Gender:", type: 'text', className: 'survey mb-3 ' },
+                      { nam: "Birthday", label: "Enter" }
 
                     ];
 // console.log(selectedPronoun, "Selected")
@@ -124,9 +128,13 @@ const handleInputChange = (fieldName, value) => {
   return ( 
    <>
         <div className='survey'>
+    <label for="LegalName">Legal Name</label>
+
+
+
   <Form  
     fields={fields} 
-    onSubmit={handleSubmit} 
+    onSubmit={handleSubmit}    
     selectedPronoun={selectedPronoun} 
     handlePronounChange={handlePronounChange} 
     onInputChange={handleInputChange}

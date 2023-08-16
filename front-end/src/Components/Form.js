@@ -14,7 +14,10 @@ const Form = ({
   errors,
 }) => {
   const handleSubmit = (event) => {
-    event.preventDefault();    
+    console.log("Event: ", event)
+    event.preventDefault();        
+    console.log("Form has been sumited")
+
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
     const dataToSend = { ...formData, birthdate }; // Combine form data and birthdate

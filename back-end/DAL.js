@@ -73,7 +73,7 @@ exports.DAL = {
       from: 'queerdepo@gmail.com',
       to: data.email, // Replace with the volunteer's email
       subject: 'Volunteer Application Status',
-      text: `${message /n}, The Queer Depo Team. ` ,
+      text: `Dear ${data.Name /n}  ${message /n}, The Queer Depo Team. ` ,
     };
   
     transporter.sendMail(mailOptions, (error, info) => {
@@ -83,11 +83,6 @@ exports.DAL = {
         console.log('Email sent:', info.response);
       }
     });
-  
-    //if they are accepted 
-
-
-    //if they are rejected
   },
 
   canVolunteer: (data) => {
@@ -112,27 +107,31 @@ exports.DAL = {
       // Decrease the age if the birthdate hasn't occurred yet this year
       age--;
     }
-      //if there 20 volunteers in the database reject the rest of the applications
+
       //make sure the user is under 20 
       //check if they are older than 10 
 
       console.log("Age:", age);  
           if(age > 20){
-            sendEmail(data.email)
-            //We are sorry to inform you that you are too old to be a volunteer here, this posotion is for younger people feel free to apply for a job 
+              message = ""
+            //We are sorry to inform you that you are too old to be a volunteer here, this position is for younger people feel free to apply for a job 
               
           }
           if (age < 10){
-            sendEmail(data.email) 
+            message  = ""
             //I am so sorry you are too young to volunteer here 
                 //Tell how many months / years before they are allowed to volunteer here
           }
 
+           //if there 20 volunteers in the database reject the rest of the applications
           if(records < 20 ){
             message = "We are sorry to inform you that, due to our small location we can not have more than 20 volunteers at a time"
-            //sorry we have too many volunteers at this time as we are a small location no more of 20 volunteers are plausible to give a substantial amount of hours. 
           }
-          message = "Congradulations you have been approved to be a volunteer. ";
+          else {
+            message = "Congratulations you have been approved to be a volunteer. ";
+              addVolunteer(data)
+          }
+          sendEmail(data.Email, message)
   },
 
 
