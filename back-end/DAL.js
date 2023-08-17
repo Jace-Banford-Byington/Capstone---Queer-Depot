@@ -1,7 +1,7 @@
 const {mongoose, Schema} = require("mongoose");
 const bcrypt = require('bcrypt')
-const nodemailer = require('nodemailer');
-
+const nodemailer = require('emailjs');
+const { google } = require('googleapis')
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
@@ -10,12 +10,13 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+const creditionalFile = './back-end/client_secret_498036337129-mlasge43td1h1ggkk4mjth5nr973f4ov.apps.googleusercontent.com.json';
 const connectionString = "mongodb+srv://Dev:ZSkgoYkHhMNwWHAI@api.neyvnyg.mongodb.net/Capstone";
 //User  password = 1234
 
 mongoose.connect(connectionString, {useUnifiedTopology: true, useNewUrlParser: true});
 
-const VolunteerCollection = "VolunteerData";
+const VolunteerCollection = "Volunteer Data";
 const EmailCollection = "Emails";
 const CharityCollection = "Charity";
 const connection = mongoose.connection;
@@ -27,11 +28,12 @@ connection.once("open", () => {
 const VolunteerData = new Schema(
     {
         ID: String,
-        Name: String,
+        Email: String,
+        LegalName: String,
+        PreferredName: String,
         Age: Number,
         Birthday: String,
-        HoursTotal: Number,
-        HoursRecent: Number
+        
     },
     {collection: VolunteerCollection}
 );
@@ -65,76 +67,68 @@ exports.DAL = {
   countRecords: async () => {
     const volunteers = await VolunteerModel.countDocuments();
     console.log("Total Records: ", volunteers)
+    return volunteers;
   },
 
-  sendEmail: (data, message) => {
+    sendEmail: async (data, message) => {
+      const transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+          type: 'OAuth2', ///498036337129-mlasge43td1h1ggkk4mjth5nr973f4ov.apps.googleusercontent.com
+          user: 'queerdepo@gmail.com',
+          clientId: '498036337129-mlasge43td1h1ggkk4mjth5nr973f4ov.apps.googleusercontent.com',
+          clientSecret: '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',
+          pass: 'CapstoneProject', 
+        },
+      });
+      const mailOptions = {
+        from: 'queerdepo@gmail.com',
+        to: data.Email, // Replace with the volunteer's email
+        subject: 'Volunteer Application Status',
+        text: `Dear ${data.PreferredName } \n ${message} \n, The Queer Depo Team. ` ,
+      };
+      
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error('Error sending email:', error);
+        } else {
+          console.log('Email sent:', info.response);
+        }
+      });
+    },
 
-    const mailOptions = {
-      from: 'queerdepo@gmail.com',
-      to: data.email, // Replace with the volunteer's email
-      subject: 'Volunteer Application Status',
-      text: `Dear ${data.Name /n}  ${message /n}, The Queer Depo Team. ` ,
-    };
-  
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.error('Error sending email:', error);
-      } else {
-        console.log('Email sent:', info.response);
+    canVolunteer: async (data) => {
+      const records = await exports.DAL.countRecords()
+      console.log("Data recieved",data)
+      if( !data.LegalName ||!data.PreferredName ||!data.Age || !data.Birthday){
+        console.log("Legal Name: ", data.LegalName)
+        console.log("Prefered Name: ", data.PreferredName)
+        console.log("Age: ", data.Age)
+        console.log("Birthday: ", data.Birthday)
+        console.log("Something is missing")
+        return;
       }
-    });
-  },
 
-  canVolunteer: (data) => {
-    const records = countRecords()
-    if(!data.ID || !data.Name || !data.Age || !data.Birthday){
-      console.log("ID: ", data.ID)
-      console.log("Name: ", data.Name)
-      console.log("Age: ",data.Age)
-      console.log("Birthday: ", data.Birthday)
-      console.log("Something is missing")
-      return;
-    }
-    const birthdate = new Date(data.Birthday);
-    const currentDate = new Date();
-    const age = currentDate.getFullYear() - birthdate.getFullYear();
+            if(data.Age > 20){
+                message = "We are sorry to inform you that you are too old to be a volunteer here, this position is for younger people feel free to apply for a job"
+              // 
+                
+            }
+            if (data.Age < 10){
+              message  = "I am so sorry you are too young to volunteer here. "
+             
+            }
 
-    if ( //checks if birthday has already happened else it decreses age since it hasn't happened yet
-      currentDate.getMonth() < birthdate.getMonth() ||
-      (currentDate.getMonth() === birthdate.getMonth() &&
-        currentDate.getDate() < birthdate.getDate())
-    ) {
-      // Decrease the age if the birthdate hasn't occurred yet this year
-      age--;
-    }
-
-      //make sure the user is under 20 
-      //check if they are older than 10 
-
-      console.log("Age:", age);  
-          if(age > 20){
-              message = ""
-            //We are sorry to inform you that you are too old to be a volunteer here, this position is for younger people feel free to apply for a job 
-              
-          }
-          if (age < 10){
-            message  = ""
-            //I am so sorry you are too young to volunteer here 
-                //Tell how many months / years before they are allowed to volunteer here
-          }
-
-           //if there 20 volunteers in the database reject the rest of the applications
-          if(records < 20 ){
-            message = "We are sorry to inform you that, due to our small location we can not have more than 20 volunteers at a time"
-          }
-          else {
-            message = "Congratulations you have been approved to be a volunteer. ";
-              addVolunteer(data)
-          }
-          sendEmail(data.Email, message)
-  },
-
-
+            //if there 20 volunteers in the database reject the rest of the applications
+            if(records < 20 ){
+              message = "We are sorry to inform you that, due to our small location we can not have more than 20 volunteers at a time"
+            }
+            else {
+              message = "Congratulations you have been approved to be a volunteer. ";
+                addVolunteer(data)
+            }
+            exports.DAL.sendEmail(data.Email, message)
+    },
 
     addVolunteer: (data) => {
         //Add a Volunteer to the database as long as signed in
@@ -307,4 +301,3 @@ exports.DAL = {
       }
     
     }
-

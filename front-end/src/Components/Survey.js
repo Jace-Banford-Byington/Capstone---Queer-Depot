@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import React from 'react'
-import Form from './Form'
+import { event } from 'jquery';
+import BirthdayPicker from './BirthdayPicker';
+
+const url = 'http://localhost:3300/volunteer'
 
 const Survey = () => {
   const [inSchool, setInSchool] = useState(false); // Where the in school is stored
@@ -9,13 +12,40 @@ const Survey = () => {
   const [legalName, setLegalName] = useState(''); // stores the legal name
   const [preferredName, setPreferredName] = useState(''); // Stores the prefered naame
   const [sexuality, setSexuality] = useState(''); // keeps track of the entered sexuality
-  const [formErrors, setFormErrors] = useState({}); //will store errors found in submitting form
-  const [birthdate, setBirthdate] = useState(''); // stores birthday 
-
+  const [gender, setGender] = useState('')
+  const [birthday, setBirthday] = useState({}); // stores birthday 
+  const [email, setEmail] = useState('');
+  const [age, setAge] = useState('')
+  const[errors, setErrors] = useState(''); //will store errors found in submitting form
  
   const handleDateChange = (date) => {
-    setBirthdate(date);
+    const parsedDate = new Date(date);
+  
+    const year = parsedDate.getFullYear();
+    const month = parsedDate.getMonth() + 1; // Month is 0-based
+    const day = parsedDate.getDate();
+      
+    setBirthday({year,month,day});
   };
+
+  const calculateAge = () => {
+    const birthdate = new Date(birthday.year, birthday.month - 1, birthday.day);
+    const currentDate = new Date();
+    let calculatedAge = currentDate.getFullYear() - birthdate.getFullYear();
+
+    if (
+      currentDate.getMonth() < birthdate.getMonth() ||
+      (currentDate.getMonth() === birthdate.getMonth() &&
+      currentDate.getDate() < birthdate.getDate())
+    ) {
+      calculatedAge--;
+    }
+
+    return calculatedAge;
+  };
+
+
+  
   const handleCheckboxChange = () => {
     setInSchool(!inSchool); // Toggle the value when checkbox is clicked
   };
@@ -30,132 +60,134 @@ const Survey = () => {
     }
   };
 
-  const handleSubmit = (event) => {
-  event.preventDefault();
-  const formData = new FormData(event.target);
-  const data = Object.fromEntries(formData.entries());
-  const errors = {};
-    fields.forEach((field) => {
-      if (!data[field.name]) {
-        errors[field.name] = `${field.label} is required`;
-      }
-    });
+  const handleSubmit = async (event) => {
+      event.preventDefault();
+
+      const formData = {
+        Email: email,
+        LegalName: legalName,
+        PreferredName: preferredName,
+        Pronoun: selectedPronoun,
+        CustomPronoun: customPronoun,
+        InSchool: inSchool,
+        Sexuality: sexuality,
+        Gender: gender,
+        Birthday: birthday,
+        Age: calculateAge()
+      };
+      console.log("Form Data:", formData)
+      const error = {};
 
     if (Object.keys(errors).length > 0) {
-      setFormErrors(errors);
+      console.log("Got Errors")
+      setErrors(errors);
     } else {
       // Reset form errors if there are none
-      setFormErrors({});
-    }
+      setErrors({});
+
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+      .then((response) => response.text()) // Get the response as text
+      .then((data) => {
+        console.log(data); // Log the response as plain text
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+        }
 };
-const handleInputChange = (fieldName, value) => {
-  // Update the component's state based on the input field changes
-  if (fieldName === 'LegalName') {
-    // Update LegalName state
-    setLegalName(value);
-  } else if (fieldName === 'PreferredName') {
-    // Update PreferredName state
-    setPreferredName(value);
-  } else if (fieldName === 'Sexuality') {
-    // Update Sexuality state
-    setSexuality(value);
-  }
-  // Add similar conditions for other fields
-};
 
 
-// //○	Requirements for Volunteers (Expectations, Roles, etc.) 
-// ○	Name 
-// ○	Pronouns 
-// ○	In School? 
-// ○	Job?
-// ○	Sexuality 
-// ○	Gender 
-// ○	Age
-// ○	Hours requested 
-// ○	Ways to Contact (Email / Phone / both)   
-//                      Monday: 6 pm - 6 am <br/>
-
-                    // Tuesday: Donation Day <br/>
-
-                    // Wednesday: 8 am - 8 pm <br/>
-
-                    // Thursday: 8 am - 8 pm <br />
-
-                    // Friday: 8 am - 8 pm <br />
-
-                    // Saturday: 8 am - 10 pm <br />
-
-                    // Sunday: 11 am - 3 pm <br />
-
-  const fields = [
-                      { name: 'LegalName', label: 'Legal Name:', type: 'type', className: 'survey mb-3 '},
-                      { name: "PreferredName", label: "Preferred Name:", type: "text", className: 'survey mb-3 ' },
-                      {
-                        name: 'Pronoun',
-                        label: 'Pronoun:',
-                        type: 'select', // Use a select type for the dropdown
-                        options: ['he', 'she', 'they', 'custom'],
-                        value: selectedPronoun,
-                        onChange: handlePronounChange,
-                        className: 'survey mb-3 '
-                      },
-                      {
-                        name: 'CustomPronoun',
-                        label: 'Enter Custom Pronoun:',
-                        type: 'text',
-                        value: customPronoun,
-                        onChange: (event) => setCustomPronoun(event.target.value),
-                        hidden: selectedPronoun === 'custom',
-                        className: 'survey mb-3 '
-                      },
-                      {
-                        name: 'inSchool',
-                        label: 'Currently in School',
-                        type: 'checkbox',
-                        checked: inSchool,
-                        onChange: handleCheckboxChange,
-                        className: 'survey mb-3 '
-                      },
-                      { name: "Job", label: "Job:", type: 'text', className: 'survey mb-3 ' },
-                      { name: "Sexuality", label: "Sexuality:", type: 'text' ,className: 'survey mb-3 ' },
-                      { name: "Gender", label: "Gender:", type: 'text', className: 'survey mb-3 ' },
-                      { nam: "Birthday", label: "Enter" }
-
-                    ];
-// console.log(selectedPronoun, "Selected")
-// console.log("Is Custom Selected?: ", customPronoun)
   return ( 
    <>
-        <div className='survey'>
-    <label for="LegalName">Legal Name</label>
+    <div className='survey'>
+
+    <label>Email</label>
+        <input
+          type='email'
+          name='Email'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <label>Legal Name</label>
+        <input 
+            type='text' 
+            name='LegalName' 
+            value={legalName} 
+            onChange={(e) => setLegalName(e.target.value)}
+        />
+
+        <label>Preferred Name</label>
+        <input 
+            type='text'
+            name='PreferredName'
+            value={preferredName}
+            onChange={(e) => setPreferredName(e.target.value)}
+        />
+
+        <label>Pronoun</label>
+        <select 
+            type='dropdown'
+            value={selectedPronoun}
+            onChange={handlePronounChange}
+            className='survey mb-3'
+          >
+            <option value=''>Select pronoun</option>
+            <option value= 'he'>He/Him</option>
+            <option value='she'>She/Her</option>
+            <option value='they'>They/Them</option>
+            <option value='custom'>Custom</option>
+          </select>
+         
+          {selectedPronoun === 'custom' && ( <>
+            <label>Custom:</label>
+            <input
+              className='survey mb-3'
+              type='text'
+              name='CustomPronoun'
+              value={customPronoun}
+              onChange={(e) => setCustomPronoun(e.target.value)}
+            />
+            </>
+          )}
+
+          <label>In School</label>
+          <input
+           type=  'checkbox'
+           value={inSchool}
+           onChange= {(e) => setInSchool(e.target.value)}
+           className= 'survey mb-3 '
+           />
+
+           <label>Sexuality</label>
+           <input 
+              type='text'
+              name='Sexuality'
+              value={sexuality}
+              onChange={(e)=> setSexuality(e.target.value)}
+            />
+
+            <label>Gender</label>
+            <input 
+                type='text'
+                name='Gender'
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+            />
 
 
+           <BirthdayPicker  onDateChange={handleDateChange}/>
 
-  <Form  
-    fields={fields} 
-    onSubmit={handleSubmit}    
-    selectedPronoun={selectedPronoun} 
-    handlePronounChange={handlePronounChange} 
-    onInputChange={handleInputChange}
-    customPronoun={customPronoun}
-    setCustomPronoun={setCustomPronoun}
-    birthdate={birthdate}               
-    handleDateChange={handleDateChange} 
-    errors={formErrors}
-
-  />
-
+        <button className='mt-3 formSubmit' type='submit' onClick={handleSubmit}>
+        Submit
+      </button>
         </div>
-          {/* //Have a part where ou can either enter custom pronouns or choose from the 3 main ones
-
-
-            //This is where you put the radio button for the different contacting methods email 
-                                                                                          phone 
-                                                                                          both 
-
-     // depending on which one is clicked show field to put in an email address a phone number or both fields
-     */}
     </>
   )
 }

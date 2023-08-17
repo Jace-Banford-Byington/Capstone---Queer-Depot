@@ -8,10 +8,7 @@ const Register = () => {
   const [errors, setErrors] = useState({})
 
 
-
-
-
-  const handleFormSubmit = (event,formData) => {
+  const handleFormSubmit = (event) => {
     event.preventDefault();
         console.log("Form Data",formData)
         //send to the register method in api
@@ -111,9 +108,25 @@ const Register = () => {
   return (
     <>
       <div>
-        <h1>Create an account</h1></div>
-        <Form fields={fields} onSubmit={handleFormSubmit} onInputChange={handleInputChange} errors={errors} />
-
+        <h1>Create an account</h1>
+      </div>
+      <div>
+        {fields.map((field, index) => (
+          <div key={index}>
+            <label className="formLabel">{field.label}</label>
+            <input
+              type={field.type}
+              name={field.name}
+              value={formData[field.name] || ''}
+              onChange={handleInputChange}
+            />
+            {errors && errors[field.name] && (
+              <p className='error'>{errors[field.name]}</p>
+            )}
+          </div>
+        ))}
+        <button onClick={handleFormSubmit}>Create Account</button>
+      </div>
     </>
   )
 }

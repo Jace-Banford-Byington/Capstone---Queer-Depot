@@ -68,13 +68,13 @@ app.post('/signin', async (req,res) => {
     const userData = req.body;
     console.log("Provided Information: ", userData)
 
-    let username = await DAL.checkUsername(userData.Username); 
-    let password = await DAL.checkPassword(userData.Username,userData.Password);
+    let username = await DAL.checkUsername(userData.username); 
+    let password = await DAL.checkPassword(userData.username,userData.password);
     console.log("Username: ", username)
     console.log("Password: ", password)
 
     if (username.success && password.success) {
-      const token = jwt.sign({ username: userData.Username }, generateSecretKey(), { expiresIn: '1h' });
+      const token = jwt.sign({ username: userData.username }, generateSecretKey(), { expiresIn: '1h' });
       // console.log(token)
       res.json({ success: true, message: 'Successfully signed in', token: token });
     } else {
@@ -85,27 +85,7 @@ app.post('/signin', async (req,res) => {
 app.post('/volunteer', async (req,res) => {
   //Take in the volunteer information 
   const volunteerData = req.body;
-
-
-  //This is a 
-
-
-
-  if (volunteerData.accepted) {
-    // If accepted, send an email
-    sendEmail({
-      email: volunteerData.email,
-      name: volunteerData.name,
-      accepted: true,
-    });
-  } else {
-    // If rejected, send an email
-    sendEmail({
-      email: volunteerData.email,
-      name: volunteerData.name,
-      accepted: false,
-    });
-  }
+  DAL.canVolunteer(volunteerData)
 
   res.status(200).send('Volunteer information processed.');
 
