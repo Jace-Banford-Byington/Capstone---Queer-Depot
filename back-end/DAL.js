@@ -2,6 +2,8 @@ const {mongoose, Schema} = require("mongoose");
 const bcrypt = require('bcrypt')
 const nodemailer = require('nodemailer');
 const { google } = require('googleapis')
+const emailjs = require("emailjs-com");
+
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
@@ -108,35 +110,52 @@ exports.DAL = {
   },
 
     sendEmail: async (UserId,data, message) => {
-      const token = await exports.DAL.getToken(UserId);
-        oauth2Client.setCredentials({
-          access_token:token
-      });
-      const transporter = nodemailer.createTransport({
-        service: 'Gmail',
-        auth: {
-          type: 'OAuth2', ///498036337129-mlasge43td1h1ggkk4mjth5nr973f4ov.apps.googleusercontent.com
-          user: 'queerdepo@gmail.com',
-          clientId:clientID,
-          clientSecret:clientSecret,
-          refreshToken: token,
-          pass: 'CapstoneProject', 
-        },
-      });
-      const mailOptions = {
-        from: 'queerdepo@gmail.com',
-        to: data.Email, // Replace with the volunteer's email
+      const token = await DAL.getToken(UserId);
+      /* emailjs
+                        .send(
+                            "service_qwvszd6",
+                            "template_g622l3i",
+                            {
+                                to_email: "kking@student.neumont.edu",
+                                from_email: "maneframephotography2023@gmail.com",
+                                from_name: "Mane Frame",
+                                subject: "Confirmation Email",
+                                message: 
+                                    Hi ${data.firstName} ${data.lastName} \n
+                                    Your order has been confirmed! \n
+                                    Date placed: ${formattedDate} \n
+                                    Shipping to: ${data.shipAddress ? data.shipAddress : data.address}\n
+                                    Thank you for your order! \n
+                                    -Mane Frame Photography
+                                ,
+                            },
+                           
+                       */
+
+      const emailData = {
+        to_name: data.PreferredName,
+        from_email: 'queerdepo@gmail.com',
+        to_email: data.Email, // Replace with the volunteer's email
         subject: 'Volunteer Application Status',
-        text: `Dear ${data.PreferredName } \n ${message} \n, The Queer Depo Team. ` ,
+        message: `Dear ${data.PreferredName } \n ${message} \n, The Queer Depo Team. ` ,
       };
       
-      transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          console.error('Error sending email:', error);
-        } else {
-          console.log('Email sent:', info.response);
-        }
-      });
+      emailjs.send(
+        "service_qwvszd6",
+        "template_g622l3i",
+          {
+            emailData,
+          },
+         "9vf6hmOtA1t-luXhD"
+      )
+         .then(
+          function (response) {
+            console.log("Email sent successfully!", response);
+          },
+          function (error) {
+            console.error("Email failed to send.", error);
+          }
+        );
     },
 
     canVolunteer: async (userId,data) => {

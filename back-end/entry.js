@@ -68,19 +68,19 @@ app.post('/register', async (req,res) => {
 
 app.post('/signin', async (req,res) => {
     const userData = req.body;
-    console.log("Provided Information: ", userData)
+    // console.log("Provided Information: ", userData)
 
     let username = await DAL.checkUsername(userData.username); 
     let password = await DAL.checkPassword(userData.username,userData.password);
-    console.log("Username: ", username)
-    console.log("Password: ", password)
+    console.log("Username: ", username, '\n')
+    console.log("Password: ", password, '\n')
 
     if (username.success && password.success) {
-      console.log('Setting userId in session:', username._id);
+      // console.log('Setting userId in session:', username._id);
       req.session.userId = username._id; // Set userId in session after successful login
 
       const token = jwt.sign({ username: userData.username }, secretKey, { expiresIn: '1h' });
-      console.log("Token: ", token)
+      console.log("Token: ", token , '\n')
       res.json({ success: true, message: 'Successfully signed in', token: token });
     } else {
       res.json({ success: false, message: 'Invalid username or password' });
@@ -89,7 +89,7 @@ app.post('/signin', async (req,res) => {
 
 app.post('/volunteer', async (req,res) => {
   const authHeader = req.headers.authorization;
-    console.log("Authorization Header: ", authHeader)
+    // console.log("Authorization Header: ", authHeader)
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
