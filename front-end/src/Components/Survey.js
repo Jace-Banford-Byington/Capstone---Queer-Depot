@@ -1,31 +1,30 @@
-import { useState } from 'react'
-import React from 'react'
-import { event } from 'jquery';
+import React, { useState } from 'react';
+import jwt_decode from 'jwt-decode'; // Import jwt-decode library
 import BirthdayPicker from './BirthdayPicker';
 
-const url = 'http://localhost:3300/volunteer'
+const url = 'http://localhost:3300/volunteer';
 
 const Survey = () => {
-  const [inSchool, setInSchool] = useState(false); // Where the in school is stored
-  const [selectedPronoun, setSelectedPronoun] = useState(''); //where pronouns are stored
-  const [customPronoun, setCustomPronoun] = useState(''); //Where the custom pronounts are placed if they have any 
-  const [legalName, setLegalName] = useState(''); // stores the legal name
-  const [preferredName, setPreferredName] = useState(''); // Stores the prefered naame
-  const [sexuality, setSexuality] = useState(''); // keeps track of the entered sexuality
-  const [gender, setGender] = useState('')
-  const [birthday, setBirthday] = useState({}); // stores birthday 
+  const [inSchool, setInSchool] = useState(false);
+  const [selectedPronoun, setSelectedPronoun] = useState('');
+  const [customPronoun, setCustomPronoun] = useState('');
+  const [legalName, setLegalName] = useState('');
+  const [preferredName, setPreferredName] = useState('');
+  const [sexuality, setSexuality] = useState('');
+  const [gender, setGender] = useState('');
+  const [birthday, setBirthday] = useState({});
   const [email, setEmail] = useState('');
-  const [age, setAge] = useState('')
-  const[errors, setErrors] = useState(''); //will store errors found in submitting form
- 
+  const [age, setAge] = useState('');
+  const [errors, setErrors] = useState({});
+
   const handleDateChange = (date) => {
     const parsedDate = new Date(date);
-  
+
     const year = parsedDate.getFullYear();
     const month = parsedDate.getMonth() + 1; // Month is 0-based
     const day = parsedDate.getDate();
-      
-    setBirthday({year,month,day});
+
+    setBirthday({ year, month, day });
   };
 
   const calculateAge = () => {
@@ -36,7 +35,7 @@ const Survey = () => {
     if (
       currentDate.getMonth() < birthdate.getMonth() ||
       (currentDate.getMonth() === birthdate.getMonth() &&
-      currentDate.getDate() < birthdate.getDate())
+        currentDate.getDate() < birthdate.getDate())
     ) {
       calculatedAge--;
     }
@@ -44,24 +43,35 @@ const Survey = () => {
     return calculatedAge;
   };
 
-
-  
   const handleCheckboxChange = () => {
-    setInSchool(!inSchool); // Toggle the value when checkbox is clicked
+    setInSchool(!inSchool);
   };
 
   const handlePronounChange = (event) => {
     const value = event.target.value;
     setSelectedPronoun(value);
 
-    // Clear the custom pronoun input when a pre-defined pronoun is selected
     if (value !== 'custom') {
       setCustomPronoun('');
     }
   };
 
   const handleSubmit = async (event) => {
-      event.preventDefault();
+    event.preventDefault();
+    const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+
+    if (!token) {
+      console.error('Token not found');
+      return;
+    }
+    try {
+      const decodedToken = jwt_decode(token);
+      const userId = decodedToken.username;
+
+      const headers = {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      };
 
       const formData = {
         Email: email,
@@ -73,41 +83,36 @@ const Survey = () => {
         Sexuality: sexuality,
         Gender: gender,
         Birthday: birthday,
-        Age: calculateAge()
+        Age: calculateAge(),
       };
-      console.log("Form Data:", formData)
-      const error = {};
 
-    if (Object.keys(errors).length > 0) {
-      console.log("Got Errors")
-      setErrors(errors);
-    } else {
-      // Reset form errors if there are none
-      setErrors({});
+      if (Object.keys(errors).length > 0) {
+        setErrors(errors);
+      } else {
+        setErrors({});
 
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
-      .then((response) => response.text()) // Get the response as text
-      .then((data) => {
-        console.log(data); // Log the response as plain text
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-        }
-};
+        fetch(url, {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify(formData),
+        })
+          .then((response) => response.text())
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
-
-  return ( 
-   <>
-    <div className='survey'>
-
-    <label>Email</label>
+  return (
+    <>
+      <div className='survey'>
+           <label>Email</label>
         <input
           type='email'
           name='Email'
@@ -189,8 +194,8 @@ const Survey = () => {
       </button>
         </div>
     </>
-  )
-}
+ 
+  );
+};
 
-
-export default Survey
+export default Survey;

@@ -18,12 +18,12 @@ app.use(cors());
 const generateSecretKey = () => {
   return crypto.randomBytes(16).toString('hex');
 };
+const secretKey = generateSecretKey(); // Generate your secret key
 
-const secretKey = generateSecretKey();
 // Configure session middleware
 app.use(
   session({
-    secret: generateSecretKey(),
+    secret: secretKey,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -53,6 +53,8 @@ app.post('/register', async (req,res) => {
           } else {
             // Save the user with the hashed password
             const user = { ...userData, Password: hash };
+            const savedUser = await DAL.addEmail(user)
+            req.session.userId = savedUser._id; // Set userId in session after successful login
             console.log("Password", user.Password)
             DAL.addEmail(user);
           }
@@ -74,8 +76,11 @@ app.post('/signin', async (req,res) => {
     console.log("Password: ", password)
 
     if (username.success && password.success) {
-      const token = jwt.sign({ username: userData.username }, generateSecretKey(), { expiresIn: '1h' });
-      // console.log(token)
+      console.log('Setting userId in session:', username._id);
+      req.session.userId = username._id; // Set userId in session after successful login
+
+      const token = jwt.sign({ username: userData.username }, secretKey, { expiresIn: '1h' });
+      console.log("Token: ", token)
       res.json({ success: true, message: 'Successfully signed in', token: token });
     } else {
       res.json({ success: false, message: 'Invalid username or password' });
@@ -83,12 +88,42 @@ app.post('/signin', async (req,res) => {
 });
 
 app.post('/volunteer', async (req,res) => {
+  const authHeader = req.headers.authorization;
+    console.log("Authorization Header: ", authHeader)
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+  console.log("Passed Authoeize")
+  const token = req.headers.authorization.split(' ')[1]; // Extract the token part from the header
+  console.log("Token split")
+  console.log("Token", token)
+
+  // Verify the token and extract user information if needed
+  try {
+    console.log("Starting to decript")
+    const decodedToken = jwt.verify(token, secretKey);
+    console.log('Decoded Token:', decodedToken); // Print the decoded token to check its content
+    const userId = decodedToken.username; // For example, assuming 'username' is used in the token
+    console.log('User ID:', userId); // Print the user ID to check its value
+
   //Take in the volunteer information 
   const volunteerData = req.body;
-  DAL.canVolunteer(volunteerData)
 
-  res.status(200).send('Volunteer information processed.');
-
+  if (!userId) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+  
+ 
+    await DAL.canVolunteer(userId, volunteerData);
+    res.status(200).send('Volunteer information processed.'); 
+}
+  
+  catch (error) {
+    console.error('Error processing volunteer information:', error);
+    res.status(500).send('Error processing volunteer information');
+  }
 });
 
 

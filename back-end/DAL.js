@@ -1,6 +1,6 @@
 const {mongoose, Schema} = require("mongoose");
 const bcrypt = require('bcrypt')
-const nodemailer = require('emailjs');
+const nodemailer = require('nodemailer');
 const { google } = require('googleapis')
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
@@ -11,10 +11,27 @@ const transporter = nodemailer.createTransport({
 });
 
 const creditionalFile = './back-end/client_secret_498036337129-mlasge43td1h1ggkk4mjth5nr973f4ov.apps.googleusercontent.com.json';
+const scope = 'https://www.googleapis.com/auth/gmail.send';
+const clientID = '498036337129-mlasge43td1h1ggkk4mjth5nr973f4ov.apps.googleusercontent.com'
+const  clientSecret =  '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';
+const redirect_uris = "http://localhost";
 const connectionString = "mongodb+srv://Dev:ZSkgoYkHhMNwWHAI@api.neyvnyg.mongodb.net/Capstone";
+
+
+
+
+const oauth2Client = new google.auth.OAuth2(
+ clientID,
+ clientSecret,
+ redirect_uris
+ );
+
+
 //User  password = 1234
 
-mongoose.connect(connectionString, {useUnifiedTopology: true, useNewUrlParser: true});
+mongoose.connect(connectionString, 
+    {useUnifiedTopology: true, 
+      useNewUrlParser: true});
 
 const VolunteerCollection = "Volunteer Data";
 const EmailCollection = "Emails";
@@ -24,6 +41,14 @@ const connection = mongoose.connection;
 connection.once("open", () => {
     console.log("Mongoos is Connected");
 });
+
+const TokenSchema = new Schema({
+  UserId:String,
+  Token:String
+});
+
+const TokenModel = mongoose.model("Token", TokenSchema);
+
 
 const VolunteerData = new Schema(
     {
@@ -43,10 +68,11 @@ const VolunteerModel = mongoose.model("VolunteerData", VolunteerData);
 
 const email = new Schema(
     {
+        UserId: String,
         Email: String,
         Password: String,
         Username: String,
-        Name: String
+        Name: String,
     },
     { collection: EmailCollection }
 );
@@ -64,20 +90,36 @@ const CharityModel = mongoose.model("Charity",Charity);
 
 
 exports.DAL = {
+  saveToken: async (UserId, token) => {
+    const tokenDocument = new TokenModel({UserId: UserId, Token: token});
+    await tokenDocument.save();
+  },
+
+  getToken: async (UserId) => {
+    const tokenDocument = await TokenModel.findOne({UserId: UserId});
+    return tokenDocument ? tokenDocument.Token : null
+  },
+
+
   countRecords: async () => {
     const volunteers = await VolunteerModel.countDocuments();
     console.log("Total Records: ", volunteers)
     return volunteers;
   },
 
-    sendEmail: async (data, message) => {
+    sendEmail: async (UserId,data, message) => {
+      const token = await exports.DAL.getToken(UserId);
+        oauth2Client.setCredentials({
+          access_token:token
+      });
       const transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
           type: 'OAuth2', ///498036337129-mlasge43td1h1ggkk4mjth5nr973f4ov.apps.googleusercontent.com
           user: 'queerdepo@gmail.com',
-          clientId: '498036337129-mlasge43td1h1ggkk4mjth5nr973f4ov.apps.googleusercontent.com',
-          clientSecret: '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',
+          clientId:clientID,
+          clientSecret:clientSecret,
+          refreshToken: token,
           pass: 'CapstoneProject', 
         },
       });
@@ -97,10 +139,11 @@ exports.DAL = {
       });
     },
 
-    canVolunteer: async (data) => {
+    canVolunteer: async (userId,data) => {
       const records = await exports.DAL.countRecords()
       console.log("Data recieved",data)
-      if( !data.LegalName ||!data.PreferredName ||!data.Age || !data.Birthday){
+      if(!userId || !data.LegalName ||!data.PreferredName ||!data.Age || !data.Birthday){
+        console.log("User ID: ", userId)
         console.log("Legal Name: ", data.LegalName)
         console.log("Prefered Name: ", data.PreferredName)
         console.log("Age: ", data.Age)
@@ -108,6 +151,7 @@ exports.DAL = {
         console.log("Something is missing")
         return;
       }
+      let message = '';
 
             if(data.Age > 20){
                 message = "We are sorry to inform you that you are too old to be a volunteer here, this position is for younger people feel free to apply for a job"
@@ -125,9 +169,9 @@ exports.DAL = {
             }
             else {
               message = "Congratulations you have been approved to be a volunteer. ";
-                addVolunteer(data)
+                DAL.addVolunteer(data)
             }
-            exports.DAL.sendEmail(data.Email, message)
+            exports.DAL.sendEmail(userId, data.Email, message)
     },
 
     addVolunteer: (data) => {
@@ -289,7 +333,7 @@ exports.DAL = {
           const user = await emailModel.findOne({ Username: username });
           if (user) {
             // Username exists
-            return { success: true, message: 'Username found' };
+            return { success: true, message: 'Username found', _id: user._id };
           } else {
             // Username does not exist
             return { success: false, message: 'Username is incorrect' };
