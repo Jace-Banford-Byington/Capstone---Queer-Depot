@@ -170,34 +170,13 @@ const Calendar = () => {
     //International Self-Care Day	July 24
     //Malala Day	July 12
 
-    const renderEventContent = (eventInfo) => {
-      const eventStyling = {
-        zIndex: eventInfo.event.extendedProps.zIndex,
-        whiteSpace: 'normal',
-        top: `${eventInfo.dayEl.offsetTop}px`
-      }
-      if (eventInfo.dayEl && eventInfo.dayEl.offsetTop !== undefined) {
-        eventStyling.top = `${eventInfo.dayEl.offsetTop}px`;
-      }
-    
-      const eventDate = eventInfo.event.start;
-      const eventMonth = eventDate.getMonth();
-  
-      let eventColorClass = '';
-      if (eventMonth === 9) {
-        eventColorClass = 'event-October';
-      }
-  
-      return (
-        <div className={`event-content ${eventColorClass}`} style={ eventStyling }>
-          {eventInfo.event.title}
-        </div>
-      );
-    };
 
-  return (
+
+  return (      
+  <div className='flex'>
     <div className="calenderDiv">
 					<FullCalendar 
+            className="calendar"
 						plugins={[dayGridPlugin, rrulePlugin]}
 						initialView="dayGridMonth"
 						weekends={true}
@@ -208,10 +187,10 @@ const Calendar = () => {
               right: "next",
              
             }}
-            eventContent={renderEventContent}
 					
 					/> 
 				</div>
+   </div>
   )
 }
 

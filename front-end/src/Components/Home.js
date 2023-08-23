@@ -18,15 +18,14 @@ const Home = () => {
 
   return (
     <div className='homeDescription'>
-      <h1 className='intro' data-text='Welcome to Queer Depo'>Welcome to Queer Depo</h1> 
-        <h4>Just clothes.</h4>
+ <h1 className='intro' data-text='Welcome to Queer Depo'>Welcome to Queer Depo</h1>        
+ <h4>Just clothes.</h4>
         <img className='homeLogo' src='./logo.png'/>       
 
           <p>Come Join us at 
               <br/>
             4545 S 900 E, Salt Lake City, UT 84117</p>
             {/* <img src='./map.png' /> */}
-           <Calendar />
             <h1 className='storeHours'> Hours : <br/>
 
                     Monday: 6 pm - 6 am <br/>
@@ -37,9 +36,15 @@ const Home = () => {
                     Saturday: 8 am - 10 pm <br />
                     Sunday: 11 am - 3 pm <br />
           </h1>
-            <img className='location' src='./location.png' />
-           
-            {/* <Map /> */}
+          <div className='flex'>
+              <Calendar />
+
+              <img className='location' src='./location.png' alt='Queer Depo Location'/>
+                  
+                    {/* <Map /> */}
+
+          </div>
+          
 
     </div>
 

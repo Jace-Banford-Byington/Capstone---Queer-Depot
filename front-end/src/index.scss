@@ -9,29 +9,38 @@ $purple: #bdb2ffff;
 $brown: #613915;
 
 
-$QueerBlue: #99d9ea; //Q
-$QueerDarkBlue: #00a2e8; //U
-$QueerGreen: #b5e61d; //E
-$white: #FFFFFF; //E
-$QueerOrange: #ffc90e; //R
-$QueerRed: #fd6666; //D
-$QueerPink: #ffaec9; //E
-$black: #000; //P
+$QueerBlue: #99d9ea;
+$QueerDarkBlue: #00a2e8;
+$QueerGreen: #b5e61d;
+$white: #FFFFFF;
+$QueerOrange: #ffc90e;
+$QueerRed: #fd6666;
+$QueerPink: #ffaec9;
+$black: #000;
 
-  $colors: $black, $QueerBlue, $QueerDarkBlue, $QueerGreen, $white, $QueerOrange, $QueerRed, $QueerPink, $black;
+$colors: $black, $QueerBlue, $QueerDarkBlue, $QueerGreen, $white, $QueerOrange, $QueerRed, $QueerPink, $black;
 
-
-  @mixin queer-title($text) {
-    $length: length($colors);
+.intro {
+  display: inline-block;
+  font-weight: bolder;
+  position: relative; // For positioning the ::before pseudo-element
   
-    @for $i from 3 through $length {
-      //SCSS uses 1 indexing
-      @debug "Value of $i: #{$i}";
-      &:nth-child(#{$i}) {
-        color: nth($colors, $i);
-      }
-    }
+  &::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, @each $color in $colors {
+      #{$color},
+    });
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
   }
+}
+
 
 html{
   background-color:$blue;
@@ -61,11 +70,6 @@ html{
   height: 500px;
 }
 
-.intro{
-  display: inline-block;
-  @include queer-title(attr(data-text));
-  font-weight: bolder;
-}
 
 .charityInfo{
   text-align: center;
@@ -187,72 +191,87 @@ html{
   padding-top: 30px;
 }
 
-
-.calenderDiv{
-  margin-top: 10%;
-
-  .event-content {     
-    font-size: .8em;
-    font-weight: bold;
-    text-align: center;
-    color: black;
-    background-color: #a0ffab;
+.flex{
+  margin-top: 3%;
+        display: flex;
+        flex-direction: row;
+        // margin-top: 15%;        
+  .location{
+    height: 1000px;
+    width: 100%;      
+    right: 3px;
   }
 
-   .event-October{
-    font-size: .8em;
-    background-color: $QueerOrange;
-    color: black;
-    font-weight: bold;
-  }
+  .calenderDiv{
+    width: 900px;
+    height: 500px;
+    margin-bottom: 30px;
+    .fc-event-title-container{
+      font-size: .9em;
+      font-weight: bold;
+      text-align: center;
+      color: black;
+      background-color: #a0ffab;
+      text-align: center;
+      white-space: normal;
+    }
 
-  .fc-button{
-    background-color: $pink;
-    border-radius: 15px;
-  }
+    .fc-button{
+      background-color: $pink;
+      border-radius: 15px;
+      
+    }
 
-  .fc-toolbar-title{
-    color: $purple;
-    padding-bottom: 10px;
-    font-size: 2em;
-  }
+    .fc-toolbar-title{
+      color: $purple;
+      padding: 10px;
+      font-size: 1.6em;
+      text-align: center;
+    }
 
-  .fc-header-toolbar{
-    background-color: $black;
-    padding: 5%;
-    border-radius: 300px;
-  }
+    .fc-header-toolbar{
+      background-color: $black;
+      padding: 5%;
+      border-radius: 300px;
+      width: 550px;
+      height: 210px;
+      margin-left: 20%;
 
-  .fc-today-button.fc-button{
-    :active{
-        background-color: $pink;
+    }
+
+    .fc-today-button.fc-button{
+      position: absolute;
+      left: 630px;
+      :active{
+          background-color: $pink;
+      }
+      color: white;     
+      background-color: $QueerPink
+      
+    }
+
+    .fc-col-header-cell-cushion{
+      color: #f4ffa0;
+      text-decoration: none;
+      font-size: 1.3em;
+    }
+
+    .fc-daygrid-day-number{
+      color: #a0ffab;
+      text-decoration: none;
+      padding: 10px;
+    }
+
+    .fc-day{
+      background-color: #aba0ff;
+      
     }
   }
- 
-  .fc-col-header-cell-cushion{
-    color: #f4ffa0;
-    text-decoration: none;
-    font-size: 1.3em;
-  }
 
 
-  .fc-daygrid-day-number{
-    color: #a0ffab;
-    text-decoration: none;
-  }
-
-  .fc-day{
-    background-color: #aba0ff;
-    
-  }
-
- .fc-daygrid-day.fc-day-today{
-     background-color: $QueerPink
-  }
-}
 //The current days colorr #a0ffda
     //transparentize 
-
+}
 .SignInForm{
   margin-top: 2%;      
   border-radius: 100px;
@@ -263,10 +282,7 @@ html{
 
 }
 
-.location{
-  height: fit-content;
-  width: 100%;
-}
+
 
 .navBar{
   background-color: $orange;

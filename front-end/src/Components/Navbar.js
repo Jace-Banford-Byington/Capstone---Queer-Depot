@@ -59,9 +59,7 @@ const Navbar = () => {
     )
   }
    
- <label className='charityTotal'>CurrentTotal Donated</label>
-    {/* //Amount currently donated to charity */}
- 
+ {/* <label className='charityTotal'>CurrentTotal Donated</label> */}
   
     
     </div>
