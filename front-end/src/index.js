@@ -15,6 +15,7 @@ import SignIn from './Components/SignIn';
 import Calendar from './Components/Calendar';
 import Survey from './Components/Survey';
 import Volunteer from './Components/Volunteer'
+import Profile from './Components/Profile';
 
 const url = "http://localhost:2000"
 
@@ -59,7 +60,15 @@ const router = createBrowserRouter([
       <NavBar />
       <Volunteer />
     </>
+  },
+  {
+    path: '/Profile',
+    element: <>
+      <NavBar />
+      <Profile />
+    </>
   }
+
 ]);
 
 

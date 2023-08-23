@@ -129,6 +129,24 @@ app.post('/volunteer', async (req,res) => {
 app.post('/donate', async (req,res) => {
   //confirm all different info is valid, (amount has been provided)
         //in database make sure the account that is signed in has the amount they donated into the total they have donated in total 
+});
+
+app.get('/getInfo/:username', async (req, res) => {
+  const username =  req.params.username;
+  try{
+      const user = await DAL.getUserFromUsername(username)
+      if(user){
+        console.log("Found User: ", user)
+        res.status(200).json(user);
+      } else {
+        console.log("Not here")
+        res.status(404).json({ message: 'User not found' });
+      }
+
+  }
+  catch(error){
+    console.log("Error: ", error)
+  }
 })
 
 app.listen(port, () => {

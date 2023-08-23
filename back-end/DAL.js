@@ -361,6 +361,18 @@ exports.DAL = {
           // Error occurred while checking the username
           return { success: false, message: 'Error occurred while checking the username' };
         }
+      },
+
+      getUserFromUsername: async (username) => {
+        console.log("trying to find: ", username)
+        try{
+            const user = await emailModel.findOne({Username: username}).exec();
+            console.log("Found him")
+            return user
+        }
+        catch(error){
+          console.log("Error finding User", error);
+          return null
+        }
       }
-    
     }

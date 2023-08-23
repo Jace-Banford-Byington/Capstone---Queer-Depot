@@ -44,7 +44,7 @@ const Navbar = () => {
       < NavLink to='/Volunteer'  >
         Volunteer
     </NavLink>
-    <NavLink to='' >
+    <NavLink to='/Profile' >
         Profile
     </NavLink>
       <a className='signOut' onClick={handleSignOut}>Sign Out</a>
