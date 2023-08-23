@@ -70,6 +70,95 @@ const Calendar = () => {
 
     ]
 
+    const customEvents = [
+      {title: "Epiphany", rrule: "FREQ=YEARLY;BYMONTH=1;BYMONTHDAY=6"},
+
+      {title: "GroundHog's Day", rrule: "FREQ=YEARLY;BYMONTH=1;BYMONTHDAY=2"},
+      {title: "Martin Luther King Jr. Birthday", rrule: "FREQ=YEARLY;BYMONTH=1;BYMONTHDAY=17"},
+      {title: "Lincoln's Birthday", rrule: "FREQ=YEARLY;BYMONTH=2;BYMONTHDAY=17"},
+
+      {title: "April Fools", rrule: "FREQ=YEARLY;BYMONTH=4;BYMONTHDAY=1"},
+      {title: "Valentine's Day", rrule: "FREQ=YEARLY;BYMONTH=2;BYMONTHDAY=14"},
+      {title: "Presidents Day", rrule: "FREQ=YEARLY;BYMONTH=2;BYMONTHDAY=21"},
+      {title: "Washington's Birthday", rrule: "FREQ=YEARLY;BYMONTH=2;BYMONTHDAY=21"},
+      {title: "Saint Partick's Day", rrule: "FREQ=YEARLY;BYMONTH=3;BYMONTHDAY=17"},
+      {title: "Memorial Day", rrule: "FREQ=YEARLY;BYMONTH=5MO;BYMONTHDAY=-1"},
+      {title: "Father's Day", rrule: "FREQ=YEARLY;BYMONTH=6;BYDAY=3SU"},
+      {title: "Mother's Day", rrule: "FREQ=YEARLY;BYMONTH=5;BYDAY=2SU"},
+      {title: "Labor Day", rrule: "FREQ=YEARLY;BYMONTH=9;BYDAY=1MO"},
+      {title: "Election Day", rrule: "FREQ=YEARLY;BYMONTH=11;BYDAY=1MO"},
+      {title: "National Day of Mourning", rrule: "FREQ=YEARLY;BYMONTH=11;BYDAY=4TH"},
+
+
+      {title: "Spring Equinox", rrule: "FREQ=YEARLY;BYMONTH=3;BYMONTHDAY=21"},
+      {title: "Autumn Equinox", rrule: "FREQ=YEARLY;BYMONTH=9;BYMONTHDAY=23"},
+      {title: "Summer Solstice", rrule: "FREQ=YEARLY;BYMONTH=6;BYMONTHDAY=21"},
+      {title: "Winter Equinox", rrule: "FREQ=YEARLY;BYMONTH=12;BYMONTHDAY=22"},
+      {title: "Yule", 
+        rrule: "FREQ=YEARLY;BYMONTH=12;BYMONTHDAY=21",
+        duration: { days: 12 }
+      },
+      {title: "Imbolic", rrule: "FREQ=YEARLY;BYMONTH=2;BYMONTHDAY=1"},
+      {title: "Ostara", rrule: "FREQ=YEARLY;BYMONTH=3;BYMONTHDAY=21"},
+      {title: "Litha", rrule: "FREQ=YEARLY;BYMONTH=6;BYMONTHDAY=21"},
+      {title: "Midsummer", rrule: "FREQ=YEARLY;BYMONTH=6;BYMONTHDAY=24"},
+      {title: "Lughnasdh", rrule: "FREQ=YEARLY;BYMONTH=8;BYMONTHDAY=1"},
+      {title: "Madon", rrule: "FREQ=YEARLY;BYMONTH=9;BYMONTHDAY=23"},
+      {title: "All Hallows", rrule: "FREQ=YEARLY;BYMONTH=11;BYMONTHDAY=1"},
+      {title: "Samhain", rrule: "FREQ=YEARLY;BYMONTH=11;BYMONTHDAY=1"},
+
+      { title: "May Day",rrule: "FREQ=YEARLY;BYMONTH=5;BYMONTHDAY=1" },
+      { title: "Beltane", rrule: "FREQ=YEARLY;BYMONTH=5;BYMONTHDAY=1" },
+      { title: "Cinco de Mayo",rrule: "FREQ=YEARLY;BYMONTH=5;BYMONTHDAY=5" },
+      { title: "V-E Day",rrule: "FREQ=YEARLY;BYMONTH=5;BYMONTHDAY=8" },
+
+
+      { title: "Flag Day",rrule: "FREQ=YEARLY;BYMONTH=6;BYMONTHDAY=14"  },
+      { title: "Juneteenth", rrule: "FREQ=YEARLY;BYMONTH=6;BYMONTHDAY=19" },
+
+      { title: "Forth of July",rrule: "FREQ=YEARLY;BYMONTH=7;BYMONTHDAY=4" },
+      { title: "Pioneer Day", rrule: "FREQ=YEARLY;BYMONTH=7;BYMONTHDAY=24" },
+     
+
+
+      { title: "Indigenous Peoples' Day", rrule:"FREQ=YEARLY;BYDAY=2MO;BYMONTH=10"},
+      { title: "Halloween",rrule: "FREQ=YEARLY;BYMONTH=10;BYMONTHDAY=31" },
+
+
+      { title: "Veterans Day", rrule: "FREQ=YEARLY;BYMONTH=9;BYMONTHDAY=11" },
+      { title: "All Saints Day", rrule: "FREQ=YEARLY;BYMONTH=9;BYMONTHDAY=1" },
+
+      { title: "Day of the Dead",
+        rrule:"FREQ=YEARLY;BYMONTH=11;BYMONTHDAY=1",
+        duration: {days: 2}
+      },
+
+      { title: "Trans Day of Remembrance", rrule: "FREQ=YEARLY;BYMONTH=11;BYMONTHDAY=20" },
+
+
+      { title: "Kwanzaa",
+      
+      rrule: "FREQ=YEARLY;BYMONTH=12;BYMONTHDAY=26",
+      duration: {days: 7}
+    },
+      { title: "Chrismas", rrule: "FREQ=YEARLY;BYMONTH=12;BYMONTHDAY=25" },
+      { title: "Christmas Eve", rrule: "FREQ=YEARLY;BYMONTH=12;BYMONTHDAY=24" },
+      { title: "New Years Eve", date: "2023-12-31" },
+
+      {title: "New Years", rrule:"FREQ=YEARLY;BYMONTH=1;BYMONTHDAY=1" }
+
+    ];
+
+
+    const processedEvents = customEvents.map((event, index) => {
+      const overlappingEvents = customEvents.filter(
+        (otherEvent, otherIndex) =>
+          index !== otherIndex &&
+          (event.start <= otherEvent.end && event.end >= otherEvent.start)
+      );
+      const zIndex = overlappingEvents.length + 1;
+      return { ...event, zIndex };
+    });
     // const displayAwarenessMonth = (monthIndex) => {
     //   if (monthIndex >= 0 && monthIndex < month.length) {
     //     return <div>{month[monthIndex]}</div>;
@@ -81,97 +170,45 @@ const Calendar = () => {
     //International Self-Care Day	July 24
     //Malala Day	July 12
 
+    const renderEventContent = (eventInfo) => {
+      const eventStyling = {
+        zIndex: eventInfo.event.extendedProps.zIndex,
+        whiteSpace: 'normal',
+        top: `${eventInfo.dayEl.offsetTop}px`
+      }
+      if (eventInfo.dayEl && eventInfo.dayEl.offsetTop !== undefined) {
+        eventStyling.top = `${eventInfo.dayEl.offsetTop}px`;
+      }
+    
+      const eventDate = eventInfo.event.start;
+      const eventMonth = eventDate.getMonth();
+  
+      let eventColorClass = '';
+      if (eventMonth === 9) {
+        eventColorClass = 'event-October';
+      }
+  
+      return (
+        <div className={`event-content ${eventColorClass}`} style={ eventStyling }>
+          {eventInfo.event.title}
+        </div>
+      );
+    };
+
   return (
     <div className="calenderDiv">
 					<FullCalendar 
 						plugins={[dayGridPlugin, rrulePlugin]}
 						initialView="dayGridMonth"
 						weekends={true}
-						events={[
-              {title: "Epiphany", rrule: "FREQ=YEARLY;BYMONTH=1;BYMONTHDAY=6"},
-
-              {title: "GroundHog's Day", rrule: "FREQ=YEARLY;BYMONTH=1;BYMONTHDAY=2"},
-              {title: "Martin Luther King Jr. Birthday", rrule: "FREQ=YEARLY;BYMONTH=1;BYMONTHDAY=17"},
-              {title: "Lincoln's Birthday", rrule: "FREQ=YEARLY;BYMONTH=2;BYMONTHDAY=17"},
-
-              {title: "April Fools", rrule: "FREQ=YEARLY;BYMONTH=4;BYMONTHDAY=1"},
-              {title: "Valentine's Day", rrule: "FREQ=YEARLY;BYMONTH=2;BYMONTHDAY=14"},
-              {title: "Presidents Day", rrule: "FREQ=YEARLY;BYMONTH=2;BYMONTHDAY=21"},
-              {title: "Washington's Birthday", rrule: "FREQ=YEARLY;BYMONTH=2;BYMONTHDAY=21"},
-              {title: "Saint Partick's Day", rrule: "FREQ=YEARLY;BYMONTH=3;BYMONTHDAY=17"},
-              {title: "Memorial Day", rrule: "FREQ=YEARLY;BYMONTH=5MO;BYMONTHDAY=-1"},
-              {title: "Father's Day", rrule: "FREQ=YEARLY;BYMONTH=6;BYDAY=3SU"},
-              {title: "Mother's Day", rrule: "FREQ=YEARLY;BYMONTH=5;BYDAY=2SU"},
-              {title: "Labor Day", rrule: "FREQ=YEARLY;BYMONTH=9;BYDAY=1MO"},
-              {title: "Election Day", rrule: "FREQ=YEARLY;BYMONTH=11;BYDAY=1MO"},
-              {title: "National Day of Mourning", rrule: "FREQ=YEARLY;BYMONTH=11;BYDAY=4TH"},
-
-
-              {title: "Spring Equinox", rrule: "FREQ=YEARLY;BYMONTH=3;BYMONTHDAY=21"},
-              {title: "Autumn Equinox", rrule: "FREQ=YEARLY;BYMONTH=9;BYMONTHDAY=23"},
-              {title: "Summer Solstice", rrule: "FREQ=YEARLY;BYMONTH=6;BYMONTHDAY=21"},
-              {title: "Winter Equinox", rrule: "FREQ=YEARLY;BYMONTH=12;BYMONTHDAY=22"},
-              {title: "Yule", rrule: "FREQ=YEARLY;BYMONTH=12;BYMONTHDAY=21,22,23,24,25,26,27,28,29,30,31,1"},
-              {title: "Imbolic", rrule: "FREQ=YEARLY;BYMONTH=2;BYMONTHDAY=1"},
-              {title: "Ostara", rrule: "FREQ=YEARLY;BYMONTH=3;BYMONTHDAY=21"},
-              {title: "Litha", rrule: "FREQ=YEARLY;BYMONTH=6;BYMONTHDAY=21"},
-              {title: "Midsummer", rrule: "FREQ=YEARLY;BYMONTH=6;BYMONTHDAY=24"},
-              {title: "Lughnasdh", rrule: "FREQ=YEARLY;BYMONTH=8;BYMONTHDAY=1"},
-              {title: "Madon", rrule: "FREQ=YEARLY;BYMONTH=9;BYMONTHDAY=23"},
-              {title: "All Hallows", rrule: "FREQ=YEARLY;BYMONTH=11;BYMONTHDAY=1"},
-              {title: "Samhain", rrule: "FREQ=YEARLY;BYMONTH=11;BYMONTHDAY=1"},
-
-              { title: "May Day",rrule: "FREQ=YEARLY;BYMONTH=5;BYMONTHDAY=1" },
-              { title: "Beltane", rrule: "FREQ=YEARLY;BYMONTH=5;BYMONTHDAY=1" },
-              { title: "Cinco de Mayo",rrule: "FREQ=YEARLY;BYMONTH=5;BYMONTHDAY=5" },
-              { title: "V-E Day",rrule: "FREQ=YEARLY;BYMONTH=5;BYMONTHDAY=8" },
-
-
-              { title: "Flag Day",rrule: "FREQ=YEARLY;BYMONTH=6;BYMONTHDAY=14"  },
-              { title: "Juneteenth", rrule: "FREQ=YEARLY;BYMONTH=6;BYMONTHDAY=19" },
-
-							{ title: "Forth of July",rrule: "FREQ=YEARLY;BYMONTH=7;BYMONTHDAY=4" },
-							{ title: "Pioneer Day", rrule: "FREQ=YEARLY;BYMONTH=7;BYMONTHDAY=24" },
-             
-
-
-              { title: "Indigenous Peoples' Day", rrule:"FREQ=YEARLY;BYDAY=2MO;BYMONTH=10"},
-              { title: "Halloween",rrule: "FREQ=YEARLY;BYMONTH=10;BYMONTHDAY=31" },
-
-
-              { title: "Veterans Day", rrule: "FREQ=YEARLY;BYMONTH=9;BYMONTHDAY=11" },
-              { title: "All Saints Day", rrule: "FREQ=YEARLY;BYMONTH=9;BYMONTHDAY=1" },
-              { title: "Day of the Dead",rrule:"FREQ=YEARLY;BYMONTH=11;BYMONTHDAY=1;COUNT=2;BYSETPOS=1" },
-
-              { title: "Trans Day of Remembrance", rrule: "FREQ=YEARLY;BYMONTH=11;BYMONTHDAY=20" },
-
-
-              { title: "Kwanzaa", rrule: "FREQ=YEARLY;BYMONTH=12;BYMONTHDAY=26,27,28,29,30,31" },
-              { title: "Chrismas", rrule: "FREQ=YEARLY;BYMONTH=12;BYMONTHDAY=25" },
-              { title: "Christmas Eve", rrule: "FREQ=YEARLY;BYMONTH=12;BYMONTHDAY=24" },
-              { title: "New Years Eve", date: "2023-12-31" },
-
-              {title: "New Years", rrule:"FREQ=YEARLY;BYMONTH=1;BYMONTHDAY=1" }
-
-						]}
+						events={processedEvents}
             headerToolbar={{
-              left: "Month", // Add navigation buttons (previous, next, today)
-              center: "title", // Display the current month as the title,
-              right: "today prev next",
-              // customButtons: {
-              //   myCustomButton: {
-              //     text: "Awareness Months",
-              //     click: function () {
-              //       alert("Custom button clicked!");
-              //     },
-              //   },
-              // },
-              // customButtonContent: {
-              //   myCustomButton: displayAwarenessMonth,
-              // },
-
+              left: "prev",// Add navigation buttons (previous, next, today)
+              center: "title today", // Display the current month as the title,
+              right: "next",
+             
             }}
-            
+            eventContent={renderEventContent}
 					
 					/> 
 				</div>
