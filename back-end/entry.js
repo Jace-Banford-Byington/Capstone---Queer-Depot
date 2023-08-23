@@ -126,6 +126,10 @@ app.post('/volunteer', async (req,res) => {
   }
 });
 
+app.post('/donate', async (req,res) => {
+  //confirm all different info is valid, (amount has been provided)
+        //in database make sure the account that is signed in has the amount they donated into the total they have donated in total 
+})
 
 app.listen(port, () => {
     console.log("Listening on port", port)

@@ -25,6 +25,8 @@ const Donate = () => {
   return (
     <div>
       <Charity />
+
+  
      <CheckoutForm />
      {/* <CardInfo /> */}
 

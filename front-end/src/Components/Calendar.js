@@ -1,10 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import rrulePlugin from "@fullcalendar/rrule";
 
 const Calendar = () => {
+  const [auth, setAuth] = useState(false);
+  const [newEvent, setNewEvent] = useState({ title: '', start: '', end: '' });
 
+
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if(token){
+      setAuth(true)
+    }
+  }, [])
+
+
+  const handleEventChange = (eventField, value) => {
+    setNewEvent((prevEvent) => ({ ...prevEvent, [eventField]: value }));
+  };
 
     const holidays = [
        
