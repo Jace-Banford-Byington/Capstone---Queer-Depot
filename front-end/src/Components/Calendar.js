@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react'
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import rrulePlugin from "@fullcalendar/rrule";
+import { RRule } from "rrule";
+
+
 
 const Calendar = () => {
   const [auth, setAuth] = useState(false);
   const [newEvent, setNewEvent] = useState({ title: '', start: '', end: '' });
-
-
+  const [selectedDate, setDate] = useState(null)
+  const [popupOpen, setPopupOpen] = useState(false);
 
 
   useEffect(() => {
@@ -22,69 +25,35 @@ const Calendar = () => {
     setNewEvent((prevEvent) => ({ ...prevEvent, [eventField]: value }));
   };
 
-    const holidays = [
-       
-      "Chinese New Year - 1/21 thur 2/20",
+  const handleDayClicked = (args) => {
+    const clickedDate = new Date(args.date);
+    console.log("Clicked Date: ", clickedDate)
+    clickedDate.setUTCHours(0, 0, 0, 0); // Convert to UTC midnight
+    console.log("After being shifted: ", clickedDate)
 
-        "Mardi Gras - 47 Days before Easter 3/23 through 4/25",
-        "Ash Wednesday - Day after Mardi Gras",
-        "Purim - 14th of Adar", //Need to look into what means
-        "Ramadan - ninth month of the Islamic calendar ",
-       
-        "Palm Sunday - sunday before Easter",
-        "Good Friday - Friday before Easter", 
-       
-        "Passover - 15thd day of Hebrew Month  Nisan first month in Hebrew calander", 
-        "Easter - first sunday after the 14th ",
-        "Orthodox Easter - first sunday full moon after Passover",
-
-        "Eid al-Fitr - end of Ramadon Fasting first 3 days of Shawwāl (10th month of islamic month",
-        "Ascention Day - 39 days after Easter",
-       
-        "Shavuot - 50 days after passover ",
-        "Pentecost = 50 days affter resurrection",
-       
-        "Eid al-Adha - 10 days after the sighting of a new crescent moon. lasts 3 days",
-        "Muharram - first month of islamic New Year begins after first signting of the new moon on final day of islamic calendar",
-        "Rosh Hashanah - 163 days after passover",
-        "Yom Kippur - 10th day of Tishrei 9 days after first day of Rosh Hashanah",
-        "Nawlid al-Nabi - 12th day of Rabi 1  Always on the same day in Islamic Calendar",
-        "Sukkot 15th - 21s of Tishrei",
-        "Shemini Atzeret  - 22nd day of Tishrei (in Land of Isreal) 22nd and 23rd (everwhere else)",
-        "Diwali - lasts  5 day / determined by position of the moon ",
-       
-        "First Sunday of Advent - nearest sunday to 9/30",
-        "Hanukkah - 25th day of Kislev",
-    ]
-
-    const month = [
-      "January: National Slavery and Human Trafficking Month, Thyroid Awareness Month",
-      
-      "February: Black History Month, American Heart Month",
-      
-      "March: Womans history Month, Disability Awareness Month, National Kidney Month",
-      
-      "April: Autism Awareness Month",
-      
-      "May: Asian Pacific American Heritage Month, Jewish American Heritage Month, Military Appreciation Month, Sexual Assault Awareness",
-      
-      "June: LGBTQIA+ Pride Month, Men's Mental Health Month",
-      
-      "July: Disability Pride Month, Minority Mental Health Awareness Month",
-      
-      "August: National Water Quality Month, National Immunization Awareness Month ",
-      
-      "September: National Hispanic Heritage Month, Childhood Cancer Awareness Month ",
-     
-      "October: Cancer Awareness Month,   AIDS Awareness Month,  LGBTQIA+ History Month,   Domestic Violence Awareness Month,  Mental Health Awareness Month ",
-      
-      "November: Native American Heritage Month,     Hunger & Homelessness Awareness Month,      Veterans and Military Families Month,       Diabetes Awareness Month",
-      
-      "December: Human Rights Month,   HIV/AIDS Awareness Month"
+    const eventsOnClickedDate = customEvents.filter((event) => {
+      console.log("Starting Filltering process")
+      console.log("The events on clicked date",eventsOnClickedDate)
+      if (event.rrule) {
+        const rule = RRule.fromString(event.rrule);
+        const occurrences = rule.between(clickedDate, clickedDate, true);
+        return occurrences.length > 0;
+      }
+      return false;
+    });
+  
+    if (eventsOnClickedDate.length === 0) {
+      setDate(clickedDate);
+      setPopupOpen(true);
+    }
+  };
+  
 
 
+    const handlePopUpClose = () => {
+      setPopupOpen(false);
+    }
 
-    ]
 
     const customEvents = [
       {title: "Epiphany", rrule: "FREQ=YEARLY;BYMONTH=1;BYMONTHDAY=6"},
@@ -165,6 +134,12 @@ const Calendar = () => {
 
     ];
 
+    const handleEventClicked = (arg) => {
+      console.log("Clicked on event:", arg.event);
+
+      handleDayClicked(arg);
+    };
+    
 
     const processedEvents = customEvents.map((event, index) => {
       const overlappingEvents = customEvents.filter(
@@ -175,18 +150,6 @@ const Calendar = () => {
       const zIndex = overlappingEvents.length + 1;
       return { ...event, zIndex };
     });
-    // const displayAwarenessMonth = (monthIndex) => {
-    //   if (monthIndex >= 0 && monthIndex < month.length) {
-    //     return <div>{month[monthIndex]}</div>;
-    //   }
-    //   return null;
-    // };
-
-
-    //International Self-Care Day	July 24
-    //Malala Day	July 12
-
-
 
   return (      
   <div className='flex'>
@@ -196,14 +159,20 @@ const Calendar = () => {
 						plugins={[dayGridPlugin, rrulePlugin]}
 						initialView="dayGridMonth"
 						weekends={true}
-						events={processedEvents}
+						events={customEvents}
+            eventClick={handleEventClicked}
+            //eventClick={handleEventClicked}  //for already existing events being clicked on 
             headerToolbar={{
               left: "prev",// Add navigation buttons (previous, next, today)
               center: "title today", // Display the current month as the title,
               right: "next",
-             
             }}
-					
+            dayCellContent={(arg) => {
+              const dayCellContent = document.createElement("div");
+              dayCellContent.innerText = arg.dayNumberText;
+              dayCellContent.addEventListener("click", () => handleDayClicked(arg));
+              return { html: dayCellContent.outerHTML };
+            }}
 					/> 
 				</div>
    </div>

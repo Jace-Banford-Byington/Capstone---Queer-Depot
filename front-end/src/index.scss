@@ -109,6 +109,9 @@ html{
   justify-content: center;
   align-items: center;
 
+  .select{
+
+  }
   .form-control{
     margin-top: -1%;
     font-size: 1.4em;
@@ -217,7 +220,7 @@ html{
       font-weight: bold;
       text-align: center;
       color: black;
-      background-color: #a0ffab;
+      background-color: #aef1b6;
       text-align: center;
       white-space: normal;
     }
@@ -255,23 +258,28 @@ html{
       background-color: $QueerPink
       
     }
-
+    .fc-day{
+      background-color: #aba0ff;
+        }
     .fc-col-header-cell-cushion{
       color: #f4ffa0;
       text-decoration: none;
       font-size: 1.3em;
     }
+    .fc-day-today { //contnrols the day
+      background-color: $babyBlue;
+      border: 1px solid black;
+      }
+
 
     .fc-daygrid-day-number{
-      color: #a0ffab;
+      color: #003c07;
       text-decoration: none;
       padding: 10px;
+      font-weight: bold;
     }
 
-    .fc-day{
-      background-color: #aba0ff;
-      
-    }
+    
   }
 
 

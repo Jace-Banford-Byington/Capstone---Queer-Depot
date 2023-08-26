@@ -14,11 +14,18 @@
 
 //
     import React, { useState, useEffect } from 'react';
+    import { NavLink, useNavigate } from 'react-router-dom';
     import jwt_decode from 'jwt-decode';
 
 const Profile = () => {
     const [user, setUser] = useState(null)
+    const navigate = useNavigate();
 
+    const handleSignOut = () => {
+        localStorage.removeItem('token')
+        navigate('/SignIn')
+        window.location.reload()
+      }
     useEffect(() => {
         const token = localStorage.getItem('token');
 
@@ -60,11 +67,16 @@ const Profile = () => {
                     <h2>Username: {user.Username}</h2> <button>Change Username</button>
                     <p>Email: {user.Email}</p>
                     <button>Update Email</button>
+
+                    <input 
+                        className=''
+                        type='text'
+                    />
                     <button>Change Password</button>
 
 
 
-                    <button>Sign Out</button>
+                    <button className='signout' onClick={handleSignOut}>Sign Out</button>
 
                     <button>Delete Account</button>
                 </div>

@@ -11,7 +11,6 @@ const Navbar = () => {
     localStorage.removeItem('token')
     navigate('/')
     window.location.reload()
-
   }
 
 //Things you should always see

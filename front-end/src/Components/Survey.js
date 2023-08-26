@@ -153,7 +153,7 @@ const Survey = () => {
           {selectedPronoun === 'custom' && ( <>
             <label>Custom:</label>
             <input
-              className='survey mb-3'
+              className='survey custom mb-3'
               type='text'
               name='CustomPronoun'
               value={customPronoun}
