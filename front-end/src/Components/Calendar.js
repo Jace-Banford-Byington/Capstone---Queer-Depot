@@ -156,7 +156,7 @@ const Calendar = () => {
             }}
 					/> 
 				</div>
-      {popupOpen && (
+      {auth && popupOpen && (
         <Popup isOpen={popupOpen} onClose={handlePopUpClose} onSave={handleNewEvent} />            
         )}
    </div>
