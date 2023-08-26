@@ -189,7 +189,7 @@ const Survey = () => {
 
            <BirthdayPicker  onDateChange={handleDateChange}/>
 
-        <button className='mt-3 formSubmit' type='submit' onClick={handleSubmit}>
+        <button className='mt-3 formSubmit btn-primary' type='submit' onClick={handleSubmit}>
         Submit
       </button>
         </div>

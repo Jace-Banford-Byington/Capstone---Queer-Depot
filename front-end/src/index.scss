@@ -290,15 +290,52 @@ html{
 //The current days colorr #a0ffda
     //transparentize 
 }
-.SignInForm{
+.SignInForm {
   margin-top: 2%;      
   border-radius: 100px;
-}
-.Title{
-  margin-top: 4%;
-  font-size: 1.2em;
 
+  .Title {
+    margin-top: 4%;
+    font-size: 2em;
+    font-weight: bold;
+  }
+
+  .formLabel {
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+
+  .form-control {
+    border-radius: 100px;
+    border: none;
+  }
+
+  .showPassword {
+    padding-right: 10px;
+  }
+
+  .input-group {
+    border-radius: 100px;
+    position: relative; /* Needed for positioning the eye icon */
+  }
+
+  .icon-eye {
+    /* Position the eye icon */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+
+  //SignInForm subbtn
+  .btn-primary{
+    background-color: black;
+    color: #aef1b6;
+  }
 }
+
+
 
 .dropdown{
   text-align: center;
