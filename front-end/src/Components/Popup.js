@@ -3,6 +3,7 @@ import jwt_decode from 'jwt-decode';
 
 const Popup = ({isOpen, onClose, onSave}) => {
   const [user, setUser] = useState(null)
+  const [date, setDate] = useState('');
   const [name,setName] = useState('')
   const [startTime, setStartTime] = useState('')
   const [endTime, setEndTime] = useState('')
@@ -34,8 +35,9 @@ useEffect(() => {
   const handleSave = async () => {
     const newEvent = {
         Name: name,
-        StartTime: startTime,
-        EndTime: endTime,
+        Date: date,
+        StartTime: `${date}T${startTime}:00.000Z`, //:00.000Z repressents the Seconds , militisceconds and the ZULU Time (actual time reguardless of the local timezone and without the use of daylight savings)
+        EndTime: `${date}T${endTime}:00.000Z`,
         Description: descripton,
         Email: user.Email
     };
@@ -55,6 +57,7 @@ useEffect(() => {
         console.log('Event saved:', responseData);
 
         // Clear the input fields and close the popup
+        setDate('')
         setName('');
         setStartTime('');
         setEndTime('');
@@ -100,6 +103,13 @@ useEffect(() => {
     <div className='popup'>
       <div className='popup-content'>
         <h1 className='title'>Add a New Event</h1>
+        <label>Date: </label>
+        <input
+          type='date'
+          value={date}
+          onChange={(e)=> setDate(e.target.value)}
+        />
+
         <label>Name:</label>
         <input 
           type='text'

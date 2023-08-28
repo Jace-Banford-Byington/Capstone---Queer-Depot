@@ -55,6 +55,7 @@ const Profile = () => {
                 if (eventsRequest.ok) {
                     const userEventsData = await eventsRequest.json();
                     setUserEvents(userEventsData);
+                    console.log("User Events: ",userEventsData)
                 } else {
                     console.error("Failed to fetch user events data");
                 }
@@ -78,7 +79,13 @@ const Profile = () => {
                     <h2>Your Events:</h2>
             <ul>
                 {userEvents.map((event) => (
-                    <li key={event._id}>{event.Name}</li>
+                    <li key={event._id}>
+                        {event.Name} 
+                        {event.StartTime} - {event.EndTime}
+                        
+                        <p>{Event.Description}</p>
+
+                        </li>
                 ))}
             </ul>
 

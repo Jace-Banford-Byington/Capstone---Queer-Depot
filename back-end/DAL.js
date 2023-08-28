@@ -88,6 +88,7 @@ const emailModel = mongoose.model("Email",email);
 const event = new Schema(
   {
     Name: String,
+    Date: Date,
     StartTime: Date,
     EndTime: Date,
     Description: String,
@@ -396,12 +397,13 @@ exports.DAL = {
       },
       
       addEvent: async (data, user) => {
-        if(!data.Name || !data.StartTime || !data.EndTime || !data.Description || !data.Email){
+        if(!data.Name || !data.StartTime || !data.EndTime || !data.Description || !data.Email || !data.Date){
           console.log("Email: ", data.Email)
           console.log("Name: ", data.Name)
           console.log("Start Time: ",data.StartTime)
           console.log("End Time: ", data.EndTime)
           console.log("Description: ", data.Description)
+          console.log("Date: ", data.Date)
 
           console.log("Something is missing. Please fill out every part")
           return
@@ -410,6 +412,7 @@ exports.DAL = {
 
         let NewEvent = {
           Name: data.Name,
+          Date: data.Date,
           StartTime: data.StartTime,
           EndTime: data.EndTime,
           Description: data.Description,
@@ -447,7 +450,17 @@ exports.DAL = {
           console.error('Error fetching user events:', error);
           return [];
       }
-      }
+      },
+
+      getAllEvents: async () => {
+        try {
+          const events = await eventModel.find().exec();
+          return events;
+        } catch (error) {
+          console.error('Error fetching events:', error);
+          throw new Error('Failed to fetch events');
+        }
+      },
 
 }
 

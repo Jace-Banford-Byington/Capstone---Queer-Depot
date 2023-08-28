@@ -187,6 +187,16 @@ app.post('/addEvent', async (req, res) => {
 });
 
 
+app.get('/AllEvents', async (req,res) => {
+  try {
+    const events = await DAL.getAllEvents();
+    res.json(events);
+  } catch (error) {
+    console.error('Route error:', error);
+    res.status(500).json({ error: 'Failed to fetch events' });
+  }
+});
+
 app.listen(port, () => {
     console.log("Listening on port", port)
 })

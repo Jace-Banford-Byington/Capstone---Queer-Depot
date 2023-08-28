@@ -9,6 +9,7 @@ const Calendar = () => {
   const [auth, setAuth] = useState(false);
   const [selectedDate, setDate] = useState(null)
   const [popupOpen, setPopupOpen] = useState(false);
+  const [events, setEvents] = useState([]);
 
 
   useEffect(() => {
@@ -16,6 +17,7 @@ const Calendar = () => {
     if(token){
       setAuth(true)
     }
+    fetchEventsFromBackend();
   }, [])
 
   const handleDayClicked = (args) =>   {
@@ -34,6 +36,34 @@ const Calendar = () => {
     const handlePopUpClose = () => {
       setPopupOpen(false);
     }
+
+
+    const fetchEventsFromBackend = async () => {
+      try {
+        const response = await fetch(`http://localhost:3300/AllEvents`); 
+        console.log("Response: ", response)
+        if (response.ok) {
+          const eventData = await response.json();
+          console.log("Events Data", eventData)
+          const formattedEvents = eventData.map((event) => ({
+            title: event.Name,
+            start: new Date(Date.parse(event.StartTime)),
+            end: new Date(Date.parse(event.EndTime)),
+            description: event.Description,
+            id: event._id,
+          }));
+          console.log("Formatted Events: ", formattedEvents)
+          const mergedEvents = [...customEvents, ...formattedEvents]
+
+
+          setEvents(mergedEvents); // Set the fetched events in state
+        } else {
+          console.error('Failed to fetch events');
+        }
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      }
+    };
 
 
     const customEvents = [
@@ -140,7 +170,7 @@ const Calendar = () => {
 						plugins={[dayGridPlugin, rrulePlugin]}
 						initialView="dayGridMonth"
 						weekends={true}
-						events={customEvents}
+						events={events}
             eventClick={handleEventClicked}
             //eventClick={handleEventClicked}  //for already existing events being clicked on 
             headerToolbar={{
