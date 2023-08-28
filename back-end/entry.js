@@ -149,6 +149,17 @@ app.get('/getInfo/:username', async (req, res) => {
   }
 });
 
+app.get('/getUserEvents/:email', async (req,res) => {
+  try {
+    const userEmail = req.params.email;
+    const userEvents = await DAL.getUserEvents(userEmail);
+    res.status(200).json(userEvents);
+} catch (error) {
+    console.error('Error fetching user events:', error);
+    res.status(500).json({ message: 'Failed to fetch user events' });
+}
+})
+
 
 app.post('/addEvent', async (req, res) => {
   try {
@@ -166,7 +177,7 @@ app.post('/addEvent', async (req, res) => {
 
 
     // Call your DAL function to add the event
-    await DAL.addEvent(eventData);
+    await DAL.addEvent(eventData, user);
 
     res.status(200).json({ message: 'Event saved successfully' });
   } catch (error) {

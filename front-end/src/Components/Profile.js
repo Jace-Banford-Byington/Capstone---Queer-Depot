@@ -19,6 +19,7 @@
 
 const Profile = () => {
     const [user, setUser] = useState(null)
+    const [userEvents, setUserEvents] = useState([]);
     const navigate = useNavigate();
 
     const handleSignOut = () => {
@@ -43,19 +44,25 @@ const Profile = () => {
     }, []);
 
     const fetchUser = async (username) => {
-        try{
-            //   /getInfo/:username
+        try {
             const request = await fetch(`http://localhost:3300/getInfo/${username}`);
-                if(request.ok){
-                    const userData = await request.json();
-                    console.log("Got Data: ", userData)
-                    setUser(userData)
+            if (request.ok) {
+                const userData = await request.json();
+                setUser(userData);
+    
+                // Fetch user's events using a separate API endpoint
+                const eventsRequest = await fetch(`http://localhost:3300/getUserEvents/${userData.Email}`);
+                if (eventsRequest.ok) {
+                    const userEventsData = await eventsRequest.json();
+                    setUserEvents(userEventsData);
+                } else {
+                    console.error("Failed to fetch user events data");
                 }
-                else{
-                    console.err("Failed to find users data")
-                }
-        }catch(error){
-            console.log("Error: ", error)
+            } else {
+                console.error("Failed to find user's general data");
+            }
+        } catch (error) {
+            console.log("Error: ", error);
         }
     }
 
@@ -67,6 +74,15 @@ const Profile = () => {
                     <h2>Username: {user.Username}</h2> <button>Change Username</button>
                     <p>Email: {user.Email}</p>
                     <button>Update Email</button>
+
+                    <h2>Your Events:</h2>
+            <ul>
+                {userEvents.map((event) => (
+                    <li key={event._id}>{event.Name}</li>
+                ))}
+            </ul>
+
+
 
                     <input 
                         className=''

@@ -91,7 +91,8 @@ const event = new Schema(
     StartTime: Date,
     EndTime: Date,
     Description: String,
-    Email: {type: Schema.Types.ObjectId, ref: 'Email'}
+    EmailID: {type: Schema.Types.ObjectId, ref: 'Email'},  //linking the two collections together 
+    Email: String
   },
   { collection: EventCollection }
 );
@@ -394,7 +395,7 @@ exports.DAL = {
         }
       },
       
-      addEvent: async (data, userId) => {
+      addEvent: async (data, user) => {
         if(!data.Name || !data.StartTime || !data.EndTime || !data.Description || !data.Email){
           console.log("Email: ", data.Email)
           console.log("Name: ", data.Name)
@@ -412,7 +413,8 @@ exports.DAL = {
           StartTime: data.StartTime,
           EndTime: data.EndTime,
           Description: data.Description,
-          Email: userId
+          EmailID: user._id, 
+          Email: data.Email
         };
 
        eventModel.collection.insertOne(NewEvent, (err) => {
@@ -436,6 +438,16 @@ exports.DAL = {
         return null
       }
       },
+
+      getUserEvents: async (userId) => {
+        try {
+          const events = await eventModel.find({ Email: userId }).exec();
+          return events;
+      } catch (error) {
+          console.error('Error fetching user events:', error);
+          return [];
+      }
+      }
 
 }
 
