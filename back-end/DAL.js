@@ -38,6 +38,7 @@ mongoose.connect(connectionString,
 const VolunteerCollection = "Volunteer Data";
 const EmailCollection = "Emails";
 const CharityCollection = "Charity";
+const EventCollection = 'Events';
 const connection = mongoose.connection;
 
 connection.once("open", () => {
@@ -80,6 +81,23 @@ const email = new Schema(
 );
 
 const emailModel = mongoose.model("Email",email);
+
+
+
+
+const event = new Schema(
+  {
+    Name: String,
+    StartTime: Date,
+    EndTime: Date,
+    Description: String,
+    Email: {type: Schema.Types.ObjectId, ref: 'Email'}
+  },
+  { collection: EventCollection }
+);
+
+const eventModel = mongoose.model('Event', event);
+
 
 
 
@@ -374,5 +392,50 @@ exports.DAL = {
           console.log("Error finding User", error);
           return null
         }
+      },
+      
+      addEvent: async (data, userId) => {
+        if(!data.Name || !data.StartTime || !data.EndTime || !data.Description || !data.Email){
+          console.log("Email: ", data.Email)
+          console.log("Name: ", data.Name)
+          console.log("Start Time: ",data.StartTime)
+          console.log("End Time: ", data.EndTime)
+          console.log("Description: ", data.Description)
+
+          console.log("Something is missing. Please fill out every part")
+          return
+        }
+        
+
+        let NewEvent = {
+          Name: data.Name,
+          StartTime: data.StartTime,
+          EndTime: data.EndTime,
+          Description: data.Description,
+          Email: userId
+        };
+
+       eventModel.collection.insertOne(NewEvent, (err) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        console.log("New Event!", NewEvent);
+      });
+      },
+
+      getUserFromEmail: async (email) => {
+        console.log("Trying to find: ", email)
+        try{
+          const user = await emailModel.findOne({Email: email}).exec();
+          console.log("Found him")
+          return user
       }
-    }
+      catch(error){
+        console.log("Error finding User", error);
+        return null
+      }
+      },
+
+}
+

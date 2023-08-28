@@ -147,7 +147,34 @@ app.get('/getInfo/:username', async (req, res) => {
   catch(error){
     console.log("Error: ", error)
   }
-})
+});
+
+
+app.post('/addEvent', async (req, res) => {
+  try {
+    const eventData = req.body; 
+    const userEmail = eventData.Email
+
+
+    const user = await DAL.getUserFromEmail(userEmail);
+
+    if (!user) {
+      console.log('User not found with email:', userEmail);
+      res.status(404).json({ message: 'User not found' });
+      return;
+    }
+
+
+    // Call your DAL function to add the event
+    await DAL.addEvent(eventData);
+
+    res.status(200).json({ message: 'Event saved successfully' });
+  } catch (error) {
+    console.error('Error saving event:', error);
+    res.status(500).json({ message: 'Failed to save event' });
+  }
+});
+
 
 app.listen(port, () => {
     console.log("Listening on port", port)
