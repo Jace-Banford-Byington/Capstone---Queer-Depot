@@ -4,12 +4,14 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import rrulePlugin from "@fullcalendar/rrule";
 import { RRule } from "rrule";
 import Popup from './Popup';
+import EventDetails from './EventDetails';
 
 const Calendar = () => {
   const [auth, setAuth] = useState(false);
   const [selectedDate, setDate] = useState(null)
   const [popupOpen, setPopupOpen] = useState(false);
   const [events, setEvents] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
 
   useEffect(() => {
@@ -25,7 +27,10 @@ const Calendar = () => {
     setDate(clickedDate);
     setPopupOpen(true);
 };
-  
+useEffect(() => {
+  console.log("Selected Event:", selectedEvent);
+}, [selectedEvent]);
+
   const handleNewEvent = (eventData) => {
      // Add logic to save the eventData as a new event
      console.log('New event data:', eventData);
@@ -41,18 +46,18 @@ const Calendar = () => {
     const fetchEventsFromBackend = async () => {
       try {
         const response = await fetch(`http://localhost:3300/AllEvents`); 
-        console.log("Response: ", response)
+        // console.log("Response: ", response)
         if (response.ok) {
           const eventData = await response.json();
-          console.log("Events Data", eventData)
+          // console.log("Events Data", eventData)
           const formattedEvents = eventData.map((event) => ({
             title: event.Name,
-            start: new Date(Date.parse(event.StartTime)),
-            end: new Date(Date.parse(event.EndTime)),
+            start: event.StartTime,
+            end: event.EndTime,
             description: event.Description,
             id: event._id,
           }));
-          console.log("Formatted Events: ", formattedEvents)
+          // console.log("Formatted Events: ", formattedEvents)
           const mergedEvents = [...customEvents, ...formattedEvents]
 
 
@@ -139,32 +144,57 @@ const Calendar = () => {
     },
       { title: "Chrismas", rrule: "FREQ=YEARLY;BYMONTH=12;BYMONTHDAY=25;BYHOUR=0;BYMINUTE=0" },
       { title: "Christmas Eve", rrule: "FREQ=YEARLY;BYMONTH=12;BYMONTHDAY=24;BYHOUR=0;BYMINUTE=0" },
-      { title: "New Years Eve", date: "2023-12-31" },
+      { title: "New Years Eve", rrule: "FREQ=YEARLY;BYMONTH=12;BYMONTHDAY=31;BYHOUR=0;BYMINUTE=0"  },
 
       {title: "New Years", rrule:"FREQ=YEARLY;BYMONTH=1;BYMONTHDAY=1;BYHOUR=0;BYMINUTE=0" }
 
     ];
 
     const handleEventClicked = (arg) => {
-      console.log("Clicked on event:", arg.event);
+      console.log("Clicked ", arg.event)
+      const eventDetails = arg.event;
+        const eventData = {
+          title: eventDetails.title,
+          description: eventDetails.extendedProps.Description,
+          start: eventDetails.start,
+          end: eventDetails.end
+        };
+        console.log("Event Details", eventDetails)
 
-      handleDayClicked(arg);
+      setSelectedEvent(eventData)
     };
     
 
     const processedEvents = customEvents.map((event, index) => {
+      // Convert date strings to Date objects
+      if (event.date) {
+        const date = new Date(event.date);
+        event.start = new Date(date);
+        event.end = new Date(date);
+    
+        console.log("Event: ", event)
+        console.log("Start", event.start)
+        console.log("End: ", event.end)
+      }
+        
+      // Filter overlapping events
       const overlappingEvents = customEvents.filter(
         (otherEvent, otherIndex) =>
           index !== otherIndex &&
           (event.start <= otherEvent.end && event.end >= otherEvent.start)
       );
+        
+      // Calculate zIndex based on the number of overlapping events
       const zIndex = overlappingEvents.length + 1;
+        
       return { ...event, zIndex };
     });
-
+    
+    
   return (      
   <div className='flex'>
     <div className="calenderDiv">
+      
 					<FullCalendar 
             className="calendar"
 						plugins={[dayGridPlugin, rrulePlugin]}
@@ -186,6 +216,19 @@ const Calendar = () => {
             }}
 					/> 
 				</div>
+        {selectedEvent && (
+          <EventDetails event={selectedEvent} onClose={() => setSelectedEvent(null)} />
+        )}
+
+
+
+        {auth && (
+          <button className='addEvent' onClick={() => setPopupOpen(true)}>Add Event</button>
+        )
+
+        }
+
+
       {auth && popupOpen && (
         <Popup isOpen={popupOpen} onClose={handlePopUpClose} onSave={handleNewEvent} />            
         )}
