@@ -26,9 +26,9 @@ const Donate = () => {
     <div>
       <Charity />
 
-  
+{/*   
      <CheckoutForm />
-     {/* <CardInfo /> */}
+     <CardInfo /> */}
 
 
     </div>

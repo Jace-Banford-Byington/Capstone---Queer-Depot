@@ -5,6 +5,12 @@ const Register = () => {
 
   const url = "http://localhost:3300/register"
   const [formData, setFormData] = useState({});
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [showPassword, setShowPassword] = useState('')
   const [errors, setErrors] = useState({})
 
 
@@ -31,73 +37,9 @@ const Register = () => {
     }
 
 
-    const handleInputChange = (event) => {
-      const { name, value } = event.target;
-      setFormData((preveFormData) => ({
-            ...preveFormData,
-            [name]: value,
-      }));
-      //Validation types
-      const newError = {...errors};
-      if(name === 'Password'){
-        const specialCharacter = /[!@#$%^&*()\-+=><?<,.]/;
-        //must be 10 characters long 
-        if(value.length < 10){
-          newError[name] = 'Must be at least 10 characters long';
-        }else{
-          delete newError[name];
-        }
-        //must have a capital letter
-        if(!/[A-Z]/.test(value)){
-          newError[name] = 'Must have a capital letter'
-        }
-        //must have a lowercase letter
-        if(!/[a-z]/.test(value)){
-          newError[name] = 'Must have a lowercase letter'
-        }
-        //must have a number
-        if(!/[0-9]/.test(value)){
-          newError[name] = "Must have a number"
-        }
-        //must have special characters 
-        if(!specialCharacter.test(value)){
-          newError[name] = `Must have special characters ! @ # $ % ^ & * (  ) - _ + = > < , . ?`
-        }
-        //No tabs or spaces 
-        if(/[ \t]/.test(value)){
-          newError[name] = "Spaces and tabs are forbidden"
-        }
-        //at least 3 different characters in total
-        const uniqueChars = new Set(value);
-        if (uniqueChars.size < 3) {
-          newError[name] = 'Must have at least 3 different characters';
-        }
-
-          //if all the requirements are met then delete
-        if(!newError[name]){
-          delete newError[name]; 
-        }
-      }
-      if(name === 'PasswordConfirmed'){
-        if(value !== formData.Password){
-          newError[name] = 'Passwords Do not match';
-        }else{
-          delete newError[name];
-        }
-
-      }
-      setErrors(newError)
-    }
-    const fields = [
-        { name: 'Name', label: 'Name:', type: 'text' },
-        { name: 'Email', label: 'Email:', type: 'email' },
-        { name: 'Username', label: "Username:", type: 'text' },
-        {name: 'Password', label: "Password", type: 'text'}, 
-        {name: "PasswordConfirmed", label: 'Confirm Password', type: 'text'}, 
-       
-      ];
-
-
+    const togglePassword = () => {
+      setShowPassword(!showPassword);
+    };
 //password requirements 
 
 //no space or tab 
@@ -105,28 +47,60 @@ const Register = () => {
 //must have at least 3 different letters 
 // {name: 'SecurityQuetsion', label: 'Security Question', type:'radio'},
 //{name: 'SecurityAnswer', label: 'Security Question Answered', type:'text'}
+
+const fields = [
+  { name: 'Name', label: 'Name:', value: name, onChange: setName },
+  { name: 'Email', label: 'Email:', value: email, onChange: setEmail },
+  { name: 'Username', label: 'Username:', value: username, onChange: setUsername },
+  { name: 'Password', label: 'Password: ', value: password, onChange: setPassword  },
+  {name: 'ConfirmPassword', label: 'Confirm Password', value: confirmPassword, onChange: setConfirmPassword}
+
+  // You can similarly add username, password, and confirmPassword fields
+];
+
   return (
     <>
-      <div>
-        <h1>Create an account</h1>
-      </div>
-      <div>
-        {fields.map((field, index) => (
-          <div key={index}>
-            <label className="formLabel">{field.label}</label>
-            <input
-              type={field.type}
-              name={field.name}
-              value={formData[field.name] || ''}
-              onChange={handleInputChange}
-            />
-            {errors && errors[field.name] && (
-              <p className='error'>{errors[field.name]}</p>
-            )}
+    <div className='container d-flex flex-column justify-content-center align-items-center'>
+      <div className='register' >
+              <h1 className='Title register'>Create an account</h1>
+            
+              <div className='registrationForm'>
+
+              {fields.map((fields, index) => (
+                <div key={index}>
+                  <label className='registrationForm formLabel'>{fields.label}</label>
+                  <input
+                    className={`registrationForm form-control ${showPassword ? "showPassword" : ""}`}
+                    //{showPassword ? "text" : "password"}
+                    type={showPassword ? "text" : "password"}
+                    value={fields.value}
+                    onChange={(e) => fields.onChange(e.target.value)}
+                  />
+                {fields.name.includes('Password') && (
+                    <span className="icon-eye" onClick={togglePassword}>
+                      {showPassword ? (
+                        <i className="bi bi-eye"></i>
+                      ) : (
+                        <i className="bi bi-eye-slash"></i>
+                      )}
+                    </span>
+                  )}
+
+                  {errors && errors[fields.name] && (
+                    <p className='error'>{errors[fields.name]}</p>
+                  )}
+                  
+                </div>
+              ))}
+              <div className='d-flex flex-column align-items-center'>
+                <button className="btn-primary  bt-9  mt-5" onClick={handleFormSubmit}>Create Account</button>
+              </div>
+            
+            </div>
           </div>
-        ))}
-        <button onClick={handleFormSubmit}>Create Account</button>
-      </div>
+
+    </div>
+      
     </>
   )
 }

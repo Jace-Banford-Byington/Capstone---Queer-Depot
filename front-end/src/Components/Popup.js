@@ -7,7 +7,7 @@ const Popup = ({isOpen, onClose, onSave}) => {
   const [name,setName] = useState('')
   const [startTime, setStartTime] = useState('')
   const [endTime, setEndTime] = useState('')
-  const [descripton, setDescription] = useState('')
+  const [description, setDescription] = useState('')
 
 //need 
 //  name 
@@ -38,7 +38,7 @@ useEffect(() => {
         Date: date,
         StartTime: `${date}T${startTime}:00.000Z`, //:00.000Z repressents the Seconds , militisceconds and the ZULU Time (actual time reguardless of the local timezone and without the use of daylight savings)
         EndTime: `${date}T${endTime}:00.000Z`,
-        Description: descripton,
+        Description: description,
         Email: user.Email
     };
 
@@ -63,6 +63,7 @@ useEffect(() => {
         setEndTime('');
         setDescription('');
         onClose();
+        window.location.reload();
       } else {
         console.error('Failed to save event');
       }
@@ -138,7 +139,7 @@ useEffect(() => {
         <textarea
           className='description'
           placeholder='Description of Event'
-          value={descripton}
+          value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
         

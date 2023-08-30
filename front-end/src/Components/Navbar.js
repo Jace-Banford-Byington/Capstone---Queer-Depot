@@ -34,15 +34,15 @@ const Navbar = () => {
   </NavLink>
     
   <NavLink to="/Donate">
-            Donate
+            Charity
   </NavLink>
     
     
     {hasToken ? (  //tHERE IS A TOKEN
       <>
-      < NavLink to='/Volunteer'  >
+      {/* < NavLink to='/Volunteer'  >
         Volunteer
-    </NavLink>
+    </NavLink> */}
     <NavLink to='/Profile' >
         Profile
     </NavLink>

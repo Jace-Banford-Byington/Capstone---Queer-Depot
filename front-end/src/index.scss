@@ -34,11 +34,7 @@ $colors: $black, $QueerBlue, $QueerDarkBlue, $QueerGreen, $white, $QueerOrange, 
   }
 
 
-.intro{
-display: inline-block;
-@include queer-title(attr(data-text));
-font-weight: bolder;
-}
+
 }
 
 
@@ -54,7 +50,11 @@ html{
    background-color:$blue;
 }
 
-
+ .intro{
+    display: inline-block;
+    @include queer-title("Welcome to Queer Depo");
+    font-weight: bolder;
+    }
 
 .btn-primary{
   background-color: pink;
@@ -63,12 +63,54 @@ html{
 }
 
 .homeDescription{
-  padding: 90px;
+  padding-top: 50px;
+  .homeLogo{
+    height: 500px;
+  } 
+ 
+    .address{
+      font-weight: bold;
+      font-size: 1.4em;
+
+    }
+
+    .storeHours {
+      text-align: center;
+
+      
+      h1 {
+        font-size: 1.7em;
+
+        margin-bottom: 10px;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-size: 18px;
+        line-height: 1.6;
+      }
+
+      li {
+        margin-bottom: 10px;
+        font-size: 1.6em;
+
+      }
+     
+      span {
+        font-weight: bold;
+        display: inline-block;
+        width: 200px; /* Adjust this width to your preference */
+      }
+      
+
+
+
+    }
+
 }
 
-.homeLogo{
-  height: 500px;
-}
 
 
 .charityInfo{
@@ -197,17 +239,41 @@ html{
   margin-top: 3%;
         display: flex;
         flex-direction: row;
-        // margin-top: 15%;        
+        justify-content: space-evenly;
+        align-items: center;
+        height: 1000px;
+        // margin-top: 15%;    
+
   .location{
-    height: 1000px;
+    height: 2000px;
     width: 100%;      
     right: 3px;
   }
-
+  .addEventWrapper {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 500px;
+   
+    .addEvent{
+       height: fit-content;
+       width: 150px;
+        border-radius: 30px;
+        background-color: $pink;
+        color: black;
+        padding: 10px;
+        font-weight: bold;
+     
+    }
+  }
   .calenderDiv{
-    width: 900px;
-    height: 500px;
     margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;   
+    height: 80%;
+    width: max-content;
+
+  
     .fc-event-title-container{
       font-size: .9em;
       font-weight: bold;
@@ -216,6 +282,22 @@ html{
       background-color: #aef1b6;
       text-align: center;
       white-space: normal;
+    }
+
+    .fc-event-main-frame{
+      font-size: 1em;  
+    }
+    .fc-event-time {
+      background-color: none;
+    }
+
+    .fc-daygrid-dot-event {
+      width: 6px; /* Adjust the width to make the dot smaller */
+      height: 6px; /* Adjust the height to make the dot smaller */
+      border-radius: 50%; /* Maintain a circular shape */
+      margin: 20px 0px;
+      color: black;
+      font-weight: bold;
     }
 
     .fc-button{
@@ -235,15 +317,14 @@ html{
       background-color: $black;
       padding: 5%;
       border-radius: 300px;
-      width: 550px;
       height: 210px;
-      margin-left: 20%;
+      width: 900px;
 
     }
 
     .fc-today-button.fc-button{
-      position: absolute;
-      left: 630px;
+      position: relative;
+      
       :active{
           background-color: $pink;
       }
@@ -251,35 +332,40 @@ html{
       background-color: $QueerPink
       
     }
-    .fc-day{
-      background-color: #aba0ff;
-        }
+    
     .fc-col-header-cell-cushion{
       color: #f4ffa0;
       text-decoration: none;
       font-size: 1.3em;
     }
+    
+
+    .fc-day {      
+      background-color: #aba0ff;
+      width: auto;
+      height: fit-content;
+    }
     .fc-day-today { //contnrols the day
       background-color: $babyBlue;
       border: 1px solid black;
-      }
-
-
+    }
     .fc-daygrid-day-number{
       color: #003c07;
       text-decoration: none;
       padding: 10px;
       font-weight: bold;
     }
+    .fc-daygrid{
+      height: 1500;
+      width: auto;
+    }
+   
+    width: 1000px;
+    height: auto;
+    margin-left: 20%;
 
     
   }
-
-
-  
-
-//The current days colorr #a0ffda
-    //transparentize 
 }
 
 .SignInForm {
@@ -393,6 +479,74 @@ html{
   }
 }
 
+.profile{
+  margin: 5%;
+  .btn-primary{
+    margin-top: 2px;
+    background-color: $QueerBlue;
+  }
+}
+.event-card {
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin: 16px;
+  width: 400px; /* Adjust the width as needed */
+  display: inline-block;
+  vertical-align: top;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: $QueerPink;
+  color: $brown;
+  font-weight: bold;
+  font-size: 1.4em;
+}
+
+/* Optionally, you can add media queries for responsiveness */
+@media (max-width: 768px) {
+  .event-card {
+    width: 100%; /* Adjust for mobile devices */
+    margin: 16px 0;
+  }
+}
+
+
+.register{
+  margin: 50px;
+  .registrationForm{
+    .Title {
+      margin-top: 4%;
+      font-size: 2em;
+      font-weight: bold;
+    }
+  
+    .formLabel {
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+  
+    .form-control {
+      border-radius: 100px;
+      border: none;
+    }
+  
+    .showPassword {
+      padding-right: 10px;
+    }
+  
+    .input-group {
+      border-radius: 100px;
+      position: relative; /* Needed for positioning the eye icon */
+    }
+  
+    .icon-eye {
+      /* Position the eye icon */
+      position: absolute;
+      top: 53.5%;
+      left: 56%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+  }
+}
 
 .EventDetails{
   display: flex;
@@ -402,19 +556,15 @@ html{
   z-index: 200;
   border-radius: 30px;
   height: fit-content;
-  width: 300px;
+  min-width: 300px;
+  width: auto;
   background-color: black;
   color: white;
   padding: 20px;
 }
 
-.addEvent{
-  height: fit-content;
-  width: auto;
-  border-radius: 30px;
-  background-color: $pink;
-  color: white;
-  padding: 2px;
+.unclickable-event {
+  pointer-events: none;
 }
 
 
@@ -432,7 +582,7 @@ html{
   top: 0;
   left: 0;
   border-radius: 10px;
-  padding: 3px;
+  padding: 15px;
   height: 10%;
   margin-bottom: 50px;
   z-index: 100;

@@ -18,33 +18,56 @@ const Home = () => {
 
   return (
     <div className='homeDescription'>
- <h1 className='intro' data-text='Welcome to Queer Depo'>Welcome to Queer Depo</h1>        
+ <h1 className='intro'>Welcome to Queer Depo</h1>        
  <h4>Just clothes.</h4>
         <img className='homeLogo' src='./logo.png'/>       
 
-          <p>Come Join us at 
+          <p className='address'>
+            Come Join us at 
               <br/>
-            4545 S 900 E, Salt Lake City, UT 84117</p>
+            4545 S 900 E, 
+            <br/> Salt Lake City, UT  
+            <br/> 84117
+          </p>
+<div className='flex'>
+
             {/* <img src='./map.png' /> */}
-            <h1 className='storeHours'> Hours : <br/>
+            <div className="storeHours">
+              <h1>Hours:</h1>
+              <ul>
+                <li>
+                  <span>Monday:</span> 6 pm - 6 am
+                </li>
+                <li>
+                  <span>Tuesday:</span> Donation Day
+                </li>
+                <li>
+                  <span>Wednesday:</span> 8 am - 8 pm
+                </li>
+                <li>
+                  <span>Thursday:</span> 8 am - 8 pm
+                </li>
+                <li>
+                  <span>Friday:</span> 8 am - 8 pm
+                </li>
+                <li>
+                  <span>Saturday:</span> 8 am - 10 pm
+                </li>
+                <li>
+                  <span>Sunday:</span> 11 am - 3 pm
+                </li>
+              </ul>
+            </div>
+            <Calendar />
+          
+              
 
-                    Monday: 6 pm - 6 am <br/>
-                    Tuesday: Donation Day <br/>
-                    Wednesday: 8 am - 8 pm <br/>
-                    Thursday: 8 am - 8 pm <br />
-                    Friday: 8 am - 8 pm <br />
-                    Saturday: 8 am - 10 pm <br />
-                    Sunday: 11 am - 3 pm <br />
-          </h1>
-          <div className='flex'>
-              <Calendar />
-
-              <img className='location' src='./location.png' alt='Queer Depo Location'/>
+             
                   
                     {/* <Map /> */}
 
           </div>
-          
+           <img className='location' src='./location.png' alt='Queer Depo Location'/>
 
     </div>
 
